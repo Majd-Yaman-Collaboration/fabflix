@@ -3,6 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <title>Top 20 Rated Movies</title>
+  <style>
+    body {
+      background-color: rosybrown;
+      color: white;
+    }
+    a {
+      color: white;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+  </style>
 </head>
 <body>
 <h1>Top 20 Rated Movies</h1>
@@ -39,7 +51,7 @@
             });
           })
           .catch(error => {
-            document.body.innerHTML += `<p>Error loading movies: ${error}</p>`;
+            document.body.innerHTML += `<p>Loading Error: ${error}</p>`;
           });
 </script>
 </body>

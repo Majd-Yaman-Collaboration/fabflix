@@ -1,56 +1,49 @@
-<!-- This example is following frontend and backend separation.
-
-    This .html performs two steps:
-    1. Create a html template skeleton, with all the elements defined (some left empty) and named with ids.
-    2. Load single-star.js to populate the data into empty elements.
-    -->
-
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta charset="UTF-8">
+    <title>Star Info</title>
+    <style>
+        body {
+            background-color: rosybrown;
+            color: white;
+        }
+        a {
+            color: white;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-
-    <title>Single Star</title>
 </head>
 <body>
-<h1>Single Star Page</h1>
+<h1>Star Information</h1>
+<div id="star-info"></div>
 
-<!-- H3 body is left empty here, will be populated with the data retrieved with single-star.js -->
-<!-- single-star.js will find this html element by it's id "star_info" -->
-<h3 id="star_info"></h3>
-<table id=movie_table class="table table-striped">
-    <thead>
-    <tr>
-        <th>Movie Title</th>
-        <th>Release Year</th>
-        <th>Director</th>
-        <th>
-    </tr>
-    </thead>
+<script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const starId = urlParams.get("id");
 
-    <!-- Table body is left empty here, will be populated with the data retrieved with single-star.js -->
-    <!-- single-star.js will find this html element by it's id "movie_table_body" -->
-    <tbody id=movie_table_body></tbody>
-</table>
+    fetch(`api/single-star?id=${starId}`)
+        .then(response => response.json())
+        .then(data => {
+            const container = document.getElementById("star-info");
+            const moviesHTML = data.movies.map(movie =>
+                `<li><a href="single-movie.html?id=${movie.id}">${movie.title}</a></li>`
+            ).join("");
 
-<!-- Load jQuery and Bootstrap JS -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-
-<!-- Load our own JS file -->
-<!-- The path is relative to single-star.html, since these two files are in the same directory -->
-<!-- Note the url does not contain a "/" in the beginning, which means the url is relative to current path
-     otherwise the url is relative to the root path-->
-<script src="single-star.js"></script>
+            container.innerHTML = `
+        <p><strong>Name:</strong> ${data.name}</p>
+        <p><strong>Birth Year:</strong> ${data.birthYear || "N/A"}</p>
+        <p><strong>Movies:</strong></p>
+        <ul>${moviesHTML}</ul>
+      `;
+        })
+        .catch(error => {
+            document.body.innerHTML += `<p>Error loading star: ${error}</p>`;
+        });
+</script>
+<p><a href="movie-list.html">Back to Movie List</a></p>
 </body>
-
-
 </html>
