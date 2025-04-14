@@ -104,7 +104,7 @@ public class SingleStarServlet extends HttpServlet {
         } catch (Exception e) {
             // Write error message JSON object to output
             JsonObject jsonObject = new JsonObject();
-            jsonObject.addProperty("errorMessage", e.getMessage());
+            jsonObject.addProperty("errorMessageeee", e.getMessage());
             out.write(jsonObject.toString());
 
             // Log error to localhost log
