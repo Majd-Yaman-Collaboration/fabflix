@@ -1,0 +1,49 @@
+body.single-movie {
+    background-color: mistyrose;
+    color: maroon;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    padding: 40px;
+    line-height: 1.6;
+}
+
+.single-movie h1 {
+    text-align: center;
+    font-size: 2.3em;
+    color: firebrick;
+    margin-bottom: 40px;
+    text-shadow: 1px 1px 2px lightgray;
+}
+
+.single-movie h2 {
+    color: darkred;
+    font-size: 1.8em;
+    margin-bottom: 20px;
+}
+
+.single-movie p {
+    font-size: 1.1em;
+    margin: 10px 0;
+}
+
+.single-movie strong {
+    color: maroon;
+}
+
+.single-movie a {
+    color: crimson;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.single-movie a:hover {
+    text-decoration: underline;
+    color: darkred;
+}
+
+.single-movie .back-link {
+    display: block;
+    text-align: center;
+    margin-top: 40px;
+    font-weight: bold;
+    font-size: 1em;
+}

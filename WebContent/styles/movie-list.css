@@ -1,0 +1,58 @@
+body.movie-list {
+    background-color: maroon;
+    color: white;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 40px;
+}
+
+.movie-list h1 {
+    text-align: center;
+    font-size: 2.5em;
+    margin-bottom: 40px;
+    color: white;
+    text-shadow: 3px 3px 2px black;
+}
+
+.movie-list table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    background-color: rosybrown;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 0 10px gray;
+}
+
+.movie-list th, .movie-list td {
+    padding: 15px;
+    text-align: left;
+}
+
+.movie-list th {
+    background-color: firebrick;
+    color: white;
+    font-weight: bold;
+    font-size: 1em;
+    border-bottom: 2px solid white;
+}
+
+.movie-list td {
+    background-color: mistyrose;
+    color: black;
+    border-bottom: 1px solid darksalmon;
+}
+
+.movie-list tr:hover td {
+    background-color: lightpink;
+}
+
+.movie-list a {
+    color: crimson;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.movie-list a:hover {
+    text-decoration: underline;
+    color: darkred;
+}
