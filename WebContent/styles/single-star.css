@@ -1,9 +1,11 @@
 body.single-star {
-    background-color: lavenderblush;
+    background: linear-gradient(lightsalmon, mistyrose);
     color: maroon;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     padding: 40px;
     line-height: 1.6;
+    background-size: cover;
+    background-attachment: fixed;
 }
 
 .single-star h1 {
