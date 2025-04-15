@@ -3,21 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <title>Star Info</title>
-    <style>
-        body {
-            background-color: rosybrown;
-            color: white;
-        }
-        a {
-            color: white;
-        }
-        a:hover {
-            text-decoration: underline;
-        }
-    </style>
-
+    <link rel="stylesheet" href="styles/single-star.css">
 </head>
-<body>
+<body class="single-star">
 <h1>Star Information</h1>
 <div id="star-info"></div>
 
@@ -44,6 +32,6 @@
             document.body.innerHTML += `<p>Error loading star: ${error}</p>`;
         });
 </script>
-<p><a href="movie-list.html">Back to Movie List</a></p>
+<p class="back-link"><a href="movie-list.html">Back to Movie List</a></p>
 </body>
 </html>

@@ -10,8 +10,8 @@
 
     <dependencies>
         <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
+            <groupId>com.mysql</groupId>
+            <artifactId>mysql-connector-j</artifactId>
             <version>8.0.32</version>
         </dependency>
         <dependency>
@@ -28,7 +28,7 @@
     </dependencies>
 
     <build>
-        <finalName>cs122b-project1-api-example</finalName>
+        <finalName>Project 1</finalName>
         <sourceDirectory>src</sourceDirectory>
         <plugins>
             <plugin>
