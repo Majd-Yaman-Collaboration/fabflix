@@ -20,6 +20,14 @@ import java.sql.ResultSet;
 public class LoginServlet extends HttpServlet{
     private static final long serialVersionUID = 1L;
 
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    {
+        String email = request.getParameter("email");
+        String password = request.getParameter("password");
+
+    }
+
 
 
 }
