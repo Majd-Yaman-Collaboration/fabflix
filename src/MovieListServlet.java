@@ -18,7 +18,6 @@ import java.sql.ResultSet;
 @WebServlet(name = "MovieListServlet", urlPatterns = "/api/movies")
 public class MovieListServlet extends BaseServlet {
     private static final long serialVersionUID = 1L;
-    private DataSource dataSource;
 
     //init() function inherited
 

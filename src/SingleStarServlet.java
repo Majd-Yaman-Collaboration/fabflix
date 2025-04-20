@@ -17,7 +17,6 @@ import java.sql.ResultSet;
 @WebServlet(name = "SingleStarServlet", urlPatterns = "/api/single-star")
 public class SingleStarServlet extends BaseServlet {
     private static final long serialVersionUID = 2L;
-    private DataSource dataSource;
 
     //init() function inherited
 
