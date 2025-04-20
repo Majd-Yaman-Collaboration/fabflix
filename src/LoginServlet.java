@@ -17,8 +17,9 @@ import java.sql.ResultSet;
 
 
 @WebServlet(name = "LoginServlet", urlPatterns = "/api/login")
-public class LoginServlet extends HttpServlet{
+public class LoginServlet extends BaseServlet{
     private static final long serialVersionUID = 1L;
+    private final String query = "";
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -26,6 +27,14 @@ public class LoginServlet extends HttpServlet{
         String email = request.getParameter("email");
         String password = request.getParameter("password");
 
+        try (Connection conn = dataSource.getConnection())
+        {
+
+        }
+        catch (Exception e)
+        {
+
+        }
     }
 
 
