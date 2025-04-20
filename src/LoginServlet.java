@@ -19,7 +19,9 @@ import java.sql.ResultSet;
 @WebServlet(name = "LoginServlet", urlPatterns = "/api/login")
 public class LoginServlet extends BaseServlet{
     private static final long serialVersionUID = 1L;
-    private final String query = "";
+    private final String query = "SELECT c.id FROM customer WHERE c.email = ? AND c.password = ?";
+
+
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -29,6 +31,19 @@ public class LoginServlet extends BaseServlet{
 
         try (Connection conn = dataSource.getConnection())
         {
+            PreparedStatement ps = conn.prepareStatement(query);
+            ps.setString(1, email);
+            ps.setString(2, password);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) //found user
+            {
+
+            }
+            else //user not found -> login info was wrong
+            {
+
+            }
 
         }
         catch (Exception e)
