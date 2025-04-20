@@ -2,6 +2,7 @@ const urlParams = new URLSearchParams(window.location.search);
 const movieId = urlParams.get("id");
 
 fetch(`api/single-movie?id=${movieId}`)
+
     .then(response => response.json())
     .then(data => {
         const movie = data;

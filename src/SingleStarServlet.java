@@ -15,17 +15,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 @WebServlet(name = "SingleStarServlet", urlPatterns = "/api/single-star")
-public class SingleStarServlet extends HttpServlet {
+public class SingleStarServlet extends BaseServlet {
     private static final long serialVersionUID = 2L;
     private DataSource dataSource;
 
-    public void init() {
-        try {
-            dataSource = (DataSource) new InitialContext().lookup("java:comp/env/jdbc/moviedb");
-        } catch (NamingException e) {
-            e.printStackTrace();
-        }
-    }
+    //init() function inherited
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) {
         response.setContentType("application/json");

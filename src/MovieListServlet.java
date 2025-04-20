@@ -16,17 +16,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 @WebServlet(name = "MovieListServlet", urlPatterns = "/api/movies")
-public class MovieListServlet extends HttpServlet {
+public class MovieListServlet extends BaseServlet {
     private static final long serialVersionUID = 1L;
     private DataSource dataSource;
 
-    public void init() {
-        try {
-            dataSource = (DataSource) new InitialContext().lookup("java:comp/env/jdbc/moviedb");
-        } catch (NamingException e) {
-            e.printStackTrace();
-        }
-    }
+    //init() function inherited
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) {
         response.setContentType("application/json");
