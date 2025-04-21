@@ -2,11 +2,25 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Top 20 Rated Movies</title>
-  <link rel="stylesheet" href="styles/movie-list.css">
+  <title>Movie List</title>
+  <link rel="stylesheet" href="styles/main-page.css">
+  <link rel="stylesheet" href="styles/movie-list.css?v=1.1">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
+
+<script>
+  fetch('/components/navbar.html')
+          .then(response => response.text())
+          .then(data => {
+            document.getElementById('navbar').innerHTML = data;
+          });
+</script>
+
 <body class="movie-list">
-<h1>Top 20 Rated Movies</h1>
+<div id="navbar"></div>
+<div class="results">
+  <h1>Results</h1>
+</div>
 <table border="1" cellpadding="8">
   <thead>
   <tr>
