@@ -3,18 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <title>Movie List</title>
-  <link rel="stylesheet" href="styles/main-page.css">
-  <link rel="stylesheet" href="styles/movie-list.css?v=1.1">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="/styles/navbar.css">
+  <link rel="stylesheet" href="/styles/movie-list.css">
 </head>
-
-<script>
-  fetch('/components/navbar.html')
-          .then(response => response.text())
-          .then(data => {
-            document.getElementById('navbar').innerHTML = data;
-          });
-</script>
 
 <body class="movie-list">
 <div id="navbar"></div>
@@ -36,5 +27,6 @@
 </table>
 
 <script src = scripts/movie-list.js defer></script>
+<script src="/scripts/navbar.js" defer></script>
 </body>
 </html>
