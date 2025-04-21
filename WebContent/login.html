@@ -8,13 +8,21 @@
 
 
 <body>
-    <form action="form" method="post">
-        Email: <input type="email" name="email">
-        Password: <input type="password" name="Log in">
-        <input type="submit">
+    <form action="login" method="post">
+        <h3 id="error"></h3>
+
+        Email: <input type="text" name="email">
+        <br>
+        Password: <input type="password" name="password">
+        <br>
+        <input type="submit" name="Login" id="login">
     </form>
 
 
-    <script src = scripts/login.js defer></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+    <script src = scripts/login.js></script>
 </body>
 </html>

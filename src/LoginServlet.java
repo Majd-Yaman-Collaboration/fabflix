@@ -22,33 +22,70 @@ public class LoginServlet extends BaseServlet{
     private final String query = "SELECT c.id FROM customer WHERE c.email = ? AND c.password = ?";
 
 
-
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     {
+        response.setContentType("application/json");
         String email = request.getParameter("email");
         String password = request.getParameter("password");
 
-        try (Connection conn = dataSource.getConnection())
+
+
+        JsonArray jsonArray = new JsonArray();
+
+        if (!email.contains("@"))
         {
+            try (PrintWriter out = response.getWriter())
+            {
+                JsonObject errorObject = new JsonObject();
+                errorObject.addProperty("error", "Invalid email address");
+                out.write(errorObject.toString());
+                return; //quick return to display error to user
+            }
+            catch (Exception e)
+            {
+                //lowk don't know what to do here
+            }
+
+        }
+
+
+        try (PrintWriter out = response.getWriter(); Connection conn = dataSource.getConnection())
+        {
+
+
             PreparedStatement ps = conn.prepareStatement(query);
             ps.setString(1, email);
             ps.setString(2, password);
-            ResultSet rs = ps.executeQuery();
+            ResultSet rs= ps.executeQuery();
+
+
 
             if (rs.next()) //found user
             {
+                JsonObject successObject = new JsonObject();
+                successObject.addProperty("status", "success");
+                jsonArray.add(successObject);
 
             }
             else //user not found -> login info was wrong
             {
-
+                JsonObject errorObject = new JsonObject();
+                errorObject.addProperty("error", "Email or password is incorrect");
             }
 
+            out.write(jsonArray.toString());
+            rs.close();
+            conn.close();
+            ps.close();
         }
         catch (Exception e)
         {
-
+            e.printStackTrace();
+            JsonObject error = new JsonObject();
+            error.addProperty("errorMessage", e.getMessage());
+            jsonArray.add(error);
+            response.setStatus(500);
         }
     }
 
