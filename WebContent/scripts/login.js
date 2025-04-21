@@ -35,7 +35,7 @@ function handle_results(data)
     //return true if there is an error
     console.log("data: " + data); //currently when the thing is correct, no data is being taken.
     console.log("no sub " + data.error);
-wa
+
     if (handle_errors(data)) {return;}
 
 
