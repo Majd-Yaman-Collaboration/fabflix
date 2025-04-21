@@ -1,11 +1,14 @@
 body.movie-list {
-    background-color: maroon;
+    background: linear-gradient(midnightblue, black);
     color: white;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    background-size: cover;
+    background-attachment: fixed;
     margin: 40px;
 }
 
-.movie-list h1 {
+.movie-list.results h1 {
     text-align: center;
     font-size: 2.5em;
     margin-bottom: 40px;
@@ -17,7 +20,7 @@ body.movie-list {
     width: 100%;
     border-collapse: separate;
     border-spacing: 0;
-    background-color: rosybrown;
+    background-color: darkblue;
     border-radius: 10px;
     overflow: hidden;
     box-shadow: 0 0 10px gray;
@@ -29,7 +32,6 @@ body.movie-list {
 }
 
 .movie-list th {
-    background-color: firebrick;
     color: white;
     font-weight: bold;
     font-size: 1em;
@@ -37,22 +39,22 @@ body.movie-list {
 }
 
 .movie-list td {
-    background-color: mistyrose;
+    background-color: whitesmoke;
     color: black;
-    border-bottom: 1px solid darksalmon;
+    border-bottom: 1px solid darkslategray;
 }
 
 .movie-list tr:hover td {
-    background-color: lightpink;
+    background-color: dodgerblue;
 }
 
-.movie-list a {
-    color: crimson;
+.details {
+    color: midnightblue;
     font-weight: bold;
     text-decoration: none;
 }
 
-.movie-list a:hover {
+.details:hover {
     text-decoration: underline;
-    color: darkred;
+    color: darkblue;
 }

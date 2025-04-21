@@ -5,11 +5,11 @@ fetch("api/movies")
         data.forEach(movie => {
             const row = document.createElement("tr");
             row.innerHTML = `
-                <td><a href="single-movie.html?id=${movie.id}">${movie.title}</a></td>
+                <td><a href="single-movie.html?id=${movie.id}" class="details">${movie.title}</a></td>
                 <td>${movie.year}</td>
                 <td>${movie.director}</td>
                 <td>${movie.genres.join(", ")}</td>
-                <td>${movie.stars.map(s => `<a href="single-star.html?id=${s.id}">${s.name}</a>`).join(", ")}</td>
+                <td>${movie.stars.map(s => `<a href="single-star.html?id=${s.id}" class="details">${s.name}</a>`).join(", ")}</td>
                 <td>${movie.rating}</td>
             `;
             tbody.appendChild(row);
