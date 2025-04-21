@@ -5,7 +5,7 @@
     <display-name>cs122b-spring25-project1</display-name>
 
     <welcome-file-list>
-        <welcome-file>main-page.html</welcome-file>
+        <welcome-file>login.html</welcome-file>
     </welcome-file-list>
 
     <resource-ref>
