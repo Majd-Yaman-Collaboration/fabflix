@@ -22,6 +22,24 @@ public class LoginServlet extends BaseServlet{
     private final String query = "SELECT c.id FROM customers c WHERE c.email = ? AND c.password = ?";
 
 
+    private void handle_error(String type, HttpServletResponse response)
+    {
+        try (PrintWriter out = response.getWriter())
+        {
+            JsonObject errorObject = new JsonObject();
+            if (type.compareTo("email") == 0)
+                errorObject.addProperty("error", "Invalid email");
+            else if (type.compareTo("password") == 0)
+                errorObject.addProperty("error", "Invalid password");
+
+            out.write(errorObject.toString());
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
+    }
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     {
@@ -29,30 +47,24 @@ public class LoginServlet extends BaseServlet{
         String email = request.getParameter("email");
         String password = request.getParameter("password");
 
-        System.out.println("email: " + email);
-        System.out.println("password: " + password);
 
 
 
-        JsonArray jsonArray = new JsonArray();
 
+
+        //Check email
         if (!email.contains("@") || !email.contains("."))
         {
-            try (PrintWriter out = response.getWriter())
-            {
-                JsonObject errorObject = new JsonObject();
-                errorObject.addProperty("error", "Invalid email address");
-                out.write(errorObject.toString());
-                return; //quick return to display error to user
-            }
-            catch (Exception e)
-            {
-                e.printStackTrace();
-            }
-
+            handle_error("email",response);
+            return;
+        }
+        //Check password
+        else if (password.isEmpty())
+        {
+            handle_error("password",response);
         }
 
-
+        //check correctness of email and password sent
         try (PrintWriter out = response.getWriter(); Connection conn = dataSource.getConnection())
         {
             PreparedStatement ps = conn.prepareStatement(query);
@@ -67,29 +79,23 @@ public class LoginServlet extends BaseServlet{
             {
                 JsonObject successObject = new JsonObject();
                 successObject.addProperty("status", "success");
-                jsonArray.add(successObject);
-
-
-
+                out.write(successObject.toString());
             }
             else //user not found -> login info was wrong
             {
                 JsonObject errorObject = new JsonObject();
                 errorObject.addProperty("error", "Email or password is incorrect");
-                jsonArray.add(errorObject);
-            }
+                out.write(errorObject.toString());
 
-            out.write(jsonArray.toString());
+            }
             rs.close();
             conn.close();
             ps.close();
+
         }
         catch (Exception e)
         {
             e.printStackTrace();
-            JsonObject error = new JsonObject();
-            error.addProperty("errorMessage", e.getMessage());
-            jsonArray.add(error);
             response.setStatus(500);
         }
     }

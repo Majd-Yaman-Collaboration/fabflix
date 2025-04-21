@@ -32,11 +32,8 @@ form.addEventListener("submit", function(event) {
 
 function handle_results(data)
 {
-    //return true if there is an error
-    console.log("data: " + data); //currently when the thing is correct, no data is being taken.
-    console.log("no sub " + data.error);
 
-    if (handle_errors(data)) {return;}
+    if (handle_errors(data)) {return;} //return true if there is an error
 
 
     //here-on we have a clean email and password
@@ -47,6 +44,7 @@ function handle_results(data)
 
 function handle_errors(data)
 {
+
     if (!data.error) {return false;} //no error
     jQuery("#error").text("Login error: " + data.error);
     return true;
