@@ -19,7 +19,7 @@ import java.sql.ResultSet;
 @WebServlet(name = "LoginServlet", urlPatterns = "/api/login")
 public class LoginServlet extends BaseServlet{
     private static final long serialVersionUID = 1L;
-    private final String query = "SELECT c.id FROM customer WHERE c.email = ? AND c.password = ?";
+    private final String query = "SELECT c.id FROM customers c WHERE c.email = ? AND c.password = ?";
 
 
     @Override
@@ -29,11 +29,14 @@ public class LoginServlet extends BaseServlet{
         String email = request.getParameter("email");
         String password = request.getParameter("password");
 
+        System.out.println("email: " + email);
+        System.out.println("password: " + password);
+
 
 
         JsonArray jsonArray = new JsonArray();
 
-        if (!email.contains("@"))
+        if (!email.contains("@") || !email.contains("."))
         {
             try (PrintWriter out = response.getWriter())
             {
@@ -44,7 +47,7 @@ public class LoginServlet extends BaseServlet{
             }
             catch (Exception e)
             {
-                //lowk don't know what to do here
+                e.printStackTrace();
             }
 
         }
@@ -52,12 +55,11 @@ public class LoginServlet extends BaseServlet{
 
         try (PrintWriter out = response.getWriter(); Connection conn = dataSource.getConnection())
         {
-
-
             PreparedStatement ps = conn.prepareStatement(query);
             ps.setString(1, email);
             ps.setString(2, password);
             ResultSet rs= ps.executeQuery();
+
 
 
 
@@ -67,11 +69,14 @@ public class LoginServlet extends BaseServlet{
                 successObject.addProperty("status", "success");
                 jsonArray.add(successObject);
 
+
+
             }
             else //user not found -> login info was wrong
             {
                 JsonObject errorObject = new JsonObject();
                 errorObject.addProperty("error", "Email or password is incorrect");
+                jsonArray.add(errorObject);
             }
 
             out.write(jsonArray.toString());
