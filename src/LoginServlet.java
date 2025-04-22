@@ -62,6 +62,7 @@ public class LoginServlet extends BaseServlet{
         else if (password.isEmpty())
         {
             handle_error("password",response);
+            return;
         }
 
         //check correctness of email and password sent
@@ -80,6 +81,8 @@ public class LoginServlet extends BaseServlet{
                 JsonObject successObject = new JsonObject();
                 successObject.addProperty("status", "success");
                 out.write(successObject.toString());
+                request.getSession(true).setAttribute("id", rs.getInt("id"));
+                System.out.println(rs.getInt("id"));
             }
             else //user not found -> login info was wrong
             {
