@@ -1,8 +1,71 @@
-/*majd u can do this u know how to style a lot better than I do. but leave it till the end
-I already linked it to the html btw*/
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
 
-#error
-{
-    font-size: small;
-/*    make it red and make it go down */
+body {
+    height: 100vh;
+    background: linear-gradient(midnightblue, black);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+
+.login-container {
+    background-color: white;
+    color: black;
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+    width: 100%;
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.navy-logo {
+    height: 60px;
+    margin-bottom: 10px;
+}
+
+#form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 15px;
+}
+
+input[type="text"],
+input[type="password"] {
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    font-size: 1em;
+}
+
+input[type="submit"] {
+    padding: 12px;
+    background-color: #22a6b3;
+    border: none;
+    color: white;
+    font-weight: bold;
+    font-size: 1em;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+input[type="submit"]:hover {
+    background-color: #1b8a99;
+}
+
+#error {
+    color: red;
+    font-size: 0.9em;
+    text-align: center;
 }

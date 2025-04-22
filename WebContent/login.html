@@ -8,23 +8,21 @@
 
 
 <body>
-    <div>
+    <div class="login-container">
+        <img src="/images/NavyFabflixLogo.png" alt="Navy Fabflix Logo" class="navy-logo">
+        <h2>Please sign in</h2>
         <h6 id="error"></h6>
+        <form action="login" method="post" id="form">
+            <input type="text" name="email" placeholder="Email address">
+            <input type="password" name="password" placeholder="Password">
+            <input type="submit" name="login" id="login" value="Sign in">
+        </form>
     </div>
-    <form action="login" method="post" id="form">
-
-        Email: <input type="text" name="email">
-        <br>
-        Password: <input type="password" name="password">
-        <br>
-        <input type="submit" name="login" id="login" >
-    </form>
-
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-
-    <script src = scripts/login.js></script>
+    <script src="scripts/login.js"></script>
 </body>
+
 </html>

@@ -5,6 +5,9 @@ body.movie-list {
     line-height: 1.6;
     background-size: cover;
     background-attachment: fixed;
+}
+
+.content {
     margin: 40px;
 }
 
