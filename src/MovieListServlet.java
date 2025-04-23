@@ -2,13 +2,9 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
-import javax.sql.DataSource;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.sql.Connection;
@@ -19,17 +15,50 @@ import java.sql.ResultSet;
 public class MovieListServlet extends BaseServlet {
     private static final long serialVersionUID = 1L;
 
-    //init() function inherited
-
     protected void doGet(HttpServletRequest request, HttpServletResponse response) {
         response.setContentType("application/json");
 
-        try (PrintWriter out = response.getWriter(); Connection conn = dataSource.getConnection()) {
-            String query = "SELECT m.id, m.title, m.year, m.director, r.rating " +
-                    "FROM movies m JOIN ratings r ON m.id = r.movieId " +
-                    "ORDER BY r.rating DESC LIMIT 20";
+        String filterType = request.getParameter("filter");
+        String filterValue = request.getParameter("value");
 
-            PreparedStatement ps = conn.prepareStatement(query);
+        try (PrintWriter out = response.getWriter(); Connection conn = dataSource.getConnection()) {
+            String query;
+            PreparedStatement ps;
+
+            if ("genre".equals(filterType)) {
+                query = "SELECT DISTINCT m.id, m.title, m.year, m.director, r.rating " +
+                        "FROM movies m " +
+                        "JOIN ratings r ON m.id = r.movieId " +
+                        "JOIN genres_in_movies gm ON m.id = gm.movieId " +
+                        "JOIN genres g ON gm.genreId = g.id " +
+                        "WHERE g.name = ? " +
+                        "ORDER BY r.rating DESC";
+                ps = conn.prepareStatement(query);
+                ps.setString(1, filterValue);
+            } else if ("title".equals(filterType)) {
+                if ("*".equals(filterValue)) {
+                    query = "SELECT DISTINCT m.id, m.title, m.year, m.director, r.rating " +
+                            "FROM movies m " +
+                            "JOIN ratings r ON m.id = r.movieId " +
+                            "WHERE NOT REGEXP_LIKE(m.title, '^[A-Za-z0-9]') " +
+                            "ORDER BY r.rating DESC";
+                    ps = conn.prepareStatement(query);
+                } else {
+                    query = "SELECT DISTINCT m.id, m.title, m.year, m.director, r.rating " +
+                            "FROM movies m " +
+                            "JOIN ratings r ON m.id = r.movieId " +
+                            "WHERE UPPER(m.title) LIKE ? " +
+                            "ORDER BY r.rating DESC";
+                    ps = conn.prepareStatement(query);
+                    ps.setString(1, filterValue.toUpperCase() + "%");
+                }
+            } else {
+                query = "SELECT m.id, m.title, m.year, m.director, r.rating " +
+                        "FROM movies m JOIN ratings r ON m.id = r.movieId " +
+                        "ORDER BY r.rating DESC LIMIT 20";
+                ps = conn.prepareStatement(query);
+            }
+
             ResultSet rs = ps.executeQuery();
             JsonArray jsonArray = new JsonArray();
 
