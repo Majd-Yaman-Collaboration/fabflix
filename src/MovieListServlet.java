@@ -20,10 +20,16 @@ public class MovieListServlet extends BaseServlet {
 
         String filterType = request.getParameter("filter");
         String filterValue = request.getParameter("value");
+        // if page exists, get number else default to 1
+        int page = Integer.parseInt(request.getParameter("page") != null ? request.getParameter("page") : "1");
+        int limit = Integer.parseInt(request.getParameter("limit") != null ? request.getParameter("limit") : "10");
+        int offset = (page - 1) * limit;
 
         try (PrintWriter out = response.getWriter(); Connection conn = dataSource.getConnection()) {
             String query;
             PreparedStatement ps;
+            String countQuery;
+            PreparedStatement countPs;
 
             if ("genre".equals(filterType)) {
                 query = "SELECT DISTINCT m.id, m.title, m.year, m.director, r.rating " +
@@ -32,32 +38,73 @@ public class MovieListServlet extends BaseServlet {
                         "JOIN genres_in_movies gm ON m.id = gm.movieId " +
                         "JOIN genres g ON gm.genreId = g.id " +
                         "WHERE g.name = ? " +
-                        "ORDER BY r.rating DESC";
+                        "ORDER BY r.rating DESC LIMIT ? OFFSET ?";
                 ps = conn.prepareStatement(query);
                 ps.setString(1, filterValue);
+                ps.setInt(2, limit);
+                ps.setInt(3, offset);
+
+                countQuery = "SELECT COUNT(DISTINCT m.id) as total " +
+                           "FROM movies m " +
+                           "JOIN ratings r ON m.id = r.movieId " +
+                           "JOIN genres_in_movies gm ON m.id = gm.movieId " +
+                           "JOIN genres g ON gm.genreId = g.id " +
+                           "WHERE g.name = ?";
+                countPs = conn.prepareStatement(countQuery);
+                countPs.setString(1, filterValue);
             } else if ("title".equals(filterType)) {
                 if ("*".equals(filterValue)) {
                     query = "SELECT DISTINCT m.id, m.title, m.year, m.director, r.rating " +
                             "FROM movies m " +
                             "JOIN ratings r ON m.id = r.movieId " +
                             "WHERE NOT REGEXP_LIKE(m.title, '^[A-Za-z0-9]') " +
-                            "ORDER BY r.rating DESC";
+                            "ORDER BY r.rating DESC LIMIT ? OFFSET ?";
                     ps = conn.prepareStatement(query);
+                    ps.setInt(1, limit);
+                    ps.setInt(2, offset);
+
+                    countQuery = "SELECT COUNT(DISTINCT m.id) as total " +
+                               "FROM movies m " +
+                               "JOIN ratings r ON m.id = r.movieId " +
+                               "WHERE NOT REGEXP_LIKE(m.title, '^[A-Za-z0-9]')";
+                    countPs = conn.prepareStatement(countQuery);
                 } else {
                     query = "SELECT DISTINCT m.id, m.title, m.year, m.director, r.rating " +
                             "FROM movies m " +
                             "JOIN ratings r ON m.id = r.movieId " +
                             "WHERE UPPER(m.title) LIKE ? " +
-                            "ORDER BY r.rating DESC";
+                            "ORDER BY r.rating DESC LIMIT ? OFFSET ?";
                     ps = conn.prepareStatement(query);
                     ps.setString(1, filterValue.toUpperCase() + "%");
+                    ps.setInt(2, limit);
+                    ps.setInt(3, offset);
+
+                    countQuery = "SELECT COUNT(DISTINCT m.id) as total " +
+                               "FROM movies m " +
+                               "JOIN ratings r ON m.id = r.movieId " +
+                               "WHERE UPPER(m.title) LIKE ?";
+                    countPs = conn.prepareStatement(countQuery);
+                    countPs.setString(1, filterValue.toUpperCase() + "%");
                 }
             } else {
                 query = "SELECT m.id, m.title, m.year, m.director, r.rating " +
                         "FROM movies m JOIN ratings r ON m.id = r.movieId " +
-                        "ORDER BY r.rating DESC LIMIT 20";
+                        "ORDER BY r.rating DESC LIMIT ? OFFSET ?";
                 ps = conn.prepareStatement(query);
+                ps.setInt(1, limit);
+                ps.setInt(2, offset);
+
+                countQuery = "SELECT COUNT(*) as total FROM movies m JOIN ratings r ON m.id = r.movieId";
+                countPs = conn.prepareStatement(countQuery);
             }
+
+            ResultSet countRs = countPs.executeQuery();
+            int total = 0;
+            if (countRs.next()) {
+                total = countRs.getInt("total");
+            }
+            countRs.close();
+            countPs.close();
 
             ResultSet rs = ps.executeQuery();
             JsonArray jsonArray = new JsonArray();
@@ -104,7 +151,15 @@ public class MovieListServlet extends BaseServlet {
 
             rs.close();
             ps.close();
-            out.write(jsonArray.toString());
+
+            JsonObject responseObj = new JsonObject();
+            responseObj.add("movies", jsonArray);
+            responseObj.addProperty("total", total);
+            responseObj.addProperty("page", page);
+            responseObj.addProperty("limit", limit);
+            responseObj.addProperty("totalPages", (int) Math.ceil((double) total / limit));
+
+            out.write(responseObj.toString());
             response.setStatus(200);
 
         } catch (Exception e) {

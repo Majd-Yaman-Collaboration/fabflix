@@ -1,7 +1,7 @@
 const genres = [
     "Action", "Adult", "Adventure", "Animation", "Biography", "Comedy",
     "Crime", "Documentary", "Drama", "Family", "Fantasy", "History",
-    "Horror", "Music", "Musical", "Mystery", "Realty-TV", "Romance",
+    "Horror", "Music", "Musical", "Mystery", "Reality-TV", "Romance",
     "Sci-Fi", "Sport", "Thriller", "War", "Western"
 ];
 

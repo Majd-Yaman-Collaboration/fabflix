@@ -72,7 +72,7 @@
 }
 
 .search-input::placeholder {
-    color: #888;
+    color: gray;
 }
 
 .btn-search {
@@ -83,7 +83,7 @@
     font-weight: bold;
     cursor: pointer;
     border-radius: 50%;
-    background-color: #22a6b3;
+    background-color: cadetblue;
     color: white;
     display: flex;
     align-items: center;
@@ -93,5 +93,5 @@
 }
 
 .btn-search:hover {
-    box-shadow: 0 0 10px 3px #22a6b3;
+    box-shadow: 0 0 10px 3px cadetblue;
 }
