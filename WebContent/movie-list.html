@@ -13,6 +13,15 @@
   <div class="content">
     <div class="results">
       <h1>Results</h1>
+      <div class="page-size-selector">
+        <label for="page-size">Movies per page:</label>
+        <select id="page-size">
+          <option value="10">10</option>
+          <option value="25" selected>25</option>
+          <option value="50">50</option>
+          <option value="100">100</option>
+        </select>
+      </div>
     </div>
     <table border="1" cellpadding="8">
       <thead>
@@ -27,12 +36,17 @@
       </thead>
       <tbody id="movie-table-body"></tbody>
     </table>
+    <div class="page-controls">
+      <button id="prev-page" class="page-button">Previous</button>
+      <span id="page-info">Page 1 of 1</span>
+      <button id="next-page" class="page-button">Next</button>
+    </div>
   </div>
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
   <script src="scripts/movie-list.js" defer></script>
-  <script src="/scripts/navbar.js" defer></script>
+  <script src="scripts/navbar.js" defer></script>
 </body>
 </html>

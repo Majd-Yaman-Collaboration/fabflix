@@ -43,14 +43,14 @@ body {
 input[type="text"],
 input[type="password"] {
     padding: 12px;
-    border: 1px solid #ccc;
+    border: 1px solid lightgray;
     border-radius: 10px;
     font-size: 1em;
 }
 
 input[type="submit"] {
     padding: 12px;
-    background-color: #22a6b3;
+    background-color: royalblue;
     border: none;
     color: white;
     font-weight: bold;
@@ -61,7 +61,7 @@ input[type="submit"] {
 }
 
 input[type="submit"]:hover {
-    background-color: #1b8a99;
+    background-color: cadetblue;
 }
 
 #error {

@@ -47,7 +47,7 @@ main {
 }
 
 .genre:hover {
-    color: #1abc9c;
+    color: lightseagreen;
 }
 
 .titles-container {
@@ -74,7 +74,7 @@ main {
 }
 
 .title-char:hover {
-    color: #1abc9c;
+    color: lightseagreen;
 }
 
 /*
@@ -83,7 +83,7 @@ main {
 
 footer {
     background-color: #222;
-    color: #fff;
+    color: white;
     font-size: 14px;
     bottom: 0;
     position: fixed;
