@@ -47,11 +47,6 @@ public class LoginServlet extends BaseServlet{
         String email = request.getParameter("email");
         String password = request.getParameter("password");
 
-
-
-
-
-
         //Check email
         if (!email.contains("@") || !email.contains("."))
         {
@@ -72,9 +67,6 @@ public class LoginServlet extends BaseServlet{
             ps.setString(1, email);
             ps.setString(2, password);
             ResultSet rs= ps.executeQuery();
-
-
-
 
             if (rs.next()) //found user
             {

@@ -19,11 +19,12 @@ public class LoginFilter implements Filter {
      */
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
             throws IOException, ServletException {
+
         HttpServletRequest httpRequest = (HttpServletRequest) request;
         HttpServletResponse httpResponse = (HttpServletResponse) response;
 
         String uri = httpRequest.getRequestURI();
-        System.out.println("LoginFilter: " + uri);
+//        System.out.println("LoginFilter: " + uri);
 
         // Check if this URL is allowed to access without logging in
         if (this.isUrlAllowedWithoutLogin(uri)) {
@@ -44,7 +45,6 @@ public class LoginFilter implements Filter {
             httpResponse.sendRedirect("login.html"); // redirect to login
         }
     }
-
     private boolean isUrlAllowedWithoutLogin(String requestURI) {
         /*
          Setup your own rules here to allow accessing some resources without logging in
@@ -56,6 +56,7 @@ public class LoginFilter implements Filter {
     }
 
     public void init(FilterConfig fConfig) {
+        allowedURIs.add("/");
         allowedURIs.add("login.html");
         allowedURIs.add("login.js");
         allowedURIs.add("login.css");
