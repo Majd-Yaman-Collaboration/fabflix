@@ -33,10 +33,6 @@ public class MovieListServlet extends BaseServlet implements MovieListQueries {
         String year = request.getParameter("year").toUpperCase();
         String director = request.getParameter("director").toUpperCase();
         String star = request.getParameter("star").toUpperCase();
-        System.out.println("title: " + title);
-        System.out.println("year: " + year);
-        System.out.println("director: " + director);
-        System.out.println("star: " + star);
 
 
 
@@ -89,7 +85,7 @@ public class MovieListServlet extends BaseServlet implements MovieListQueries {
             //good application of demorgans low here
             else if (!(title.isEmpty() && year.isEmpty() && director.isEmpty() && star.isEmpty()))
             {
-                System.out.println("came in here");
+
                 query = searchQuery;
                 ps = conn.prepareStatement(query);
 
@@ -114,12 +110,13 @@ public class MovieListServlet extends BaseServlet implements MovieListQueries {
                 ps.setInt(q++, limit);
                 ps.setInt(q, offset);
 
+
                 q = 1;
                 countQuery = searchCountQuery;
                 countPs = conn.prepareStatement(countQuery);
                 countPs.setString(q++, title.toUpperCase());
                 //see comment above
-                ps.setInt(q++, Integer.parseInt(year));
+                countPs.setInt(q++, Integer.parseInt(year));
                 countPs.setInt(q++, Integer.parseInt(year));
                 countPs.setString(q++, director);
                 countPs.setString(q, star);
@@ -143,13 +140,13 @@ public class MovieListServlet extends BaseServlet implements MovieListQueries {
 
             ResultSet countRs = countPs.executeQuery();
             int total = 0;
-            if (countRs.next()) {
-                total = countRs.getInt("total");
-            }
+            if (countRs.next()) total = countRs.getInt("total");
+
             countRs.close();
             countPs.close();
 
             ResultSet rs = ps.executeQuery();
+
             JsonArray jsonArray = generateTableJson(rs,conn,new JsonArray());
 
             rs.close();
@@ -184,6 +181,7 @@ public class MovieListServlet extends BaseServlet implements MovieListQueries {
     private JsonArray generateTableJson(ResultSet rs, Connection conn, JsonArray jsonArray) throws SQLException {
         while (rs.next())
         {
+
             String movieId = rs.getString("id");
 
             PreparedStatement genreStmt = conn.prepareStatement(
