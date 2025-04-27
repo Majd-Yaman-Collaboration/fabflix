@@ -25,9 +25,13 @@ public class SingleStarServlet extends BaseServlet {
 
         try (PrintWriter out = response.getWriter(); Connection conn = dataSource.getConnection()) {
             String id = request.getParameter("id");
-            String query = "SELECT s.id AS starId, s.name, s.birthYear, m.id AS movieId, m.title " +
-                    "FROM stars s JOIN stars_in_movies sm ON s.id = sm.starId " +
-                    "JOIN movies m ON sm.movieId = m.id WHERE s.id = ?";
+            String query =
+                    "SELECT s.id AS starId, s.name, s.birthYear, m.id AS movieId, m.title " +
+                    "FROM stars s " +
+                    "JOIN stars_in_movies sm ON s.id = sm.starId " +
+                    "JOIN movies m ON sm.movieId = m.id " +
+                    "WHERE s.id = ? " +
+                    "ORDER BY m.year DESC, m.title ASC";
 
             PreparedStatement statement = conn.prepareStatement(query);
             statement.setString(1, id);

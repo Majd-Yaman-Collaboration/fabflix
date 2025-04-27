@@ -88,7 +88,7 @@ body.movie-list {
     color: black;
     font-size: 1em;
 }
-/**/
+
 .sort-by-selector {
     display: flex;
     gap: 10px;
