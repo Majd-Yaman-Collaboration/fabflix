@@ -34,8 +34,9 @@ public class MovieListServlet extends BaseServlet implements MovieListQueries {
         String director = request.getParameter("director").toUpperCase();
         String star = request.getParameter("star").toUpperCase();
 
-        String sortQueryAddOn = chooseSort(request.getParameter("sort"));
-//        String sortQueryAddOn = "5";
+        String sortReq = request.getParameter("sort");
+        String sortQueryAddOn = chooseSort(sortReq);
+
 
 
 
@@ -53,14 +54,13 @@ public class MovieListServlet extends BaseServlet implements MovieListQueries {
             if ("genre".equals(filterType))
             {
                 int q = 1;
-                query = genreQuery;
+                query = appendOrderByAndLimitOffsetToQuery(genreQuery,sortQueryAddOn);
+
                 ps = conn.prepareStatement(query);
                 ps.setString(q++, filterValue);
-
-                ps.setString(q++, sortQueryAddOn);
-
                 ps.setInt(q++, limit);
                 ps.setInt(q, offset);
+
 
                 countQuery = genreCountQuery;
                 countPs = conn.prepareStatement(countQuery);
@@ -70,7 +70,8 @@ public class MovieListServlet extends BaseServlet implements MovieListQueries {
             {
                 if ("*".equals(filterValue))
                 {
-                    query = titleAsteriskQuery;
+                    query = appendOrderByAndLimitOffsetToQuery(titleAsteriskQuery,sortQueryAddOn);
+
                     ps = conn.prepareStatement(query);
                     ps.setInt(1, limit);
                     ps.setInt(2, offset);
@@ -80,7 +81,7 @@ public class MovieListServlet extends BaseServlet implements MovieListQueries {
                 }
                 else
                 {
-                    query = titleRegexpQuery;
+                    query = appendOrderByAndLimitOffsetToQuery(titleRegexpQuery,sortQueryAddOn);
                     ps = conn.prepareStatement(query);
                     ps.setString(1, filterValue.toUpperCase() + "%");
                     ps.setInt(2, limit);
@@ -95,7 +96,7 @@ public class MovieListServlet extends BaseServlet implements MovieListQueries {
             else if (!(title.isEmpty() && year.isEmpty() && director.isEmpty() && star.isEmpty()))
             {
 
-                query = searchQuery;
+                query = appendOrderByAndLimitOffsetToQuery(searchQuery,sortQueryAddOn);;
                 ps = conn.prepareStatement(query);
 
                 //defaults
@@ -135,7 +136,7 @@ public class MovieListServlet extends BaseServlet implements MovieListQueries {
             else
             {
                 //standard
-                query = standardQuery;
+                query = appendOrderByAndLimitOffsetToQuery(standardQuery,sortQueryAddOn);;
                 ps = conn.prepareStatement(query);
                 ps.setInt(1, limit);
                 ps.setInt(2, offset);
@@ -186,6 +187,11 @@ public class MovieListServlet extends BaseServlet implements MovieListQueries {
 
     }
 
+    private String appendOrderByAndLimitOffsetToQuery(String query, String sort)
+    {
+        query += "ORDER BY " + sort + "LIMIT ? OFFSET ?";
+        return query;
+    }
 
     private String chooseSort(String sort)
     {
@@ -202,7 +208,6 @@ public class MovieListServlet extends BaseServlet implements MovieListQueries {
         else if (sort.equals("6")) ret = R + DES + "," + T + DES;
         else if (sort.equals("7")) ret = R + ASC + "," + T + ASC;
         else if (sort.equals("8")) ret = R + ASC + "," + T + DES;
-
         return ret;
     }
 

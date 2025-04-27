@@ -7,9 +7,10 @@ public interface MovieListQueries
             "JOIN ratings r ON m.id = r.movieId " +
             "JOIN genres_in_movies gm ON m.id = gm.movieId " +
             "JOIN genres g ON gm.genreId = g.id " +
-            "WHERE g.name = ? " +
-            "ORDER BY ?" + //ORDER BY X ASC/DESC, Y ASC/DESC
-            " LIMIT ? OFFSET ?";
+            "WHERE g.name = ? ";
+            //Now placed in through the java servlet
+           /* "ORDER BY ?" + //ORDER BY X ASC/DESC, Y ASC/DESC
+            " LIMIT ? OFFSET ?";*/
     String genreCountQuery =
             "SELECT COUNT(DISTINCT m.id) as total " +
             "FROM movies m " +
@@ -24,8 +25,7 @@ public interface MovieListQueries
             "SELECT DISTINCT m.id, m.title, m.year, m.director, r.rating " +
             "FROM movies m " +
             "JOIN ratings r ON m.id = r.movieId " +
-            "WHERE NOT REGEXP_LIKE(m.title, '^[A-Za-z0-9]') " +
-            "ORDER BY r.rating DESC LIMIT ? OFFSET ?";
+            "WHERE NOT REGEXP_LIKE(m.title, '^[A-Za-z0-9]') ";
     String titleAsteriskCountQuery =
             "SELECT COUNT(DISTINCT m.id) as total " +
             "FROM movies m " +
@@ -38,8 +38,7 @@ public interface MovieListQueries
             "SELECT DISTINCT m.id, m.title, m.year, m.director, r.rating " +
             "FROM movies m " +
             "JOIN ratings r ON m.id = r.movieId " +
-            "WHERE UPPER(m.title) LIKE ? " +
-            "ORDER BY r.rating DESC LIMIT ? OFFSET ?";
+            "WHERE UPPER(m.title) LIKE ? ";
     String titleRegexpCountQuery =
             "SELECT COUNT(DISTINCT m.id) as total " +
             "FROM movies m " +
@@ -56,8 +55,7 @@ public interface MovieListQueries
             "WHERE UPPER(m.title) LIKE ? " +
             "AND (-1 = ? OR m.year = ?) " + //-1 is sent by us to say the user didn't input anything
             "AND UPPER(m.director) LIKE ? " +
-            "AND UPPER(s.name) LIKE ? " +
-            "ORDER BY r.rating DESC LIMIT ? OFFSET ?";
+            "AND UPPER(s.name) LIKE ? ";
 
     String searchCountQuery =
             "SELECT COUNT(DISTINCT m.id) AS total " +
@@ -75,8 +73,7 @@ public interface MovieListQueries
     //else standard
     String standardQuery =
             "SELECT m.id, m.title, m.year, m.director, r.rating " +
-            "FROM movies m JOIN ratings r ON m.id = r.movieId " +
-            "ORDER BY r.rating DESC LIMIT ? OFFSET ?";
+            "FROM movies m JOIN ratings r ON m.id = r.movieId ";
     String standardCountQuery =
             "SELECT COUNT(*) as total " +
             "FROM movies m JOIN ratings r ON m.id = r.movieId";
