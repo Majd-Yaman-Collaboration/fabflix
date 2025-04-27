@@ -8,7 +8,8 @@ public interface MovieListQueries
             "JOIN genres_in_movies gm ON m.id = gm.movieId " +
             "JOIN genres g ON gm.genreId = g.id " +
             "WHERE g.name = ? " +
-            "ORDER BY r.rating DESC LIMIT ? OFFSET ?";
+            "ORDER BY ?" + //ORDER BY X ASC/DESC, Y ASC/DESC
+            " LIMIT ? OFFSET ?";
     String genreCountQuery =
             "SELECT COUNT(DISTINCT m.id) as total " +
             "FROM movies m " +

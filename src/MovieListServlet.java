@@ -34,6 +34,11 @@ public class MovieListServlet extends BaseServlet implements MovieListQueries {
         String director = request.getParameter("director").toUpperCase();
         String star = request.getParameter("star").toUpperCase();
 
+        String sortQueryAddOn = chooseSort(request.getParameter("sort"));
+//        String sortQueryAddOn = "5";
+
+
+
 
 
         int offset = (page - 1) * limit;
@@ -47,11 +52,15 @@ public class MovieListServlet extends BaseServlet implements MovieListQueries {
 
             if ("genre".equals(filterType))
             {
+                int q = 1;
                 query = genreQuery;
                 ps = conn.prepareStatement(query);
-                ps.setString(1, filterValue);
-                ps.setInt(2, limit);
-                ps.setInt(3, offset);
+                ps.setString(q++, filterValue);
+
+                ps.setString(q++, sortQueryAddOn);
+
+                ps.setInt(q++, limit);
+                ps.setInt(q, offset);
 
                 countQuery = genreCountQuery;
                 countPs = conn.prepareStatement(countQuery);
@@ -177,6 +186,25 @@ public class MovieListServlet extends BaseServlet implements MovieListQueries {
 
     }
 
+
+    private String chooseSort(String sort)
+    {
+        final String DES = "DESC ";
+        final String ASC = "ASC ";
+        final String T = "m.title ";
+        final String R = "r.rating ";
+        String ret = "";
+        if      (sort.equals("1")) ret = T + ASC + "," + R + DES;
+        else if (sort.equals("2")) ret = T + ASC + "," + R + ASC;
+        else if (sort.equals("3")) ret = T + DES + "," + R + DES;
+        else if (sort.equals("4")) ret = T + DES + "," + R + ASC;
+        else if (sort.equals("5")) ret = R + DES + "," + T + ASC;
+        else if (sort.equals("6")) ret = R + DES + "," + T + DES;
+        else if (sort.equals("7")) ret = R + ASC + "," + T + ASC;
+        else if (sort.equals("8")) ret = R + ASC + "," + T + DES;
+
+        return ret;
+    }
 
     private JsonArray generateTableJson(ResultSet rs, Connection conn, JsonArray jsonArray) throws SQLException {
         while (rs.next())
