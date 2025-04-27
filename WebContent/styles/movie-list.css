@@ -62,8 +62,15 @@ body.movie-list {
     color: darkblue;
 }
 
-.page-size-selector {
+
+.selectors{
     display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.page-size-selector {
+    ;
     gap: 10px;
     margin-bottom: 20px;
 }
@@ -81,16 +88,19 @@ body.movie-list {
     color: black;
     font-size: 1em;
 }
-
+/**/
 .sort-by-selector {
     display: flex;
     gap: 10px;
     margin-bottom: 20px;
+    justify-content: right;
 }
 
 .sort-by-selector label {
     color: white;
     font-weight: bold;
+    justify-content: right;
+
 }
 
 .sort-by-selector select {
@@ -100,6 +110,7 @@ body.movie-list {
     background-color: white;
     color: black;
     font-size: 1em;
+    justify-content: right;
 }
 
 .page-controls {
