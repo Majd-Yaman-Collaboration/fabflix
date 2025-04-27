@@ -29,11 +29,14 @@ public class MovieListServlet extends BaseServlet implements MovieListQueries {
         int limit = Integer.parseInt(request.getParameter("limit") != null ? request.getParameter("limit") : "10");
 
         //search values
-        String title = request.getParameter("title");
-        String year = request.getParameter("year");
-        String director = request.getParameter("director");
-        String star = request.getParameter("star");
-
+        String title = request.getParameter("title").toUpperCase();
+        String year = request.getParameter("year").toUpperCase();
+        String director = request.getParameter("director").toUpperCase();
+        String star = request.getParameter("star").toUpperCase();
+        System.out.println("title: " + title);
+        System.out.println("year: " + year);
+        System.out.println("director: " + director);
+        System.out.println("star: " + star);
 
 
 
@@ -46,7 +49,8 @@ public class MovieListServlet extends BaseServlet implements MovieListQueries {
             String countQuery;
             PreparedStatement countPs;
 
-            if ("genre".equals(filterType)) {
+            if ("genre".equals(filterType))
+            {
                 query = genreQuery;
                 ps = conn.prepareStatement(query);
                 ps.setString(1, filterValue);
@@ -56,8 +60,11 @@ public class MovieListServlet extends BaseServlet implements MovieListQueries {
                 countQuery = genreCountQuery;
                 countPs = conn.prepareStatement(countQuery);
                 countPs.setString(1, filterValue);
-            } else if ("title".equals(filterType)) {
-                if ("*".equals(filterValue)) {
+            }
+            else if ("title".equals(filterType))
+            {
+                if ("*".equals(filterValue))
+                {
                     query = titleAsteriskQuery;
                     ps = conn.prepareStatement(query);
                     ps.setInt(1, limit);
@@ -79,6 +86,46 @@ public class MovieListServlet extends BaseServlet implements MovieListQueries {
                     countPs.setString(1, filterValue.toUpperCase() + "%");
                 }
             }
+            //good application of demorgans low here
+            else if (!(title.isEmpty() && year.isEmpty() && director.isEmpty() && star.isEmpty()))
+            {
+                System.out.println("came in here");
+                query = searchQuery;
+                ps = conn.prepareStatement(query);
+
+                //defaults
+                if (title.isEmpty()) title = "%";
+                else title = "%" + title + "%";
+                if (year.isEmpty()) year = "-1";
+                if (director.isEmpty()) director = "%";
+                else director = "%" + director + "%";
+                if (star.isEmpty()) star = "%";
+                else star = "%" + star + "%";
+
+
+
+                int q = 1;
+                ps.setString(q++, title);
+                //NOT A REDUNDANT LINE. there are 2 question marks in the query of this where these two can be used
+                ps.setInt(q++, Integer.parseInt(year));
+                ps.setInt(q++, Integer.parseInt(year));
+                ps.setString(q++, director);
+                ps.setString(q++, star);
+                ps.setInt(q++, limit);
+                ps.setInt(q, offset);
+
+                q = 1;
+                countQuery = searchCountQuery;
+                countPs = conn.prepareStatement(countQuery);
+                countPs.setString(q++, title.toUpperCase());
+                //see comment above
+                ps.setInt(q++, Integer.parseInt(year));
+                countPs.setInt(q++, Integer.parseInt(year));
+                countPs.setString(q++, director);
+                countPs.setString(q, star);
+
+
+            }
             else
             {
                 //standard
@@ -90,6 +137,9 @@ public class MovieListServlet extends BaseServlet implements MovieListQueries {
                 countQuery = standardCountQuery;
                 countPs = conn.prepareStatement(countQuery);
             }
+
+
+
 
             ResultSet countRs = countPs.executeQuery();
             int total = 0;

@@ -39,12 +39,33 @@ public interface MovieListQueries
             "JOIN ratings r ON m.id = r.movieId " +
             "WHERE UPPER(m.title) LIKE ? " +
             "ORDER BY r.rating DESC LIMIT ? OFFSET ?";
-
     String titleRegexpCountQuery =
             "SELECT COUNT(DISTINCT m.id) as total " +
             "FROM movies m " +
             "JOIN ratings r ON m.id = r.movieId " +
             "WHERE UPPER(m.title) LIKE ?";
+
+    //search query
+    String searchQuery =
+            "SELECT DISTINCT m.id, m.title, m.year, m.director, r.rating " +
+            "FROM movies m " +
+            "JOIN ratings r on m.id = r.movieID " +
+            "WHERE UPPER(m.title) LIKE ? " +
+            "AND (-1 = ? OR m.year = ?) " + //-1 is sent by us to say the user didn't input anything
+            "AND UPPER(m.director) LIKE ? " +
+            "AND UPPER(m.star) LIKE ? " +
+            "ORDER BY r.rating DESC LIMIT ? OFFSET ?";
+
+    String searchCountQuery =
+            "SELECT DISTINCT m.id, m.title, m.year, m.director, r.rating " +
+            "FROM movies m " +
+            "JOIN ratings r on m.id = r.movieID " +
+            "WHERE UPPER(m.title) LIKE ? " +
+            "AND (-1 = ? OR m.year = ?) " + //see comment above
+            "AND UPPER(m.director) LIKE ? " +
+            "AND UPPER(m.star) LIKE ? ";
+
+
 
     //else standard
     String standardQuery =
