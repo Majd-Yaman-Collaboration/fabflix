@@ -37,13 +37,9 @@ function loadMovies() {
         },
         dataType: "json",
         success: handleMovieResults,
-        error: handleMovieErrors
     });
 }
 
-function handleMovieErrors(error) {
-    window.location.href = "login.html";
-}
 
 function handleMovieResults(data) {
     const tbody = jQuery("#movie-table-body");

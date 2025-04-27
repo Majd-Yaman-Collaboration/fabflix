@@ -5,18 +5,21 @@ fetch('/components/navbar.html')
         document.getElementById("search-toggle").addEventListener("click", () => {
             document.getElementById("search-inputs").classList.toggle("visible");
         });
+
+        console.log("peepee poopoo");
+        setupNavbarListeners();
     });
 
+function setupNavbarListeners() {
+    document.getElementById("search-form").addEventListener("submit", handleSearchSubmit);
+    console.log("peepee poopoosssss");
 
-function handleSearchResults(data)
-{
-    console.log("gets to handleSearchResults");
 }
 
 
-document.getElementById("search-form").addEventListener("submit", function(e) {
+function handleSearchSubmit(e) {
     e.preventDefault();
-
+    console.log("I got here");
     const data = {
         search_title: document.getElementById("title").value,
         search_year: document.getElementById("year").value,
@@ -24,13 +27,17 @@ document.getElementById("search-form").addEventListener("submit", function(e) {
         search_star: document.getElementById("star").value
     };
 
-    jQuery.ajax({
+    jQuery.ajax({ //I got here before going to work. error happened
         method: "GET",
         url: "api/movies",
         data: data,
         dataType: "json",
         success: handleSearchResults
     });
+}
 
 
-});
+function handleSearchResults(data) {
+    console.log("scoobeedoo");
+    console.log("got search results:", data);
+}
