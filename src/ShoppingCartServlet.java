@@ -13,7 +13,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-@WebServlet(name = "MovieListServlet", urlPatterns = "/api/shopping-cart")
+@WebServlet(name = "ShoppingCartServlet", urlPatterns = "/api/shopping-cart")
 public class ShoppingCartServlet extends BaseServlet
 {
     private static final long serialVersionUID = 1L;
@@ -21,6 +21,6 @@ public class ShoppingCartServlet extends BaseServlet
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException
     {
-        
+
     }
 }
