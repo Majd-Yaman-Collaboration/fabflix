@@ -11,7 +11,7 @@ fetch(`api/single-movie?id=${movieId}`)
         const html = `
                 <h2>${movie.title} (${movie.year})</h2>
                 <p><strong>Director:</strong> ${movie.director}</p>
-                <p><strong>Genres:</strong> ${movie.genres.join(", ")}</p>
+                <p><strong>Genres:</strong> ${movie.genres.map(g => `<a href="movie-list.html?filter=genre&value=${g}">${g}</a>`).join(", ")}</p>
                 <p><strong>Stars:</strong> ${movie.stars.map(s => `<a href="single-star.html?id=${s.id}">${s.name}</a>`).join(", ")}</p>
                 <p><strong>Rating:</strong> ${movie.rating}</p>
             `;
