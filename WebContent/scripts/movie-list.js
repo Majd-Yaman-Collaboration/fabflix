@@ -57,7 +57,7 @@ function handleMovieResults(data) {
     const filterType = urlParams.get('filter');
     const filterValue = urlParams.get('value');
 
-    let title = 'Top 20 Movies';
+    let title = 'Results';
     if (filterType === 'genre') {
         title = `${filterValue} Movies`;
     } else if (filterType === 'title') {

@@ -9,18 +9,32 @@
 
 <body class="movie-list">
   <div id="navbar"></div>
-
   <div class="content">
     <div class="results">
       <h1>Results</h1>
-      <div class="page-size-selector">
-        <label for="page-size">Movies per page:</label>
-        <select id="page-size">
-          <option value="10">10</option>
-          <option value="25" selected>25</option>
-          <option value="50">50</option>
-          <option value="100">100</option>
-        </select>
+      <div class="selectors">
+        <div class="page-size-selector">
+          <label for="page-size">Movies per page:</label>
+          <select id="page-size">
+            <option value="10">10</option>
+            <option value="25" selected>25</option>
+            <option value="50">50</option>
+            <option value="100">100</option>
+          </select>
+        </div>
+        <div class="sort-by-selector">
+          <label for="sort-by">Sort by:</label>
+          <select id="sort-by">
+            <option value="1">Title ↑ Rating ↓</option>
+            <option value="2">Title ↑ Rating ↑</option>
+            <option value="3">Title ↓ Rating ↓</option>
+            <option value="4">Title ↓ Rating ↑</option>
+            <option value="5">Rating ↓ Title ↑</option>
+            <option value="6">Rating ↓ Title ↓</option>
+            <option value="7">Rating ↑ Title ↑</option>
+            <option value="8">Rating ↑ Title ↓</option>
+          </select>
+        </div>
       </div>
     </div>
     <table border="1" cellpadding="8">

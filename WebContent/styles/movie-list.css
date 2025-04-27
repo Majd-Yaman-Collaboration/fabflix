@@ -82,6 +82,26 @@ body.movie-list {
     font-size: 1em;
 }
 
+.sort-by-selector {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.sort-by-selector label {
+    color: white;
+    font-weight: bold;
+}
+
+.sort-by-selector select {
+    padding: 5px 10px;
+    border-radius: 4px;
+    border: 1px solid lightgray;
+    background-color: white;
+    color: black;
+    font-size: 1em;
+}
+
 .page-controls {
     display: flex;
     justify-content: center;

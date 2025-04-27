@@ -196,13 +196,7 @@ public class MovieListServlet extends BaseServlet implements MovieListQueries {
             }
 
             PreparedStatement starStmt = conn.prepareStatement(
-                    "SELECT s.id, s.name " +
-                            "FROM stars_in_movies sm " +
-                            "JOIN stars s ON sm.starId = s.id " +
-                            "LEFT JOIN (SELECT starId, COUNT(*) AS movie_count FROM stars_in_movies GROUP BY starId) " +
-                            "star_count ON star_count.starId = s.id " +
-                            "WHERE sm.movieId = ? " +
-                            "ORDER BY star_count.movie_count DESC, s.name ASC LIMIT 3");
+                    "SELECT s.id, s.name FROM stars_in_movies sm JOIN stars s ON sm.starId = s.id WHERE sm.movieId = ? LIMIT 3");
             starStmt.setString(1, movieId);
             ResultSet starRs = starStmt.executeQuery();
             JsonArray starArray = new JsonArray();
