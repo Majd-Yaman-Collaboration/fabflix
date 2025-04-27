@@ -1,17 +1,7 @@
 let currentPage = 1;
 let currentLimit = 25;
-let currentSort = 1;
+let currentSort = 6;
 let totalPages = 1;
-
-function updatePageControls() {
-    const prevButton = document.getElementById('prev-page');
-    const nextButton = document.getElementById('next-page');
-    const pageInfo = document.getElementById('page-info');
-    
-    prevButton.disabled = currentPage === 1;
-    nextButton.disabled = currentPage === totalPages;
-    pageInfo.textContent = `Page ${currentPage} of ${totalPages}`;
-}
 
 function updateURL() {
     const urlParams = new URLSearchParams(window.location.search);
@@ -21,6 +11,16 @@ function updateURL() {
     const newURL = window.location.pathname + '?' + urlParams.toString();
     // update url with new queries
     window.history.pushState({}, '', newURL);
+}
+
+function updatePageControls() {
+    const prevButton = document.getElementById('prev-page');
+    const nextButton = document.getElementById('next-page');
+    const pageInfo = document.getElementById('page-info');
+    
+    prevButton.disabled = currentPage === 1;
+    nextButton.disabled = currentPage === totalPages;
+    pageInfo.textContent = `Page ${currentPage} of ${totalPages}`;
 }
 
 function loadMovies() {
@@ -40,6 +40,7 @@ function loadMovies() {
             value: filterValue,
             page: currentPage,
             limit: currentLimit,
+            sort: currentSort,
             title: title,
             year: year,
             director: director,
@@ -98,6 +99,7 @@ function handleMovieResults(data) {
 
 document.addEventListener('DOMContentLoaded', function() {
     const pageSizeSelect = document.getElementById('page-size');
+    const pageSortSelect = document.getElementById('sort-by');
     const prevButton = document.getElementById('prev-page');
     const nextButton = document.getElementById('next-page');
     const urlParams = new URLSearchParams(window.location.search);
@@ -120,6 +122,13 @@ document.addEventListener('DOMContentLoaded', function() {
             loadMovies();
         }
     });
+
+    pageSortSelect.addEventListener('change', function() {
+        currentSort = parseInt(this.value);
+        currentPage = 1;
+        loadMovies();
+    });
+
     prevButton.addEventListener('click', function() {
         if (currentPage > 1) {
             currentPage--;
