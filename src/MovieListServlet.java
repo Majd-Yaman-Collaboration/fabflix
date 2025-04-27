@@ -4,6 +4,7 @@ import com.google.gson.JsonObject;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
@@ -20,10 +21,14 @@ public class MovieListServlet extends BaseServlet implements MovieListQueries {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) {
         response.setContentType("application/json");
+        HttpSession session = request.getSession(); //TODO implement jumping back
+
+
 
         //filters (genre's the regexp from main page)
-        String filterType = request.getParameter("filter");
+        String filterType =  request.getParameter("filter");
         String filterValue = request.getParameter("value");
+
         // if page exists, get number else default to 1
         int page = Integer.parseInt(request.getParameter("page") != null ? request.getParameter("page") : "1");
         int limit = Integer.parseInt(request.getParameter("limit") != null ? request.getParameter("limit") : "10");
