@@ -25,6 +25,10 @@ function loadMovies() {
     const urlParams = new URLSearchParams(window.location.search);
     const filterType = urlParams.get('filter');
     const filterValue = urlParams.get('value');
+    const title = url.get("title");
+    const year = url.get("year");
+    const director = url.get("director");
+    const star = url.get("star");
 
     jQuery.ajax({
         method: "GET",

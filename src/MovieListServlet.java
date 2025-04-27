@@ -12,8 +12,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 @WebServlet(name = "MovieListServlet", urlPatterns = "/api/movies")
-public class MovieListServlet extends BaseServlet {
+public class MovieListServlet extends BaseServlet implements MovieListQueries {
     private static final long serialVersionUID = 1L;
+
+
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) {
         response.setContentType("application/json");
@@ -25,76 +27,55 @@ public class MovieListServlet extends BaseServlet {
         int limit = Integer.parseInt(request.getParameter("limit") != null ? request.getParameter("limit") : "10");
         int offset = (page - 1) * limit;
 
-        try (PrintWriter out = response.getWriter(); Connection conn = dataSource.getConnection()) {
+        try (PrintWriter out = response.getWriter(); Connection conn = dataSource.getConnection())
+        {
             String query;
             PreparedStatement ps;
             String countQuery;
             PreparedStatement countPs;
 
             if ("genre".equals(filterType)) {
-                query = "SELECT DISTINCT m.id, m.title, m.year, m.director, r.rating " +
-                        "FROM movies m " +
-                        "JOIN ratings r ON m.id = r.movieId " +
-                        "JOIN genres_in_movies gm ON m.id = gm.movieId " +
-                        "JOIN genres g ON gm.genreId = g.id " +
-                        "WHERE g.name = ? " +
-                        "ORDER BY r.rating DESC LIMIT ? OFFSET ?";
+                query = genreQuery;
                 ps = conn.prepareStatement(query);
                 ps.setString(1, filterValue);
                 ps.setInt(2, limit);
                 ps.setInt(3, offset);
 
-                countQuery = "SELECT COUNT(DISTINCT m.id) as total " +
-                           "FROM movies m " +
-                           "JOIN ratings r ON m.id = r.movieId " +
-                           "JOIN genres_in_movies gm ON m.id = gm.movieId " +
-                           "JOIN genres g ON gm.genreId = g.id " +
-                           "WHERE g.name = ?";
+                countQuery = genreCountQuery;
                 countPs = conn.prepareStatement(countQuery);
                 countPs.setString(1, filterValue);
             } else if ("title".equals(filterType)) {
                 if ("*".equals(filterValue)) {
-                    query = "SELECT DISTINCT m.id, m.title, m.year, m.director, r.rating " +
-                            "FROM movies m " +
-                            "JOIN ratings r ON m.id = r.movieId " +
-                            "WHERE NOT REGEXP_LIKE(m.title, '^[A-Za-z0-9]') " +
-                            "ORDER BY r.rating DESC LIMIT ? OFFSET ?";
+                    query = titleAsteriskQuery;
                     ps = conn.prepareStatement(query);
                     ps.setInt(1, limit);
                     ps.setInt(2, offset);
 
-                    countQuery = "SELECT COUNT(DISTINCT m.id) as total " +
-                               "FROM movies m " +
-                               "JOIN ratings r ON m.id = r.movieId " +
-                               "WHERE NOT REGEXP_LIKE(m.title, '^[A-Za-z0-9]')";
+                    countQuery = titleAsteriskCountQuery;
                     countPs = conn.prepareStatement(countQuery);
-                } else {
-                    query = "SELECT DISTINCT m.id, m.title, m.year, m.director, r.rating " +
-                            "FROM movies m " +
-                            "JOIN ratings r ON m.id = r.movieId " +
-                            "WHERE UPPER(m.title) LIKE ? " +
-                            "ORDER BY r.rating DESC LIMIT ? OFFSET ?";
+                }
+                else
+                {
+                    query = titleRegexpQuery;
                     ps = conn.prepareStatement(query);
                     ps.setString(1, filterValue.toUpperCase() + "%");
                     ps.setInt(2, limit);
                     ps.setInt(3, offset);
 
-                    countQuery = "SELECT COUNT(DISTINCT m.id) as total " +
-                               "FROM movies m " +
-                               "JOIN ratings r ON m.id = r.movieId " +
-                               "WHERE UPPER(m.title) LIKE ?";
+                    countQuery = titleRegexpCountQuery;
                     countPs = conn.prepareStatement(countQuery);
                     countPs.setString(1, filterValue.toUpperCase() + "%");
                 }
-            } else {
-                query = "SELECT m.id, m.title, m.year, m.director, r.rating " +
-                        "FROM movies m JOIN ratings r ON m.id = r.movieId " +
-                        "ORDER BY r.rating DESC LIMIT ? OFFSET ?";
+            }
+            else
+            {
+                //standard
+                query = standardQuery;
                 ps = conn.prepareStatement(query);
                 ps.setInt(1, limit);
                 ps.setInt(2, offset);
 
-                countQuery = "SELECT COUNT(*) as total FROM movies m JOIN ratings r ON m.id = r.movieId";
+                countQuery = standardCountQuery;
                 countPs = conn.prepareStatement(countQuery);
             }
 
@@ -109,7 +90,8 @@ public class MovieListServlet extends BaseServlet {
             ResultSet rs = ps.executeQuery();
             JsonArray jsonArray = new JsonArray();
 
-            while (rs.next()) {
+            while (rs.next())
+            {
                 String movieId = rs.getString("id");
 
                 PreparedStatement genreStmt = conn.prepareStatement(
@@ -132,7 +114,10 @@ public class MovieListServlet extends BaseServlet {
                 starStmt.setString(1, movieId);
                 ResultSet starRs = starStmt.executeQuery();
                 JsonArray starArray = new JsonArray();
-                while (starRs.next()) {
+
+
+                while (starRs.next())
+                {
                     JsonObject starObj = new JsonObject();
                     starObj.addProperty("id", starRs.getString("id"));
                     starObj.addProperty("name", starRs.getString("name"));
@@ -168,7 +153,8 @@ public class MovieListServlet extends BaseServlet {
             out.write(responseObj.toString());
             response.setStatus(200);
 
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             try {
                 JsonObject error = new JsonObject();
                 StringWriter sw = new StringWriter();

@@ -6,38 +6,31 @@ fetch('/components/navbar.html')
             document.getElementById("search-inputs").classList.toggle("visible");
         });
 
-        console.log("peepee poopoo");
         setupNavbarListeners();
     });
 
 function setupNavbarListeners() {
     document.getElementById("search-form").addEventListener("submit", handleSearchSubmit);
-    console.log("peepee poopoosssss");
+
 
 }
 
 
 function handleSearchSubmit(e) {
     e.preventDefault();
-    console.log("I got here");
-    const data = {
-        search_title: document.getElementById("title").value,
-        search_year: document.getElementById("year").value,
-        search_director: document.getElementById("director").value,
-        search_star: document.getElementById("star").value
-    };
-
-    jQuery.ajax({ //I got here before going to work. error happened
-        method: "GET",
-        url: "api/movies",
-        data: data,
-        dataType: "json",
-        success: handleSearchResults
-    });
-}
 
 
-function handleSearchResults(data) {
-    console.log("scoobeedoo");
-    console.log("got search results:", data);
+    const search_title    = document.getElementById("title").value;
+    const search_year     = document.getElementById("year").value;
+    const search_director = document.getElementById("director").value;
+    const search_star     = document.getElementById("star").value;
+    window.location.replace(
+        `/movie-list.html?
+title=${search_title}&
+year=${search_year}&
+director=${search_director}&
+star=${search_star}
+`
+    );
+
 }
