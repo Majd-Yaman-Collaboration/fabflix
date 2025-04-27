@@ -25,10 +25,10 @@ function loadMovies() {
     const urlParams = new URLSearchParams(window.location.search);
     const filterType = urlParams.get('filter');
     const filterValue = urlParams.get('value');
-    const title = url.get("title");
-    const year = url.get("year");
-    const director = url.get("director");
-    const star = url.get("star");
+    const title = urlParams.get('title');
+    const year = urlParams.get('year');
+    const director = urlParams.get('director');
+    const star = urlParams.get('star');
 
     jQuery.ajax({
         method: "GET",
@@ -37,7 +37,11 @@ function loadMovies() {
             filter: filterType,
             value: filterValue,
             page: currentPage,
-            limit: currentLimit
+            limit: currentLimit,
+            title: title,
+            year: year,
+            director: director,
+            star: star
         },
         dataType: "json",
         success: handleMovieResults,
