@@ -82,7 +82,7 @@ function handleMovieResults(data) {
             <td><a href="single-movie.html?id=${movie.id}" class="details">${movie.title}</a></td>
             <td>${movie.year}</td>
             <td>${movie.director}</td>
-            <td>${movie.genres.join(", ")}</td>
+            <td>${movie.genres.map(g => `<a href="movie-list.html?filter=genre&value=${g}&page=1&limit=25" class="details">${g}</a>`).join(", ")}</td>
             <td>${movie.stars.map(s => `<a href="single-star.html?id=${s.id}" class="details">${s.name}</a>`).join(", ")}</td>
             <td>${movie.rating}</td>
         `;
