@@ -68,7 +68,11 @@
     background-color: white;
     color: black;
     width: 135px;
-    transition: all 0.3s ease;
+    transition: box-shadow 0.3s ease;
+}
+
+.search-input:hover {
+    box-shadow: 0 0 10px 3px cadetblue;
 }
 
 .search-input::placeholder {
