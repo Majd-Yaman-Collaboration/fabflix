@@ -1,5 +1,6 @@
 let currentPage = 1;
 let currentLimit = 25;
+let currentSort = 1;
 let totalPages = 1;
 
 function updatePageControls() {
@@ -16,6 +17,7 @@ function updateURL() {
     const urlParams = new URLSearchParams(window.location.search);
     urlParams.set('page', currentPage);
     urlParams.set('limit', currentLimit);
+    urlParams.set('sort', currentSort);
     const newURL = window.location.pathname + '?' + urlParams.toString();
     // update url with new queries
     window.history.pushState({}, '', newURL);
