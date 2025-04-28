@@ -33,6 +33,31 @@ body.single-movie {
     color: antiquewhite;
 }
 
+.button-container {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px;
+    padding: 10px;
+}
+
+.button-container button {
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+.add-to-cart {
+    display: block;
+    margin: 30px auto;
+    padding: 12px 24px;
+    background-color: midnightblue;
+    color: lightskyblue;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+    border: 1px solid steelblue;
+    text-align: center;
+    width: fit-content;
+}
+
 .back-link {
     display: block;
     margin: 30px auto;

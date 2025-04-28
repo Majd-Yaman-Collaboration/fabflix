@@ -16,6 +16,11 @@ fetch(`api/single-movie?id=${movieId}`)
                 <p><strong>Rating:</strong> ${movie.rating}</p>
             `;
         container.innerHTML = html;
+
+        document.getElementById('add-to-cart-btn').addEventListener('click', function() {
+            console.log("Added To Cart Movie: ", movieId);
+        }
+    )
     })
     .catch(error => {
         document.body.innerHTML += `<p>Loading Error: ${error}</p>`;
