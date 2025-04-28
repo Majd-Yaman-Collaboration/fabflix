@@ -65,7 +65,7 @@ public class ConfirmationServlet extends BaseServlet
 
 
             String title = rsRet.getString("title");
-            double rating = rsRet.getInt("rating");
+            double rating = rsRet.getDouble("rating");
 
             JsonObject jsonObject = new JsonObject();
 
