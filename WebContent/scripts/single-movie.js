@@ -18,7 +18,7 @@ fetch(`api/single-movie?id=${movieId}`)
         container.innerHTML = html;
 
         document.getElementById('add-to-cart-btn').addEventListener('click', function() {
-            console.log("Added To Cart Movie: ", movieId);
+            console.log("Added To Cart Movie:", movieId);
         }
     )
     })

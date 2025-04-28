@@ -3,22 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <title>Shopping Cart</title>
+    <link rel="stylesheet" href="/styles/shopping-cart.css">
 </head>
 
-
-<body>
-<h1>Shopping Cart</h1>
-<table border="1" cellpadding="8">
-  <thead>
-  <tr>
-    <th>Movie Title</th>
-    <th>Quantity</th>
-    <th>Delete</th>
-    <th>Price</th>
-    <th>Total</th>
-  </tr>
-  </thead>
-  <tbody id="shopping-cart"></tbody>
-</table>
+<body class="shopping-cart">
+    <div id="navbar"></div>
+    <div class="cart-container">
+        <h1>Your Shopping Cart</h1>
+        <table class="cart-table">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Quantity</th>
+                    <th>Price Each</th>
+                    <th>Subtotal</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="cart-table-body"></tbody>
+        </table>
+        <div class="cart-total">
+            <h2>Total: $<span id="total-amount">0.00</span></h2>
+        </div>
+        <div class="checkout-button">
+            <button id="proceed-to-payment">Proceed to Payment</button>
+        </div>
+    </div>
+    
+    <script src="/scripts/navbar.js"></script>
+    <script src="/scripts/shopping-cart.js"></script>
 </body>
 </html>
