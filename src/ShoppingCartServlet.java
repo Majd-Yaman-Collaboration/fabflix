@@ -33,10 +33,7 @@ public class ShoppingCartServlet extends BaseServlet
         response.setContentType("application/json");
 
         HttpSession session = request.getSession();
-        String id = request.getParameter("movieId");
-        System.out.println(id);
 
-        //if movieIds not defined yet -> define it
         if (session.getAttribute("movieIds") == null)
         {
             movieIds = new TreeMap<String,Integer>();
@@ -45,6 +42,30 @@ public class ShoppingCartServlet extends BaseServlet
         //grab the already defined movieIds from the session
         else movieIds = (TreeMap<String,Integer>) session.getAttribute("movieIds");
 
+
+        String id = request.getParameter("movieId");
+        if (id == null)
+        {
+            System.out.println(movieIds);
+
+            try (PrintWriter out = response.getWriter())
+            {
+                Gson gson = new Gson();
+                String json = gson.toJson(movieIds);
+                out.write(json);
+                return;
+            }
+            catch (Exception e)
+            {
+                e.printStackTrace();
+            }
+        }
+
+        System.out.println(id);
+
+        //if movieIds not defined yet -> define it
+
+
         //add button after first
         if (movieIds.containsKey(id))
             movieIds.put(id, movieIds.get(id) + 1);
@@ -52,18 +73,7 @@ public class ShoppingCartServlet extends BaseServlet
         else movieIds.put(id, 1);
 
 
-        System.out.println(movieIds);
 
-        try (PrintWriter out = response.getWriter())
-        {
-            Gson gson = new Gson();
-            String json = gson.toJson(movieIds);
-            out.write(json);
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-        }
 
 
 

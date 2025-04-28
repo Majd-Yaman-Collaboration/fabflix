@@ -20,7 +20,20 @@ function fetchMovieDetails() {
                 console.error('Error fetching movie details:', error);
             });
     });
+
+    $.ajax({
+        method: "POST",
+        url: "api/shopping-cart",
+        dataType: "json",
+        success: handle_results
+    });
+
 }
+function handle_results()
+{
+    console.log("got here");
+}
+
 
 function updateCart() {
     const tbody = document.getElementById('cart-table-body');
