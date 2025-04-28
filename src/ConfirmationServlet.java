@@ -57,15 +57,15 @@ public class ConfirmationServlet extends BaseServlet
 
 
             //------
-            PreparedStatement psId = conn.prepareStatement(retQuery);
-            psId.setInt(1, saleId);
-            ResultSet rsId = psId.executeQuery();
+            PreparedStatement psRet = conn.prepareStatement(retQuery);
+            psRet.setInt(1, saleId);
+            ResultSet rsRet = psRet.executeQuery();
 
-            if (!rsId.next()) return;
+            if (!rsRet.next()) return;
 
 
-            String title = rsId.getString("title");
-            int rating = rsId.getInt("rating");
+            String title = rsRet.getString("title");
+            int rating = rsRet.getInt("rating");
 
             JsonObject jsonObject = new JsonObject();
 
