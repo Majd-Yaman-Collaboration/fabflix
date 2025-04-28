@@ -25,10 +25,14 @@ public class CheckoutServlet extends BaseServlet
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
-        String first = request.getParameter("first");
-        String last = request.getParameter("last");
-        String card = request.getParameter("card");
-        String expiry = request.getParameter("expiry");
+        String first = request.getParameter("firstName");
+        String last = request.getParameter("lastName");
+        String card = request.getParameter("cardNumber");
+        String expiry = request.getParameter("expirationDate");
+        System.out.println("First: " + first);
+        System.out.println("Last: " + last);
+        System.out.println("Card: " + card);
+        System.out.println("Expiry: " + expiry);
 
         try (Connection conn = dataSource.getConnection(); PrintWriter out = response.getWriter())
         {
