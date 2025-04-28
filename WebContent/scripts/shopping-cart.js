@@ -66,12 +66,14 @@ function changeQuantity(index, amt) {
     if (cartItems[index].quantity + amt > 0) {
         cartItems[index].quantity += amt;
         updateCart();
+        saveCart();
     }
 }
 
 function removeItem(index) {
     cartItems.splice(index, 1);
     updateCart();
+    saveCart()
 }
 
 document.getElementById('proceed-to-payment').addEventListener('click', function() {
@@ -79,3 +81,18 @@ document.getElementById('proceed-to-payment').addEventListener('click', function
 });
 
 loadCartItems();
+
+function saveCart() {
+    const simplifiedCart = cartItems.map(item => ({
+        movieId: item.movieId,
+        quantity: item.quantity
+    }));
+    $.ajax({
+        method: "POST",
+        url: "api/shopping-cart",
+        data: {
+            cartItems: JSON.stringify(simplifiedCart)
+        },
+        dataType: "json"
+    });
+}

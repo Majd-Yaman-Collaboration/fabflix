@@ -16,6 +16,8 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.TreeMap;
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 
 @WebServlet(name = "ShoppingCartServlet", urlPatterns = "/api/shopping-cart")
 public class ShoppingCartServlet extends BaseServlet
@@ -42,9 +44,13 @@ public class ShoppingCartServlet extends BaseServlet
         //grab the already defined movieIds from the session
         else movieIds = (TreeMap<String,Integer>) session.getAttribute("movieIds");
 
+        //load prev session^^^^
+
 
         String id = request.getParameter("movieId");
-        if (id == null)
+        String cartItems = request.getParameter("cartItems");
+        System.out.println(cartItems);
+        if (id == null && cartItems == null)
         {
             System.out.println(movieIds);
 
@@ -60,22 +66,40 @@ public class ShoppingCartServlet extends BaseServlet
                 e.printStackTrace();
             }
         }
+        else if (cartItems != null)
+        {
+//            [{"movieId":"tt0315354","quantity":3},{"movieId":"tt0349955","quantity":4},{"movieId":"tt0420975","quantity":4}]
+
+            String cartItemsJson = request.getParameter("cartItems");
+            Gson gson = new Gson();
+            JsonArray cartItemsArray = gson.fromJson(cartItemsJson, JsonArray.class);
+
+//            movieIds = new TreeMap<String,Integer>();
+
+            for (int i = 0; i < cartItemsArray.size(); i++) {
+                JsonObject item = cartItemsArray.get(i).getAsJsonObject();
+                String movieId = item.get("movieId").getAsString();
+                int quantity = item.get("quantity").getAsInt();
+                movieIds.put(movieId, quantity);
+            }
+
+        }
 
         System.out.println(id);
 
         //if movieIds not defined yet -> define it
 
+        add1OrInitialize1(id);
+        //add count after first
 
-        //add button after first
+
+    }
+
+    private void add1OrInitialize1(String id)
+    {
         if (movieIds.containsKey(id))
             movieIds.put(id, movieIds.get(id) + 1);
-        //initial add
+            //initial add
         else movieIds.put(id, 1);
-
-
-
-
-
-
     }
 }
