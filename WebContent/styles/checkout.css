@@ -74,3 +74,9 @@ h1 {
 .place-order-btn:hover {
     background-color: darkgreen;
 }
+
+#error {
+    color: red;
+    font-size: 0.9em;
+    text-align: center;
+}
