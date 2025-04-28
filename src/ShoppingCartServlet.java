@@ -49,10 +49,9 @@ public class ShoppingCartServlet extends BaseServlet
 
         String id = request.getParameter("movieId");
         String cartItems = request.getParameter("cartItems");
-        System.out.println(cartItems);
+
         if (id == null && cartItems == null)
         {
-            System.out.println(movieIds);
 
             try (PrintWriter out = response.getWriter())
             {
@@ -74,7 +73,8 @@ public class ShoppingCartServlet extends BaseServlet
             Gson gson = new Gson();
             JsonArray cartItemsArray = gson.fromJson(cartItemsJson, JsonArray.class);
 
-//            movieIds = new TreeMap<String,Integer>();
+            movieIds = new TreeMap<String,Integer>();
+            session.setAttribute("movieIds", movieIds); //new obj to replace the old
 
             for (int i = 0; i < cartItemsArray.size(); i++) {
                 JsonObject item = cartItemsArray.get(i).getAsJsonObject();
@@ -82,10 +82,11 @@ public class ShoppingCartServlet extends BaseServlet
                 int quantity = item.get("quantity").getAsInt();
                 movieIds.put(movieId, quantity);
             }
+            return;
 
         }
 
-        System.out.println(id);
+
 
         //if movieIds not defined yet -> define it
 
