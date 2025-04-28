@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('payment-form').addEventListener('submit', function(e) {
-        console.log('Order placed');
+        e.preventDefault();
     });
 
     const urlParams = new URLSearchParams(window.location.search);
