@@ -29,6 +29,8 @@ fetch(`api/single-movie?id=${movieId}`)
 
 function sendMovieIdToCart(movieId,rating)
 {
+    alert("Added to cart")
+
     jQuery.ajax({
         method: "POST",
         url: "api/shopping-cart",
