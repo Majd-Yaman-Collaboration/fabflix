@@ -15,11 +15,13 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.TreeMap;
+import com.google.gson.Gson;
 
 @WebServlet(name = "ShoppingCartServlet", urlPatterns = "/api/shopping-cart")
 public class ShoppingCartServlet extends BaseServlet
 {
     private static final long serialVersionUID = 1L;
+    //ID,Quant
     private Map<String,Integer> movieIds;
 
 
@@ -28,21 +30,35 @@ public class ShoppingCartServlet extends BaseServlet
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
-        HttpSession session = request.getSession();
+        response.setContentType("application/json");
 
+        HttpSession session = request.getSession();
+        String id = request.getParameter("movieId");
+        System.out.println(id);
+
+        //if movieIds not defined yet -> define it
         if (session.getAttribute("movieIds") == null)
         {
             movieIds = new TreeMap<String,Integer>();
             session.setAttribute("movieIds", movieIds);
         }
+        //grab the already defined movieIds from the session
         else movieIds = (TreeMap<String,Integer>) session.getAttribute("movieIds");
 
+        //add button after first
+        if (movieIds.containsKey(id))
+            movieIds.put(id, movieIds.get(id) + 1);
+        //initial add
+        else movieIds.put(id, 1);
 
+
+        System.out.println(movieIds);
 
         try (PrintWriter out = response.getWriter())
         {
-
-
+            Gson gson = new Gson();
+            String json = gson.toJson(movieIds);
+            out.write(json);
         }
         catch (Exception e)
         {

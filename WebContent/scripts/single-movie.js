@@ -19,9 +19,22 @@ fetch(`api/single-movie?id=${movieId}`)
 
         document.getElementById('add-to-cart-btn').addEventListener('click', function() {
             console.log("Added To Cart Movie:", movieId);
+            sendMovieIdToCart(movieId)
         }
     )
     })
     .catch(error => {
         document.body.innerHTML += `<p>Loading Error: ${error}</p>`;
     });
+
+function sendMovieIdToCart(movieId,rating)
+{
+    jQuery.ajax({
+        method: "POST",
+        url: "api/shopping-cart",
+        data: {
+            movieId:movieId,
+        },
+        dataType: "json"
+    });
+}

@@ -92,7 +92,7 @@ function handleMovieResults(data) {
             <td>${movie.genres.map(g => `<a href="movie-list.html?filter=genre&value=${g}&page=1&limit=25" class="details">${g}</a>`).join(", ")}</td>
             <td>${movie.stars.map(s => `<a href="single-star.html?id=${s.id}" class="details">${s.name}</a>`).join(", ")}</td>
             <td>${movie.rating}</td>
-            <td><button onClick="sendMovieIdToCart(${movie.id}, ${movie.rating})" class="add-to-cart">Add</button></td>
+            <td><button onClick="sendMovieIdToCart(${movie.id})" class="add-to-cart">Add</button></td>
         `;
         tbody[0].appendChild(row);
     });
@@ -105,7 +105,6 @@ function sendMovieIdToCart(movieId,rating)
         url: "api/shopping-cart",
         data: {
             movieId:movieId,
-            rating:rating
         },
         dataType: "json"
     });
