@@ -16,7 +16,7 @@ public class CheckoutServlet extends BaseServlet
     private static final long serialVersionUID = 1L;
     private String query =
             "SELECT * " +
-            "FROM creditcards cc" +
+            "FROM creditcards cc " +
             "WHERE cc.id = ? AND " +
             "cc.firstName = ? AND " +
             "cc.lastName = ? AND " +

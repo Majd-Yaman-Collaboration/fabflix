@@ -1,6 +1,9 @@
 const form = document.getElementById("payment-form");
 const element = form.elements;
 const errorDisplay = document.getElementById("error");
+const urlParams = new URLSearchParams(window.location.search);
+const total = urlParams.get('total') || '0.00';
+document.getElementById('cart-total').textContent = total;
 
 form.addEventListener("submit", function(event) {
     event.preventDefault();
@@ -28,16 +31,8 @@ function handle_results(data) {
         window.location.href = "confirmation.html"
     }
     else {
-        jQuery("#error").text("Incorrect Payment Info");
+        document.getElementById("error").textContent = "Incorrect Payment Info";
+        window.scrollTo(0, document.body.scrollHeight);
     }
 }
 
-document.addEventListener('DOMContentLoaded', function() {
-    document.getElementById('payment-form').addEventListener('submit', function(e) {
-        e.preventDefault();
-    });
-
-    const urlParams = new URLSearchParams(window.location.search);
-    const total = urlParams.get('total') || '0.00';
-    document.getElementById('cart-total').textContent = total;
-});
