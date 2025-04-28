@@ -12,15 +12,44 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Map;
+import java.util.TreeMap;
 
 @WebServlet(name = "ShoppingCartServlet", urlPatterns = "/api/shopping-cart")
 public class ShoppingCartServlet extends BaseServlet
 {
     private static final long serialVersionUID = 1L;
+    private Map<String,Integer> movieIds;
+
+
+
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
+        HttpSession session = request.getSession();
+
+        if (session.getAttribute("movieIds") == null)
+        {
+            movieIds = new TreeMap<String,Integer>();
+            session.setAttribute("movieIds", movieIds);
+        }
+        else movieIds = (TreeMap<String,Integer>) session.getAttribute("movieIds");
+
+
+
+        try (PrintWriter out = response.getWriter())
+        {
+
+
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
+
 
     }
 }
