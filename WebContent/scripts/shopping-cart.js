@@ -1,7 +1,19 @@
-let cartItems = [
-    { movieId: "tt0395642" },
-    { movieId: "tt0349853" }
-];
+let cartItems = [];
+
+function loadCartItems() {
+    $.ajax({
+        method: "POST",
+        url: "api/shopping-cart",
+        dataType: "json",
+        success: function(data) {
+            cartItems = Object.entries(data).map(([movieId, quantity]) => ({
+                movieId: movieId,
+                quantity: quantity
+            }));
+            fetchMovieDetails();
+        }
+    });
+}
 
 function fetchMovieDetails() {
     cartItems.forEach((item, index) => {
@@ -11,8 +23,7 @@ function fetchMovieDetails() {
                 cartItems[index] = {
                     ...item,
                     title: movieData.title,
-                    price: (parseFloat(movieData.rating) + 5.39),
-                    quantity: 1    
+                    price: (parseFloat(movieData.rating) + 5.39)
                 };
                 updateCart();
             })
@@ -20,20 +31,7 @@ function fetchMovieDetails() {
                 console.error('Error fetching movie details:', error);
             });
     });
-
-    $.ajax({
-        method: "POST",
-        url: "api/shopping-cart",
-        dataType: "json",
-        success: handle_results
-    });
-
 }
-function handle_results()
-{
-    console.log("got here");
-}
-
 
 function updateCart() {
     const tbody = document.getElementById('cart-table-body');
@@ -50,7 +48,7 @@ function updateCart() {
         row.innerHTML = `
             <td>${item.title}</td>
             <td>${item.quantity}</td>
-            <td>$${item.price}</td>
+            <td>$${item.price.toFixed(2)}</td>
             <td>$${subtotal.toFixed(2)}</td>
             <td class="action-buttons">
                 <button class="increment-btn" onclick="changeQuantity(${index}, 1)">+</button>
@@ -80,4 +78,4 @@ document.getElementById('proceed-to-payment').addEventListener('click', function
     console.log('Proceeding to payment');
 });
 
-fetchMovieDetails();
+loadCartItems();
