@@ -22,7 +22,13 @@ public class ConfirmationServlet extends BaseServlet
     private static final long serialVersionUID = 1L;
     private String insertQuery =
             "INSERT INTO sales (customerId, movieId, saleDate) VALUES (?, ?, ?)";
-    private String idQuery = "SELECT id FROM sales WHERE movieId = ?";
+    private String idQuery =
+            "SELECT s.id, m.title, r.rating " +
+            "FROM sales s " +
+            "JOIN movies m ON s.movieId = m.id " +
+            "JOIN ratings r ON m.id = r.movieId " +
+            "WHERE s.movieId = ?;"
+            ;
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -47,9 +53,14 @@ public class ConfirmationServlet extends BaseServlet
             if (!rsId.next()) return;
 
             String id = rsId.getString("id");
+            String title = rsId.getString("title");
+            int rating = rsId.getInt("rating");
             JsonObject jsonObject = new JsonObject();
+            jsonObject.addProperty("saleId", id);
+            jsonObject.addProperty("title", title);
+            jsonObject.addProperty("rating", rating);
             jsonObject.addProperty("customerId", customerId);
-            jsonObject.addProperty("id", id);
+
             out.write(jsonObject.toString());
 
         }
