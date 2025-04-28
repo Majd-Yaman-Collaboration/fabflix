@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Checkout</title>
+    <link rel="stylesheet" href="/styles/navbar.css">
+    <link rel="stylesheet" href="/styles/checkout.css">
+</head>
+
+<body class="checkout">
+    <div id="navbar"></div>
+    <div class="checkout-container">
+        <h1>Payment Information</h1>
+        <div class="total-section">
+            <h2>Total Amount: $<span id="cart-total">0.00</span></h2>
+        </div>
+        <form id="payment-form" class="payment-form">
+            <div class="form-group">
+                <label for="firstName">First Name</label>
+                <input type="text" id="firstName" name="firstName" required>
+            </div>
+            <div class="form-group">
+                <label for="lastName">Last Name</label>
+                <input type="text" id="lastName" name="lastName" required>
+            </div>
+            <div class="form-group">
+                <label for="cardNumber">Card Number</label>
+                <input type="text" id="cardNumber" name="cardNumber" maxlength="16" required>
+            </div>
+            <div class="form-group">
+                <label for="expirationDate">Expiration Date</label>
+                <input type="date" id="expirationDate" name="expirationDate" required>
+            </div>
+            <button type="submit" id="place-order" class="place-order-btn">Place Order</button>
+        </form>
+    </div>
+    <script src="/scripts/navbar.js"></script>
+    <script src="/scripts/checkout.js"></script>
+</body>
+</html>

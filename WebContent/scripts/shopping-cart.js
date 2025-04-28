@@ -75,7 +75,8 @@ function removeItem(index) {
 }
 
 document.getElementById('proceed-to-payment').addEventListener('click', function() {
-    console.log('Proceeding to payment');
+    const total = document.getElementById('total-amount').textContent;
+    window.location.href = `checkout.html?total=${total}`;
 });
 
 loadCartItems();
