@@ -5,3 +5,5 @@
 # CS 122B Project 2
 
 ### Pattern matching used: %ABC%
+
+### js was 80% majd. java was 80% me. html was 50 50. css was 90% majd. 
