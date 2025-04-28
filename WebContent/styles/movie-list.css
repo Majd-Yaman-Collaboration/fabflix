@@ -62,6 +62,12 @@ body.movie-list {
     color: darkblue;
 }
 
+.add-to-cart {
+    background-color: darkblue;
+    color: white;
+    font-weight: bold;
+}
+
 
 .selectors{
     display: flex;

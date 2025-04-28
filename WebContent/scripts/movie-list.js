@@ -92,6 +92,7 @@ function handleMovieResults(data) {
             <td>${movie.genres.map(g => `<a href="movie-list.html?filter=genre&value=${g}&page=1&limit=25" class="details">${g}</a>`).join(", ")}</td>
             <td>${movie.stars.map(s => `<a href="single-star.html?id=${s.id}" class="details">${s.name}</a>`).join(", ")}</td>
             <td>${movie.rating}</td>
+            <td><button onClick="console.log(${movie.id})" class="add-to-cart">Add</button></td>
         `;
         tbody[0].appendChild(row);
     });
