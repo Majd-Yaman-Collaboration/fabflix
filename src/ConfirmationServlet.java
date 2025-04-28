@@ -47,6 +47,7 @@ public class ConfirmationServlet extends BaseServlet
 
             String id = rsId.getString("id");
             JsonObject jsonObject = new JsonObject();
+            jsonObject.addProperty("customerId", customerId);
             jsonObject.addProperty("id", id);
             out.write(jsonObject.toString());
 
