@@ -10,6 +10,7 @@ import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 
 //RECIEVES: customerId, movieId, saleDate
 //SENDS: sale id
@@ -21,13 +22,13 @@ public class ConfirmationServlet extends BaseServlet
 {
     private static final long serialVersionUID = 1L;
     private String insertQuery =
-            "INSERT INTO sales (customerId, movieId, saleDate) VALUES (?, ?, ?)";
-    private String idQuery =
-            "SELECT s.id, m.title, r.rating " +
+            "INSERT INTO sales (customerId, movieId, saleDate, quantity) VALUES (?, ?, ?, ?)";
+    private String retQuery =
+            "SELECT m.title, r.rating " +
             "FROM sales s " +
             "JOIN movies m ON s.movieId = m.id " +
             "JOIN ratings r ON m.id = r.movieId " +
-            "WHERE s.movieId = ?;"
+            "WHERE s.id = ?;"
             ;
 
     @Override
@@ -36,30 +37,42 @@ public class ConfirmationServlet extends BaseServlet
         int customerId = Integer.parseInt(request.getSession().getAttribute("id").toString());
         String movieId = request.getParameter("movieId");
         String saleDate = request.getParameter("saleDate");
+        int quantity = Integer.parseInt(request.getParameter("quantity"));
 
         try (Connection conn = dataSource.getConnection(); PrintWriter out = response.getWriter())
         {
-            PreparedStatement ps = conn.prepareStatement(insertQuery);
+            //Statement.RETURN_GENERATED_KEYS <- gives access to generated stuff like AUTO_INCREMENT
+            PreparedStatement ps = conn.prepareStatement(insertQuery,Statement.RETURN_GENERATED_KEYS);
             int q = 1;
             ps.setInt(q++, customerId);
             ps.setString(q++, movieId);
-            ps.setString(q, saleDate);
+            ps.setString(q++, saleDate);
+            ps.setInt(q, quantity);
             ps.executeUpdate();
 
-            PreparedStatement psId = conn.prepareStatement(idQuery);
-            psId.setString(1, movieId);
+            //gets the AUTO_INTEGER generated id from the sales update.
+            ResultSet generatedRs = ps.getGeneratedKeys();
+            if (!generatedRs.next()) return;
+            int saleId = generatedRs.getInt(1);
+
+
+            //------
+            PreparedStatement psId = conn.prepareStatement(retQuery);
+            psId.setInt(1, saleId);
             ResultSet rsId = psId.executeQuery();
 
             if (!rsId.next()) return;
 
-            String id = rsId.getString("id");
+
             String title = rsId.getString("title");
             int rating = rsId.getInt("rating");
+
             JsonObject jsonObject = new JsonObject();
-            jsonObject.addProperty("saleId", id);
+
+            jsonObject.addProperty("saleId", saleId);
             jsonObject.addProperty("title", title);
+            //he already has quantity/
             jsonObject.addProperty("rating", rating);
-            jsonObject.addProperty("customerId", customerId);
 
             out.write(jsonObject.toString());
 

@@ -2,6 +2,7 @@ document.addEventListener('DOMContentLoaded', function() {
     fetchCartAndConfirm();
 });
 
+//step 1: good
 function fetchCartAndConfirm() {
     jQuery.ajax({
         method: "POST",
@@ -14,6 +15,7 @@ function fetchCartAndConfirm() {
     });
 }
 
+//step 2:
 function processCart(cart) {
     const movieIds = Object.keys(cart);
     let totalAmount = 0.00;
@@ -27,7 +29,8 @@ function processCart(cart) {
             dataType: "json",
             data: {
                 movieId: movieId,
-                saleDate: new Date().toISOString().split('T')[0]
+                saleDate: new Date().toISOString().split('T')[0],
+                quantity:quantity
             },
             success: function(data) {
                 if (data.saleId) {
