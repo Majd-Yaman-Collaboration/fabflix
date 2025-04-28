@@ -26,6 +26,7 @@ public class ConfirmationServlet extends BaseServlet
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        response.setContentType("application/json");
         int customerId = Integer.parseInt(request.getSession().getAttribute("id").toString());
         String movieId = request.getParameter("movieId");
         String saleDate = request.getParameter("saleDate");
@@ -37,7 +38,7 @@ public class ConfirmationServlet extends BaseServlet
             ps.setInt(q++, customerId);
             ps.setString(q++, movieId);
             ps.setString(q, saleDate);
-            ResultSet rs = ps.executeQuery();
+            ps.executeUpdate();
 
             PreparedStatement psId = conn.prepareStatement(idQuery);
             psId.setString(1, movieId);
