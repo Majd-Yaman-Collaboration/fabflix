@@ -35,6 +35,12 @@ public class ShoppingCartServlet extends BaseServlet
         response.setContentType("application/json");
 
         HttpSession session = request.getSession();
+        boolean reset = Boolean.parseBoolean(request.getParameter("reset"));
+        if (reset)
+        {
+            session.setAttribute("movieIds", new TreeMap<String,Integer>());
+            return;
+        }
 
         if (session.getAttribute("movieIds") == null)
         {

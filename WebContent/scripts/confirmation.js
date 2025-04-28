@@ -42,6 +42,15 @@ function processCart(cart) {
             }
         });
     });
+    $.ajax({
+        method: "POST",
+        url: "api/shopping-cart",
+        dataType: "json",
+        data: {
+            reset:true
+        }
+    });
+
 }
 
 function addRowToConfirmationTable(data, movieId, quantity) {
