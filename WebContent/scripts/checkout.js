@@ -1,4 +1,4 @@
-const form = document.getElementById("form");
+const form = document.getElementById("payment-form");
 const element = form.elements;
 const errorDisplay = document.getElementById("error");
 
