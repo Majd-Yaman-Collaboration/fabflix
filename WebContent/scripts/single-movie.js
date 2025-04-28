@@ -27,7 +27,7 @@ fetch(`api/single-movie?id=${movieId}`)
         document.body.innerHTML += `<p>Loading Error: ${error}</p>`;
     });
 
-function sendMovieIdToCart(movieId,rating)
+function sendMovieIdToCart(movieId)
 {
     alert("Added to cart")
 

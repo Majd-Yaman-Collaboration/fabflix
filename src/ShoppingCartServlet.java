@@ -67,7 +67,8 @@ public class ShoppingCartServlet extends BaseServlet
         }
         else if (cartItems != null)
         {
-//            [{"movieId":"tt0315354","quantity":3},{"movieId":"tt0349955","quantity":4},{"movieId":"tt0420975","quantity":4}]
+            //sample input
+            //[{"movieId":"tt0315354","quantity":3},{"movieId":"tt0349955","quantity":4},{"movieId":"tt0420975","quantity":4}]
 
             String cartItemsJson = request.getParameter("cartItems");
             Gson gson = new Gson();
@@ -88,10 +89,9 @@ public class ShoppingCartServlet extends BaseServlet
 
 
 
-        //if movieIds not defined yet -> define it
-
+       //else just add 1 to the id.
         add1OrInitialize1(id);
-        //add count after first
+
 
 
     }

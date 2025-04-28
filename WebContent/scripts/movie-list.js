@@ -92,14 +92,16 @@ function handleMovieResults(data) {
             <td>${movie.genres.map(g => `<a href="movie-list.html?filter=genre&value=${g}&page=1&limit=25" class="details">${g}</a>`).join(", ")}</td>
             <td>${movie.stars.map(s => `<a href="single-star.html?id=${s.id}" class="details">${s.name}</a>`).join(", ")}</td>
             <td>${movie.rating}</td>
-            <td><button onClick="sendMovieIdToCart(${movie.id})" class="add-to-cart">Add</button></td>
+            <td><button onclick="sendMovieIdToCart('${movie.id}')" class="add-to-cart">Add</button></td>
         `;
         tbody[0].appendChild(row);
     });
 }
 
-function sendMovieIdToCart(movieId,rating)
+function sendMovieIdToCart(movieId)
 {
+    alert("Added to cart")
+
     jQuery.ajax({
         method: "POST",
         url: "api/shopping-cart",
@@ -159,3 +161,4 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     loadMovies();
 });
+
