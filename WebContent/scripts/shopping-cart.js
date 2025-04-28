@@ -38,7 +38,7 @@ function updateCart() {
             <td>${item.title}</td>
             <td>${item.quantity}</td>
             <td>$${item.price}</td>
-            <td>$${subtotal}</td>
+            <td>$${subtotal.toFixed(2)}</td>
             <td class="action-buttons">
                 <button class="increment-btn" onclick="changeQuantity(${index}, 1)">+</button>
                 <button class="decrement-btn" onclick="changeQuantity(${index}, -1)">-</button>
@@ -48,7 +48,7 @@ function updateCart() {
         tbody.appendChild(row);
     });
 
-    document.getElementById('total-amount').textContent = total;
+    document.getElementById('total-amount').textContent = total.toFixed(2);
 }
 
 function changeQuantity(index, amt) {
