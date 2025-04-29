@@ -28,7 +28,7 @@
     </dependencies>
 
     <build>
-        <finalName>Project 2</finalName>
+        <finalName>project2</finalName>
         <sourceDirectory>src</sourceDirectory>
         <plugins>
             <plugin>

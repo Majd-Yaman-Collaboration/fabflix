@@ -3,38 +3,38 @@
 <head>
   <meta charset="UTF-8">
   <title>Navbar</title>
-  <link rel="stylesheet" href="../styles/navbar.css">
+  <link rel="stylesheet" href="/styles/navbar.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 
 <body>
-  <nav class="navbar">
-    <a href="/main-page.html">
-      <img src="/images/FabflixLogo.png" alt="Fabflix Logo" class="logo">
-    </a>
-    <div class="nav-links">
-      <a href="/main-page.html" class="nav-link">Home</a>
-      <a href="/movie-list.html" class="nav-link">Movie List</a>
-      <a href="/shopping-cart.html" class="nav-link">Checkout</a>
+<nav class="navbar">
+  <a href="/main-page.html">
+    <img src="/images/FabflixLogo.png" alt="Fabflix Logo" class="logo">
+  </a>
+  <div class="nav-links">
+    <a href="/main-page.html" class="nav-link">Home</a>
+    <a href="/movie-list.html" class="nav-link">Movie List</a>
+    <a href="/shopping-cart.html" class="nav-link">Checkout</a>
+  </div>
+  <div class="search-bars">
+    <button id="search-toggle" class="btn-search">
+      <i class="fas fa-search"></i>
+    </button>
+    <div id="search-inputs" class="search-inputs hidden">
+      <form id="search-form">
+        <input type="text"   class="search-input" placeholder="Title"    id="title">
+        <input type="text"   class="search-input" placeholder="Year"     id="year">
+        <input type="text"   class="search-input" placeholder="Director" id="director">
+        <input type="text"   class="search-input" placeholder="Star"     id="star">
+        <input type="submit" class="btn-submit" id="search-submit" value="Submit">
+      </form>
     </div>
-    <div class="search-bars">
-      <button id="search-toggle" class="btn-search">
-        <i class="fas fa-search"></i>
-      </button>
-      <div id="search-inputs" class="search-inputs hidden">
-        <form id="search-form">
-          <input type="text"   class="search-input" placeholder="Title"    id="title">
-          <input type="text"   class="search-input" placeholder="Year"     id="year">
-          <input type="text"   class="search-input" placeholder="Director" id="director">
-          <input type="text"   class="search-input" placeholder="Star"     id="star">
-          <input type="submit" class="btn-submit" id="search-submit" value="Submit">
-        </form>
-      </div>
-    </div>
-  </nav>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-  <script src="./scripts/navbar.js"></script>
+  </div>
+</nav>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="/scripts/navbar.js"></script>
 </body>
 </html>
