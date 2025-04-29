@@ -64,7 +64,7 @@ public class LoginFilter implements Filter {
         }
         else
         {
-            httpResponse.sendRedirect(httpRequest.getContextPath() + "login.html"); // redirect to login
+            httpResponse.sendRedirect(httpRequest.getContextPath() + "/login.html"); // redirect to login
         }
     }
 
