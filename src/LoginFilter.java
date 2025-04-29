@@ -21,8 +21,7 @@ public class LoginFilter implements Filter {
         allowedURIs.add("login.js");
         allowedURIs.add("login.css");
         allowedURIs.add("api/login");
-        allowedURIs.add("FabflixLogo.png");
-        allowedURIs.add("NavyFabflixLogo.png");
+        allowedURIs.add(".png");
     }
 
     private boolean isUrlAllowedWithoutLogin(String requestURI) {
