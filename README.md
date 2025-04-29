@@ -7,3 +7,5 @@
 ### Pattern matching used: %ABC%
 
 ### js was 80% majd. java was 80% me. html was 50 50. css was 90% majd. 
+### Project 2 Demo Video Link:
+### https://www.dropbox.com/scl/fi/zbxnjcgvfrpkhi7k6zy9d/CS122b-Project-2-Video-Demo.mp4?rlkey=maqqpotgqqsor76wwoylgpt7u&st=4fuskze2&dl=0
