@@ -25,7 +25,7 @@ function handleSearchSubmit(e) {
     const search_director = document.getElementById("director").value;
     const search_star     = document.getElementById("star").value;
     window.location.replace(
-        `/movie-list.html?
+        `movie-list.html?
 title=${search_title}&
 year=${search_year}&
 director=${search_director}&

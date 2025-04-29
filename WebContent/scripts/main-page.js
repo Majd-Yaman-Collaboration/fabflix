@@ -14,7 +14,7 @@ columnSizes.forEach(size => {
     for (let i = 0; i < size; i++) {
         const genre = genres[currentIndex++];
         const link = document.createElement("a");
-        link.href = `/movie-list.html?filter=genre&value=${encodeURIComponent(genre)}`;
+        link.href = `movie-list.html?filter=genre&value=${encodeURIComponent(genre)}`;
         link.className = "genre";
         link.textContent = genre;
         colDiv.appendChild(link);
@@ -29,7 +29,7 @@ const numberRow = document.getElementById("number-row");
 
 letters.forEach(char => {
     const link = document.createElement("a");
-    link.href = `/movie-list.html?filter=title&value=${encodeURIComponent(char)}`;
+    link.href = `movie-list.html?filter=title&value=${encodeURIComponent(char)}`;
     link.className = "title-char";
     link.textContent = char;
     letterRow.appendChild(link);
@@ -37,7 +37,7 @@ letters.forEach(char => {
 
 numbers.forEach(char => {
     const link = document.createElement("a");
-    link.href = `/movie-list.html?filter=title&value=${encodeURIComponent(char)}`;
+    link.href = `movie-list.html?filter=title&value=${encodeURIComponent(char)}`;
     link.className = "title-char";
     link.textContent = char;
     numberRow.appendChild(link);
