@@ -3,12 +3,14 @@ let currentLimit = 25;
 let currentSort = 6;
 let totalPages = 1;
 
+
 function updateURL() {
     const urlParams = new URLSearchParams(window.location.search);
     urlParams.set('page', currentPage);
     urlParams.set('limit', currentLimit);
     urlParams.set('sort', currentSort);
     const newURL = window.location.pathname + '?' + urlParams.toString();
+    sessionStorage.setItem("lastMovieListUrl", newURL);
     // update url with new queries
     window.history.pushState({}, '', newURL);
 }
@@ -49,6 +51,7 @@ function loadMovies() {
         dataType: "json",
         success: handleMovieResults,
     });
+
 }
 
 
@@ -159,6 +162,7 @@ document.addEventListener('DOMContentLoaded', function() {
             window.scrollTo(0,0);
         }
     });
+
     loadMovies();
 });
 
