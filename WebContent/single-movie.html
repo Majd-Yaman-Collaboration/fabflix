@@ -11,7 +11,7 @@
 <div id="movie-detail"></div>
 <script src="components/back-to-movie-list.js"></script>
 <div class="button-container">
-  <button type="button" class="back-link" onclick="goBackToSavedMovieList()"><a>Back To Movie List</a></button>
+  <button type="button" class="back-link" onclick="window.location.href = sessionStorage.getItem('lastMovieListUrl')"><a>Back To Movie List</a></button>
   <button type="button" class="add-to-cart" id="add-to-cart-btn">Add To Cart</button>
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
