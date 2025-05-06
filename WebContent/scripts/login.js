@@ -23,7 +23,8 @@ form.addEventListener("submit", function(event) {
         url: "api/login",
         data: {
             email: email,
-            password: password
+            password: password,
+            "g-recaptcha-response": grecaptcha.getResponse()
         },
         success: handle_results //takes the result of this as args
     });

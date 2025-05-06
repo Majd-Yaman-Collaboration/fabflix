@@ -14,8 +14,6 @@ import org.jasypt.util.password.StrongPasswordEncryptor;
 @WebServlet(name = "LoginServlet", urlPatterns = "/api/login")
 public class LoginServlet extends BaseServlet{
     private static final long serialVersionUID = 1L;
-    private final String query = "SELECT c.id FROM customers c WHERE c.email = ? AND c.password = ?";
-
 
     private void handle_error(String type, HttpServletResponse response)
     {
@@ -38,6 +36,16 @@ public class LoginServlet extends BaseServlet{
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     {
+        String gRecaptchaResponse = request.getParameter("g-recaptcha-response");
+
+        // Verify reCAPTCHA
+        try {
+            RecaptchaVerifyUtils.verify(gRecaptchaResponse);
+        } catch (Exception e) {
+            System.out.println("Recaptcha verification failed: " + e.getMessage());
+            return;
+        }
+
         response.setContentType("application/json");
         String email = request.getParameter("email");
         String password = request.getParameter("password");
@@ -58,11 +66,11 @@ public class LoginServlet extends BaseServlet{
         //check correctness of email and password sent
         try (PrintWriter out = response.getWriter(); Connection conn = dataSource.getConnection())
         {
+            String query = String.format("SELECT * from customers where email='%s'", email);
             PreparedStatement ps = conn.prepareStatement(query);
             ps.setString(1, email);
             ps.setString(2, password);
             ResultSet rs= ps.executeQuery();
-            String query = String.format("SELECT * from customers where email='%s'", email);
 
             boolean success = false;
             if (rs.next()) {
@@ -71,6 +79,7 @@ public class LoginServlet extends BaseServlet{
 
                 // use the same encryptor to compare the user input password with encrypted password stored in DB
                 success = new StrongPasswordEncryptor().checkPassword(password, encryptedPassword);
+                return success;
             }
             else //user not found -> login info was wrong
             {
@@ -82,7 +91,6 @@ public class LoginServlet extends BaseServlet{
             rs.close();
             conn.close();
             ps.close();
-            System.out.println("verify " + email + " - " + password);
 
         }
         catch (Exception e)
