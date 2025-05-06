@@ -43,6 +43,16 @@ public class LoginServlet extends BaseServlet{
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     {
+        String gRecaptchaResponse = request.getParameter("g-recaptcha-response");
+
+        // Verify reCAPTCHA
+        try {
+            RecaptchaVerifyUtils.verify(gRecaptchaResponse);
+        } catch (Exception e) {
+            System.out.println("Recaptcha verification failed: " + e.getMessage());
+            return;
+        }
+
         response.setContentType("application/json");
         String email = request.getParameter("email");
         String password = request.getParameter("password");
@@ -74,7 +84,6 @@ public class LoginServlet extends BaseServlet{
                 successObject.addProperty("status", "success");
                 out.write(successObject.toString());
                 request.getSession(true).setAttribute("id", rs.getInt("id"));
-                System.out.println(rs.getInt("id"));
             }
             else //user not found -> login info was wrong
             {
@@ -83,10 +92,6 @@ public class LoginServlet extends BaseServlet{
                 out.write(errorObject.toString());
 
             }
-            rs.close();
-            conn.close();
-            ps.close();
-
         }
         catch (Exception e)
         {
