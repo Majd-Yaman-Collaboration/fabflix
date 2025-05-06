@@ -34,15 +34,21 @@ public class LoginServlet extends BaseServlet{
 
     }
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-    {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) {
         String gRecaptchaResponse = request.getParameter("g-recaptcha-response");
-
-        // Verify reCAPTCHA
-        try {
+        try
+        {
             RecaptchaVerifyUtils.verify(gRecaptchaResponse);
-        } catch (Exception e) {
-            System.out.println("Recaptcha verification failed: " + e.getMessage());
+        } catch (Exception e)
+        {
+            response.setContentType("application/json");
+            try (PrintWriter out = response.getWriter()) {
+                JsonObject errorObject = new JsonObject();
+                errorObject.addProperty("error", "Please complete the reCAPTCHA");
+                out.write(errorObject.toString());
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
             return;
         }
 
@@ -50,56 +56,41 @@ public class LoginServlet extends BaseServlet{
         String email = request.getParameter("email");
         String password = request.getParameter("password");
 
-        //Check email
-        if (!email.contains("@") || !email.contains("."))
-        {
-            handle_error("email",response);
+        if (!email.contains("@") || !email.contains(".")) {
+            handle_error("email", response);
             return;
-        }
-        //Check password
-        else if (password.isEmpty())
-        {
-            handle_error("password",response);
+        } else if (password.isEmpty()) {
+            handle_error("password", response);
             return;
         }
 
-        //check correctness of email and password sent
-        try (PrintWriter out = response.getWriter(); Connection conn = dataSource.getConnection())
-        {
-            String query = String.format("SELECT * from customers where email='%s'", email);
+        try (PrintWriter out = response.getWriter(); Connection conn = dataSource.getConnection()) {
+            String query = "SELECT id, password FROM customers WHERE email = ?";
             PreparedStatement ps = conn.prepareStatement(query);
             ps.setString(1, email);
-            ps.setString(2, password);
-            ResultSet rs= ps.executeQuery();
+            ResultSet rs = ps.executeQuery();
 
-            boolean success = false;
             if (rs.next()) {
-                // get the encrypted password from the database
                 String encryptedPassword = rs.getString("password");
+                int userId = rs.getInt("id");
 
-                // use the same encryptor to compare the user input password with encrypted password stored in DB
-                success = new StrongPasswordEncryptor().checkPassword(password, encryptedPassword);
-                return success;
+                if (new StrongPasswordEncryptor().checkPassword(password, encryptedPassword)) {
+                    JsonObject successObject = new JsonObject();
+                    successObject.addProperty("status", "success");
+                    out.write(successObject.toString());
+                    request.getSession(true).setAttribute("id", userId);
+                } else {
+                    handle_error("password", response);
+                }
+            } else {
+                handle_error("email", response);
             }
-            else //user not found -> login info was wrong
-            {
-                JsonObject errorObject = new JsonObject();
-                errorObject.addProperty("error", "Email or password is incorrect");
-                out.write(errorObject.toString());
 
-            }
             rs.close();
-            conn.close();
             ps.close();
-
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
             response.setStatus(500);
         }
     }
-
-
-
 }

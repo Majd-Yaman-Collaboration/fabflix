@@ -46,6 +46,7 @@ function handle_errors(data)
 
     if (!data.error) {return false;} //no error
     jQuery("#error").text("Login error: " + data.error);
+    grecaptcha.reset();
     return true;
 }
 
