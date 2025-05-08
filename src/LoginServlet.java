@@ -12,31 +12,14 @@ import java.sql.ResultSet;
 import org.jasypt.util.password.StrongPasswordEncryptor;
 
 @WebServlet(name = "LoginServlet", urlPatterns = "/api/login")
-public class LoginServlet extends BaseServlet implements RecaptchaLoginInterface{
+public class LoginServlet extends BaseServlet implements LoginInterface {
     private static final long serialVersionUID = 1L;
 
-    private void handle_error(String type, HttpServletResponse response)
-    {
-        try (PrintWriter out = response.getWriter())
-        {
-            JsonObject errorObject = new JsonObject();
-            if (type.compareTo("email") == 0)
-                errorObject.addProperty("error", "Invalid email");
-            else if (type.compareTo("password") == 0)
-                errorObject.addProperty("error", "Invalid password");
 
-            out.write(errorObject.toString());
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-        }
-
-    }
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) {
         String gRecaptchaResponse = request.getParameter("g-recaptcha-response");
-        response = implementRecaptcha(gRecaptchaResponse, response);
+        implementRecaptcha(gRecaptchaResponse, response);
 
         response.setContentType("application/json");
         String email = request.getParameter("email");
