@@ -5,7 +5,7 @@ form.addEventListener("submit", function(event) {
     //start
     event.preventDefault(); // Prevent the form from submitting normally
 
-    jQuery("#error").text(""); //reset the button if they press it again
+    jQuery("#dashboard-login-error").text(""); //reset the button if they press it again
     //to show that it's reprocessing and not just staying on
     //"wrong email", but rather the website changes a teeny bit to say the same thing
     // (if they're still wrong)
@@ -42,7 +42,7 @@ function handle_errors(data)
 {
 
     if (!data.error) {return false;} //no error
-    jQuery("#error").text("Login error: " + data.error);
+    jQuery("#dashboard-login-error").text("Login error: " + data.error);
     grecaptcha.reset();
     return true;
 }

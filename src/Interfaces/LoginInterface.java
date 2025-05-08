@@ -44,13 +44,13 @@ public interface LoginInterface
 
             if (rs.next()) {
                 String encryptedPassword = rs.getString("password");
-                int userId = rs.getInt("id");
+
 
                 if (new StrongPasswordEncryptor().checkPassword(password, encryptedPassword)) {
                     JsonObject successObject = new JsonObject();
                     successObject.addProperty("status", "success");
                     out.write(successObject.toString());
-                    request.getSession(true).setAttribute("id", userId);
+                    request.getSession(true).setAttribute("id", "exists");
                 } else {
                     handle_error("password", response);
                 }
