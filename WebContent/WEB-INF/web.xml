@@ -19,7 +19,7 @@
 
     <servlet>
         <servlet-name>DashboardServlet</servlet-name>
-        <servlet-class>DashboardServlet</servlet-class>
+        <servlet-class>Dashboard.DashboardServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>DashboardServlet</servlet-name>

@@ -1,10 +1,21 @@
 import com.google.gson.JsonObject;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.jasypt.util.password.StrongPasswordEncryptor;
 
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
 import java.io.PrintWriter;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 public interface LoginInterface
 {
+
+
+
     default void implementRecaptcha(String gRecaptchaResponse, HttpServletResponse response)
     {
         try
@@ -21,6 +32,44 @@ public interface LoginInterface
                 ex.printStackTrace();
             }
         }
+    }
+
+    default void handle_login_verification_through_database(String email, String password, HttpServletRequest request,HttpServletResponse response, DataSource dataSource, String query)
+    {
+        try (PrintWriter out = response.getWriter(); Connection conn = dataSource.getConnection()) {
+            PreparedStatement ps = conn.prepareStatement(query);
+            ps.setString(1, email);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                String encryptedPassword = rs.getString("password");
+                int userId = rs.getInt("id");
+
+                if (new StrongPasswordEncryptor().checkPassword(password, encryptedPassword)) {
+                    JsonObject successObject = new JsonObject();
+                    successObject.addProperty("status", "success");
+                    out.write(successObject.toString());
+                    request.getSession(true).setAttribute("id", userId);
+                } else {
+                    handle_error("password", response);
+                }
+            } else {
+                handle_error("email", response);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            response.setStatus(500);
+        }
+    }
+
+    default void handle_email_and_password_errors(String email, String password, HttpServletResponse response)
+    {
+        if (!email.contains("@") || !email.contains("."))
+            handle_error("email", response);
+
+         else if (password.isEmpty())
+            handle_error("password", response);
+
     }
 
     default void handle_error(String type, HttpServletResponse response)

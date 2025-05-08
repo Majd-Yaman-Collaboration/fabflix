@@ -19,7 +19,7 @@ import java.sql.ResultSet;
 
 
 public class BaseServlet extends HttpServlet {
-    protected DataSource dataSource;;
+    protected DataSource dataSource;
 
     @Override
     public void init() {

@@ -18,6 +18,7 @@ public class LoginServlet extends BaseServlet implements LoginInterface {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) {
+
         String gRecaptchaResponse = request.getParameter("g-recaptcha-response");
         implementRecaptcha(gRecaptchaResponse, response);
 
@@ -25,41 +26,9 @@ public class LoginServlet extends BaseServlet implements LoginInterface {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
 
-        if (!email.contains("@") || !email.contains(".")) {
-            handle_error("email", response);
-            return;
-        } else if (password.isEmpty()) {
-            handle_error("password", response);
-            return;
-        }
+        handle_email_and_password_errors(email, password, response);
 
-        try (PrintWriter out = response.getWriter(); Connection conn = dataSource.getConnection()) {
-            String query = "SELECT id, password FROM customers WHERE email = ?";
-            PreparedStatement ps = conn.prepareStatement(query);
-            ps.setString(1, email);
-            ResultSet rs = ps.executeQuery();
-
-            if (rs.next()) {
-                String encryptedPassword = rs.getString("password");
-                int userId = rs.getInt("id");
-
-                if (new StrongPasswordEncryptor().checkPassword(password, encryptedPassword)) {
-                    JsonObject successObject = new JsonObject();
-                    successObject.addProperty("status", "success");
-                    out.write(successObject.toString());
-                    request.getSession(true).setAttribute("id", userId);
-                } else {
-                    handle_error("password", response);
-                }
-            } else {
-                handle_error("email", response);
-            }
-
-            rs.close();
-            ps.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-            response.setStatus(500);
-        }
+        String query = "SELECT id, password FROM customers WHERE email = ?";
+        handle_login_verification_through_database(email,password,request,response,dataSource,query);
     }
 }
