@@ -7,7 +7,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import supers.BaseServlet;
 import Interfaces.LoginInterface;
 
-@WebServlet(name = "LoginDashboardServlet", urlPatterns = "/api/login-dashboard")
+@WebServlet(name = "LoginDashboardServlet", urlPatterns = "/_dashboard/api/login-dashboard")
 public class LoginDashboardServlet extends BaseServlet implements LoginInterface {
     private static final long serialVersionUID = 1L;
 
