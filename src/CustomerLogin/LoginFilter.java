@@ -1,3 +1,5 @@
+package CustomerLogin;
+
 import jakarta.servlet.*;
 import jakarta.servlet.annotation.WebFilter;
 import jakarta.servlet.http.HttpServletRequest;
@@ -6,7 +8,6 @@ import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashSet;
 
 /**
  * Servlet Filter implementation class LoginFilter
