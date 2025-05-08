@@ -1,3 +1,4 @@
+import Interfaces.MovieListQueries;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 

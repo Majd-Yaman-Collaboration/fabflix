@@ -1,9 +1,6 @@
 const form = document.getElementById("form");
 const elements = form.elements;
 
-const errorDisplay = document.getElementById("error");
-
-
 form.addEventListener("submit", function(event) {
     //start
     event.preventDefault(); // Prevent the form from submitting normally
