@@ -13,6 +13,7 @@ import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import supers.BaseServlet;
 
 @WebServlet(name = "SingleStarServlet", urlPatterns = "/api/single-star")
 public class SingleStarServlet extends BaseServlet {

@@ -3,6 +3,7 @@ package Dashboard;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import supers.BaseServlet;
 
 @WebServlet(name = "DashboardServet", urlPatterns = "/api/_dashboard")
 public class DashboardServlet extends BaseServlet

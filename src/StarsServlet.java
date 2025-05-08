@@ -15,6 +15,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
+import supers.BaseServlet;
 
 // Declaring a WebServlet called StarsServlet, which maps to url "/api/stars"
 @WebServlet(name = "StarsServlet", urlPatterns = "/api/stars")

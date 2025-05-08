@@ -13,6 +13,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import supers.BaseServlet;
 
 @WebServlet(name = "MovieListServlet", urlPatterns = "/api/movies")
 public class MovieListServlet extends BaseServlet implements MovieListQueries {
