@@ -33,7 +33,7 @@
     </dependencies>
 
     <build>
-        <finalName>project2</finalName>
+        <finalName>project3</finalName>
         <sourceDirectory>src</sourceDirectory>
         <plugins>
             <plugin>
