@@ -32,7 +32,6 @@ public class LoginFilter implements Filter {
          You might also want to allow some CSS files, etc..
          */
         return allowedURIs.stream().anyMatch(requestURI::endsWith);
-
     }
 
     /**
