@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add a Movie</title>
+</head>
+<body>
+<div id="dashboard-navbar"></div>
+<div class="add-movie-container">
+    <h1>Add a Movie</h1>
+    <div class="add-movie-page">
+        <h2>New Movie Details</h2>
+        <form id="add-movie-form" method ="post" class="movie-form">
+            <label for="movie-title">Movie Title</label>
+            <input type="text" id="movie-title" name="movie-title" placeholder="Movie Title" required><br>
+
+            <label for="movie-year">Year</label>
+            <input type="text" id="movie-year" name="movie-year" placeholder="Year" required><br>
+
+            <label for="movie-director">Director</label>
+            <input type="text" id="movie-director" name="movie-director" placeholder="Director" required><br>
+
+
+            <button type="submit" id="place-order" class="place-order-btn">Place Order</button>
+            <h6 id="error"></h6>
+        </form>
+    </div>
+</div>
+<script src="scripts/dashboard-navbar.js" defer></script>
+</body>
+</html>

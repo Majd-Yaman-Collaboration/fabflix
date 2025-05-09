@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add a Star</title>
+    <link rel="stylesheet" href="styles/add-star.css">
+</head>
+
+<body class="add-star-body">
+<div id="dashboard-navbar"></div>
+<div class="add-star-container">
+    <h1>Add a Star</h1>
+    <div class="title-section">
+        <h2>New Star Details</h2>
+    </div>
+    <form id="add-star-form" method="POST" class="star-form">
+        <div class="form-group">
+            <label for="star-name">Star Name</label>
+            <input type="text" id="star-name" name="star-name" required>
+        </div>
+
+        <div class="form-group">
+            <label for="birth-year">Birth Year</label>
+            <input type="text" id="birth-year" name="birth-year">
+        </div>
+
+        <button type="submit" id="add-star" class="add-star-btn">Submit</button>
+        <h6 id="error"></h6>
+    </form>
+</div>
+
+<script src="scripts/dashboard-navbar.js" defer></script>
+</body>
+</html>
