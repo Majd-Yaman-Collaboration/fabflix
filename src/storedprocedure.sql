@@ -1,30 +1,23 @@
 USE moviedb;
 
 DELIMITER $$
-/*
-CREATE PROCEDURE add_movie (IN title, IN releaseYear, IN director, IN star, IN birthYear, IN genre)
-BEGIN
-    INSERT
-END $$
- */
 
-CREATE PROCEDURE add_star (IN starName VARCHAR(100), IN starBirthYear INT)
+CREATE PROCEDURE add_star (IN starName VARCHAR(100), IN starBirthYear INT, OUT newId VARCHAR(10))
 BEGIN
     DECLARE maxId VARCHAR(10);
     DECLARE numOnly INT;
     DECLARE newNum INT;
-    DECLARE newId VARCHAR(10);
 
     SELECT MAX(id) INTO maxId FROM stars;
-    SET numOnly = CAST(SUBSTRING(maxID, 3), AS UNSIGNED);
+    SET numOnly = CAST(SUBSTRING(maxID, 3) AS UNSIGNED);
     SET newNum = numOnly + 1;
-    SET newId = CONCAT('nm', LPAD(newNum, 7, '0');
+    SET newId = CONCAT('nm', LPAD(newNum, 7, '0'));
 
     INSERT INTO stars (id, name, birthYear)
     VALUES (newId, starName, starBirthYear);
-END $$
+END$$
 
-DELIMITER ; 
+DELIMITER ;
 
 /*
 get max id

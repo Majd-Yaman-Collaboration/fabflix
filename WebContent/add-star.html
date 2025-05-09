@@ -16,19 +16,20 @@
     <form id="add-star-form" method="POST" class="star-form">
         <div class="form-group">
             <label for="star-name">Star Name</label>
-            <input type="text" id="star-name" name="star-name" required>
+            <input type="text" id="star-name" name="name" required>
         </div>
 
         <div class="form-group">
             <label for="birth-year">Birth Year</label>
-            <input type="text" id="birth-year" name="birth-year">
+            <input type="text" id="birth-year" name="birthYear">
         </div>
 
         <button type="submit" id="add-star" class="add-star-btn">Submit</button>
-        <h6 id="error"></h6>
+        <h6 id="success"></h6>
     </form>
 </div>
 
+<script src="scripts/add-star.js" defer></script>
 <script src="scripts/dashboard-navbar.js" defer></script>
 </body>
 </html>
