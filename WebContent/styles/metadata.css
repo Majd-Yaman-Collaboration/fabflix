@@ -1,10 +1,16 @@
-body.metadata-dashboard {
+body.metadata {
     background: linear-gradient(midnightblue, black);
     color: white;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     line-height: 1.6;
     background-size: cover;
     background-attachment: fixed;
+    text-align: center;
+}
+
+.metadata-container h1 {
+    text-align: left;
+    font-style: italic;
 }
 
 .metadata-container {
@@ -17,7 +23,8 @@ body.metadata-dashboard {
     width: 100%;
     border-collapse: collapse;
     background: rgba(255, 255, 255, 0.1);
-    margin: 30px 0;
+    margin: 20px 0;
+    table-layout: auto;
 }
 
 .metadata-table th,
@@ -30,14 +37,4 @@ body.metadata-dashboard {
 .metadata-table th {
     background: rgba(255, 255, 255, 0.2);
     font-weight: bold;
-    color: white;
-}
-
-.table-title {
-    font-size: 1.5rem;
-    margin-top: 40px;
-    margin-bottom: 10px;
-    color: white;
-    border-bottom: 2px solid rgba(255, 255, 255, 0.2);
-    padding-bottom: 5px;
 }
