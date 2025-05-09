@@ -34,7 +34,7 @@ function handle_results(data)
     if (handle_errors(data)) {return;} //return true if there is an error
 
     //here-on we have a clean email and password
-    window.location.href = "dashboard.html";
+    window.location.href = "metadata.html";
 
 }
 

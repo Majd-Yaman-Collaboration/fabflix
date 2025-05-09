@@ -55,7 +55,9 @@ public class LoginDashboardFilter implements Filter {
         HttpSession session = httpRequest.getSession(false); // don't create new session
         boolean     loggedIn = (session != null) && (session.getAttribute("employee") != null);
 
-
+        //TODO COMMENT AFTER FINISHING WITH EVERYTHING ELSE
+        loggedIn = true;
+        allowed = true;
 
         if (loggedIn || allowed)
             chain.doFilter(request, response); // allow access
