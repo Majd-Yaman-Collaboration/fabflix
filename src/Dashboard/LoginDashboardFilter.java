@@ -1,4 +1,4 @@
-package CustomerLogin;
+package Dashboard;
 
 import jakarta.servlet.*;
 import jakarta.servlet.annotation.WebFilter;
@@ -12,16 +12,21 @@ import java.util.ArrayList;
 /**
  * Servlet Filter implementation class LoginFilter
  */
-@WebFilter(filterName = "LoginFilter", urlPatterns = "/*")
-public class LoginFilter implements Filter {
+@WebFilter(filterName = "LoginDashboardFilter", urlPatterns = "/_dashboard/*")
+public class LoginDashboardFilter implements Filter {
     private final ArrayList<String> allowedURIs = new ArrayList<>(); //better than an array
 
     public void init(FilterConfig fConfig)
     {
+        allowedURIs.add("dashboard-login.html");
+        allowedURIs.add("dashboard-login.js");
+        allowedURIs.add("login.css");
+        allowedURIs.add("_dashboard/api/login-dashboard");
+
         allowedURIs.add("login.html");
         allowedURIs.add("login.js");
-        allowedURIs.add("login.css");
         allowedURIs.add("api/login");
+
         allowedURIs.add("FabflixLogo.png");
         allowedURIs.add("NavyFabflixLogo.png");
     }
@@ -47,16 +52,16 @@ public class LoginFilter implements Filter {
         String      uri = httpRequest.getRequestURI();
         // Check if this URL is allowed to access without logging in
         boolean     allowed = isUrlAllowedWithoutLogin(uri);
-
         HttpSession session = httpRequest.getSession(false); // don't create new session
-        boolean     loggedIn = (session != null) && (session.getAttribute("customer") != null);
+        boolean     loggedIn = (session != null) && (session.getAttribute("employee") != null);
 
 
 
         if (loggedIn || allowed)
             chain.doFilter(request, response); // allow access
         else
-            httpResponse.sendRedirect(httpRequest.getContextPath() + "/login.html"); // redirect to login
+            httpResponse.sendRedirect("/_dashboard/dashboard-login.html"); // redirect to login
+
     }
 
     public void destroy() {

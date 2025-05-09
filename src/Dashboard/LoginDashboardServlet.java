@@ -25,6 +25,6 @@ public class LoginDashboardServlet extends BaseServlet implements LoginInterface
         handle_email_and_password_errors(email, password, response);
 
         String query = "SELECT password FROM employees WHERE email = ?";
-        handle_login_verification_through_database(email,password,request,response,dataSource,query);
+        handle_login_verification_through_database(email,password,request,response,dataSource,query,"employee");
     }
 }

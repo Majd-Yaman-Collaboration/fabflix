@@ -4,6 +4,7 @@ import ReCAPTCHA.RecaptchaVerifyUtils;
 import com.google.gson.JsonObject;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import org.jasypt.util.password.StrongPasswordEncryptor;
 
 import javax.sql.DataSource;
@@ -35,7 +36,7 @@ public interface LoginInterface
         }
     }
 
-    default void handle_login_verification_through_database(String email, String password, HttpServletRequest request,HttpServletResponse response, DataSource dataSource, String query)
+    default void handle_login_verification_through_database(String email, String password, HttpServletRequest request,HttpServletResponse response, DataSource dataSource, String query, String userType)
     {
         try (PrintWriter out = response.getWriter(); Connection conn = dataSource.getConnection()) {
             PreparedStatement ps = conn.prepareStatement(query);
@@ -46,15 +47,24 @@ public interface LoginInterface
                 String encryptedPassword = rs.getString("password");
 
 
-                if (new StrongPasswordEncryptor().checkPassword(password, encryptedPassword)) {
+                if (new StrongPasswordEncryptor().checkPassword(password, encryptedPassword))
+                {
                     JsonObject successObject = new JsonObject();
                     successObject.addProperty("status", "success");
                     out.write(successObject.toString());
-                    request.getSession(true).setAttribute("id", "exists");
-                } else {
+                    HttpSession session =  request.getSession(true);
+                    if (userType.equals("employee"))
+                        session.setAttribute(userType, true);
+
+
+                    session.setAttribute("customer", true); //need customer ability either way.
+                } else
+                {
                     handle_error("password", response);
                 }
-            } else {
+            }
+            else
+            {
                 handle_error("email", response);
             }
         } catch (Exception e) {
