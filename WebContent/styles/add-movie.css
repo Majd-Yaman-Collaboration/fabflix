@@ -71,11 +71,11 @@ h1 {
     margin-top: 20px;
 }
 
-.add-star-btn:hover {
+.add-movie-btn:hover {
     background-color: darkgreen;
 }
 
-#success {
+#error {
     color: seagreen;
     font-size: 0.9em;
     text-align: center;

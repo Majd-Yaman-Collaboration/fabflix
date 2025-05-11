@@ -66,7 +66,7 @@ BEGIN
 
     SELECT COUNT(*) INTO movieExists
     FROM movies
-    WHERE title = movieTitle AND year = movieyear AND director = movieDirector;
+    WHERE title = movieTitle AND year = movieYear AND director = movieDirector;
 
     IF movieExists > 0 THEN
         SELECT 'Movie already exists.' AS message;
