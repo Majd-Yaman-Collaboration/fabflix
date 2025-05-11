@@ -1,6 +1,6 @@
 const genreContainer = document.getElementById("genres-container");
 
-fetch("/api/main-page")
+fetch("api/main-page")
     .then(response => response.json())
     .then(data => {
         const genres = data.genres;
