@@ -36,9 +36,10 @@ public class mains243 extends DefaultHandler
     {
         mains243 obj = new mains243();
         obj.parseDocument();
-
+        long start = System.currentTimeMillis();
         obj.insert_all_movies();
-
+        long end = System.currentTimeMillis();
+        System.out.println("Time taken: " + (end - start)); //4136, 4352
         Scanner input = new Scanner(System.in);
         input.nextLine(); //pause the program for a moment
 
@@ -51,7 +52,7 @@ public class mains243 extends DefaultHandler
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             return DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/moviedb",
+                    "jdbc:mysql://localhost:3306/moviedb?rewriteBatchedStatements=true", //REWRITEBATCHED MAKES IT SO MUCH FASTER
                     "root",
                     "temporary123"
             );
