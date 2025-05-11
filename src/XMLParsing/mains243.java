@@ -22,8 +22,6 @@ public class mains243 extends DefaultHandler
     ArrayList<String> cats = new ArrayList<String>();
     String element_content;
     String current_director;
-    String directorId;
-    int film_number = 0;
     private Movie current_movie;
 
 
@@ -31,7 +29,12 @@ public class mains243 extends DefaultHandler
     {
         mains243 obj = new mains243();
         obj.parseDocument();
-        obj.movieList.stream().limit(5).forEach(System.out::println);
+        obj.movieList.stream().skip(100).limit(20).forEach(System.out::println);
+        System.out.println(obj.movieList.size());
+        System.out.println(obj.movieList.stream().filter(Movie::valid).count());
+        obj.movieList.stream().filter(movie -> {
+            return !movie.valid();
+        }).forEach(System.out::println);
 
 
     }
@@ -42,9 +45,14 @@ public class mains243 extends DefaultHandler
         SAXParserFactory spf = SAXParserFactory.newInstance();
         try {
             //get a new instance of parser
+            FileInputStream fis = new FileInputStream("mains243.xml");
+            InputStreamReader isr = new InputStreamReader(fis, "ISO-8859-1");
+            InputSource is = new InputSource(isr);
+            is.setEncoding("ISO-8859-1");
             SAXParser sp = spf.newSAXParser();
+
             //parse the file and also register this class for call backs
-            sp.parse("mains243.xml", this);
+            sp.parse(is, this);
 
         } catch (SAXException se) {
             se.printStackTrace();
@@ -62,10 +70,6 @@ public class mains243 extends DefaultHandler
         {
             current_movie = new Movie();
         }
-        if (qName.equalsIgnoreCase("dirname"))
-        {
-
-        }
 
 
     }
@@ -78,15 +82,16 @@ public class mains243 extends DefaultHandler
     @Override
     public void endElement(String uri, String localName, String qName) throws SAXException
     {
-        if(qName.equalsIgnoreCase("dirid")) //director Id
+
+        if (qName.equalsIgnoreCase("t")) //title
         {
-            directorId = element_content;
-        }
-        else if (qName.equalsIgnoreCase("t")) //title
-        {
-            current_movie.id = directorId + ++film_number;
+
             current_movie.title = element_content;
             current_movie.director = current_director;
+        }
+        else if (qName.equalsIgnoreCase("fid") || qName.equalsIgnoreCase("filmed"))
+        {
+            current_movie.id = element_content;
         }
         else if (qName.equalsIgnoreCase("year"))
         {

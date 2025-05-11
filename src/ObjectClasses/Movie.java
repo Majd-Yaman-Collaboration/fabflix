@@ -4,16 +4,20 @@ import java.util.ArrayList;
 
 public class Movie
 {
-    public  String id;
+    public  String id = "";
 
-    public  String title;
+    public  String title = "";
 
-    public  String year;
+    public  String year = "";
 
-    public  String director;
+    public  String director = "";
 
     public ArrayList<String> genres;
 
+    public boolean valid()
+    {
+        return !(id.isEmpty() || title.isEmpty() || year.isEmpty() || director.isEmpty());
+    }
 
     public Movie()
     {}
