@@ -75,7 +75,7 @@ h1 {
     background-color: darkgreen;
 }
 
-#success {
+#error {
     color: seagreen;
     font-size: 0.9em;
     text-align: center;
