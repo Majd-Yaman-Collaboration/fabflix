@@ -1,29 +1,37 @@
-const genres = [
-    "Action", "Adult", "Adventure", "Animation", "Biography", "Comedy",
-    "Crime", "Documentary", "Drama", "Family", "Fantasy", "History",
-    "Horror", "Music", "Musical", "Mystery", "Reality-TV", "Romance",
-    "Sci-Fi", "Sport", "Thriller", "War", "Western"
-];
-
 const genreContainer = document.getElementById("genres-container");
-const columnSizes = [6, 6, 6, 5];
-let currentIndex = 0;
-columnSizes.forEach(size => {
-    const colDiv = document.createElement("div");
-    colDiv.className = "genre-column";
-    for (let i = 0; i < size; i++) {
-        const genre = genres[currentIndex++];
-        const link = document.createElement("a");
-        link.href = `movie-list.html?filter=genre&value=${encodeURIComponent(genre)}`;
-        link.className = "genre";
-        link.textContent = genre;
-        colDiv.appendChild(link);
-    }
-    genreContainer.appendChild(colDiv);
-});
 
-const letters = "ABCDEFGHIJKLMANOPQRSTUVWXYZ".split("");
+fetch("/api/main-page")
+    .then(response => response.json())
+    .then(data => {
+        const genres = data.genres;
+        const numColumns = 4;
+        const genresPerColumn = Math.ceil(genres.length / numColumns);
+
+        for (let col = 0; col < numColumns; col++) {
+            const colDiv = document.createElement("div");
+            colDiv.className = "genre-column";
+
+            const start = col * genresPerColumn;
+            const end = start + genresPerColumn;
+
+            genres.slice(start, end).forEach(genre => {
+                const link = document.createElement("a");
+                link.href = `movie-list.html?filter=genre&value=${encodeURIComponent(genre)}`;
+                link.className = "genre";
+                link.textContent = genre;
+                colDiv.appendChild(link);
+            });
+
+            genreContainer.appendChild(colDiv);
+        }
+    })
+    .catch(error => {
+        console.error("Failed to load genres:", error);
+    });
+
+const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
 const numbers = "0123456789*".split("");
+
 const letterRow = document.getElementById("letter-row");
 const numberRow = document.getElementById("number-row");
 
