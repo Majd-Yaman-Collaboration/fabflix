@@ -3,29 +3,54 @@
 <head>
     <meta charset="UTF-8">
     <title>Add a Movie</title>
+    <link rel="stylesheet" href="../styles/add-movie.css">
 </head>
-<body>
+
+<body class="add-movie-body">
 <div id="dashboard-navbar"></div>
 <div class="add-movie-container">
     <h1>Add a Movie</h1>
-    <div class="add-movie-page">
+    <div class="title-section">
         <h2>New Movie Details</h2>
-        <form id="add-movie-form" method ="post" class="movie-form">
-            <label for="movie-title">Movie Title</label>
-            <input type="text" id="movie-title" name="movie-title" placeholder="Movie Title" required><br>
-
-            <label for="movie-year">Year</label>
-            <input type="text" id="movie-year" name="movie-year" placeholder="Year" required><br>
-
-            <label for="movie-director">Director</label>
-            <input type="text" id="movie-director" name="movie-director" placeholder="Director" required><br>
-
-
-            <button type="submit" id="place-order" class="place-order-btn">Place Order</button>
-            <h6 id="error"></h6>
-        </form>
     </div>
+    <form id="add-movie-form" method="POST" class="movie-form">
+        <div class="form-group">
+            <label for="movie-title">Movie Title</label>
+            <input type="text" id="movie-title" name="movieTitle" required>
+        </div>
+
+        <div class="form-group">
+            <label for="movie-year">Year</label>
+            <input type="text" id="movie-year" name="movieYear" required>
+        </div>
+
+        <div class="form-group">
+            <label for="movie-director">Director</label>
+            <input type="text" id="movie-director" name="movieDirector" required>
+        </div>
+
+        <div class="form-group">
+            <label for="star-name">Star Name</label>
+            <input type="text" id="star-name" name="starName" required>
+        </div>
+
+        <div class="form-group">
+            <label for="birth-year">Birth Year</label>
+            <input type="text" id="birth-year" name="birthYear">
+        </div>
+
+        <div class="form-group">
+            <label for="genre-name">Movie Title</label>
+            <input type="text" id="genre-name" name="genreName" required>
+        </div>
+
+
+        <button type="submit" id="add-movie" class="add-movie-btn">Submit</button>
+        <h6 id="success"></h6>
+    </form>
 </div>
+
+<script src="../scripts/add-movie.js" defer></script>
 <script src="../scripts/dashboard-navbar.js" defer></script>
 </body>
 </html>
