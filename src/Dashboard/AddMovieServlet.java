@@ -9,7 +9,7 @@ import supers.BaseServlet;
 import java.io.IOException;
 import java.sql.*;
 
-@WebServlet(name = "AddMovieServlet", urlPatterns = "/api/add-movie")
+@WebServlet(name = "AddMovieServlet", urlPatterns = "/_dashboard/api/add-movie")
 public class AddMovieServlet extends BaseServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setContentType("application/json");

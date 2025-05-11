@@ -11,7 +11,7 @@ import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.Types;
 
-@WebServlet(name = "AddStarServlet", urlPatterns = "/api/add-star")
+@WebServlet(name = "AddStarServlet", urlPatterns = "/_dashboard/api/add-star")
 public class AddStarServlet extends BaseServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setContentType("application/json");
