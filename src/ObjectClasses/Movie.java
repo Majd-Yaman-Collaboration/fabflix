@@ -1,34 +1,29 @@
 package ObjectClasses;
 
+import java.util.ArrayList;
+
 public class Movie
 {
-    public final String id;
+    public  String id;
 
-    public final String title;
+    public  String title;
 
-    public final String year;
+    public  String year;
 
-    public final String director;
+    public  String director;
+
+    public ArrayList<String> genres;
 
 
-    public Movie(String id, String title, String year, String director)
-    {
-        this.id = id;
-        this.title = title;
-        this.year = year;
-        this.director = director;
-    }
+    public Movie()
+    {}
 
     @Override
     public String toString() {
-        return  "id "       + id    + "|" +
-                "title "    + title + "|" +
-                "year "     + year  + "|" +
-                "director " + director;
-    }
-
-    public void print()
-    {
-        System.out.println(toString());
+        return  "id "       + id       + "|" +
+                "title "    + title    + "|" +
+                "year "     + year     + "|" +
+                "director " + director + "|" +
+                "genre "    + genres;
     }
 }

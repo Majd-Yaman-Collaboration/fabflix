@@ -3,23 +3,37 @@ package XMLParsing;
 import ObjectClasses.Movie;
 import jakarta.servlet.http.HttpServlet;
 import org.xml.sax.Attributes;
+import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
 public class mains243 extends DefaultHandler
 {
-    List<Movie> movieList = new ArrayList<Movie>();
+    ArrayList<Movie> movieList = new ArrayList<Movie>();
+    ArrayList<String> cats = new ArrayList<String>();
+    String element_content;
+    String current_director;
+    String directorId;
+    int film_number = 0;
+    private Movie current_movie;
+
 
     public static void main(String[] args)
     {
         mains243 obj = new mains243();
+        obj.parseDocument();
+        obj.movieList.stream().limit(5).forEach(System.out::println);
+
+
     }
 
     private void parseDocument() {
@@ -30,7 +44,7 @@ public class mains243 extends DefaultHandler
             //get a new instance of parser
             SAXParser sp = spf.newSAXParser();
             //parse the file and also register this class for call backs
-            sp.parse("employees.xml", this);
+            sp.parse("mains243.xml", this);
 
         } catch (SAXException se) {
             se.printStackTrace();
@@ -44,10 +58,59 @@ public class mains243 extends DefaultHandler
     @Override
     public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException
     {
-        if (qName.equalsIgnoreCase("fid"))
+        if (qName.equalsIgnoreCase("film"))
+        {
+            current_movie = new Movie();
+        }
+        if (qName.equalsIgnoreCase("dirname"))
         {
 
         }
+
+
     }
 
-}
+    @Override
+    public void characters(char[] ch, int start, int length) throws SAXException {
+        element_content = new String(ch, start, length);
+    }
+
+    @Override
+    public void endElement(String uri, String localName, String qName) throws SAXException
+    {
+        if(qName.equalsIgnoreCase("dirid")) //director Id
+        {
+            directorId = element_content;
+        }
+        else if (qName.equalsIgnoreCase("t")) //title
+        {
+            current_movie.id = directorId + ++film_number;
+            current_movie.title = element_content;
+            current_movie.director = current_director;
+        }
+        else if (qName.equalsIgnoreCase("year"))
+        {
+            current_movie.year = element_content;
+        }
+        else if (qName.equalsIgnoreCase("cat")) //single genre (category)
+        {
+            cats.add(element_content);
+        }
+        else if (qName.equalsIgnoreCase("cats")) //genres (categories)
+        {
+            current_movie.genres = cats;
+            cats = new ArrayList<>();
+            movieList.add(current_movie);
+        }
+        else if (qName.equalsIgnoreCase("dirname"))
+        {
+            current_director = element_content;
+
+        }
+
+    } //function end
+
+
+
+
+} //class end
