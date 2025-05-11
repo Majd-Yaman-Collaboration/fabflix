@@ -17,7 +17,7 @@ document.getElementById("add-movie-form").addEventListener("submit", function (e
     params.append("birthYear", birthYear);
     params.append("genreName", genreName);
 
-    fetch("_dashboard/api/add-movie", {
+    fetch("api/add-movie", {
         method: "POST",
         headers: {
             "Content-Type": "application/x-www-form-urlencoded"

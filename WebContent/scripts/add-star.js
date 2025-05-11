@@ -5,7 +5,7 @@ document.getElementById("add-star-form").addEventListener("submit", function (ev
     const birthYear = document.getElementById("birth-year").value;
     const confirmation = document.getElementById("success");
 
-    fetch("_dashboard/api/add-star", {
+    fetch("api/add-star", {
         method: "POST",
         headers: {
             "Content-Type": "application/x-www-form-urlencoded"
