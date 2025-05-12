@@ -20,6 +20,4 @@ public abstract class BaseServlet extends HttpServlet {
             e.printStackTrace();
         }
     }
-
-    public abstract void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException;
 }

@@ -17,11 +17,6 @@ public class Movie
 
     public ArrayList<String> genres = new ArrayList<>();
 
-    //simply for testing and making sure I got everything
-    public boolean valid()
-    {
-        return !(title.isEmpty() || year == 0 || director.isEmpty() || rating == 0 || id.isEmpty());
-    }
 
     public Movie()
     {}
