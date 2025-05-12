@@ -31,10 +31,13 @@ public class mains243 extends BaseXMLParsing
     public static void run_mains243()
     {
         long start = System.currentTimeMillis();
+        System.out.println("Creating main243 objects...");
         mains243 obj = new mains243();
 
+        System.out.println("Parsing document");
         obj.parseDocument("mains243.xml");
 
+        System.out.println("Inserting into the database");
         obj.insert_all_movies();
         long end = System.currentTimeMillis();
         System.out.println("Time taken: " + (end - start)); //
@@ -70,7 +73,7 @@ public class mains243 extends BaseXMLParsing
         try (Connection conn = get_connection())
         {
             Statement stmt = conn.createStatement();
-//            stmt.execute("SET FOREIGN_KEY_CHECKS=0;"); //optimization
+            stmt.execute("SET FOREIGN_KEY_CHECKS=0;"); //optimization
             conn.setAutoCommit(false);
 
             PreparedStatement ps_movies = conn.prepareStatement(insert_movies_query);
@@ -105,12 +108,12 @@ public class mains243 extends BaseXMLParsing
                 //----------------------------------------------------
                 //inserting into genres_in_movies
 
-                if (!movie.genres.isEmpty()) //this part is crashing
-                    //problem is this executes the batch before the batch under it executes which defines the id in genres.
+                if (!movie.genres.isEmpty())
+
                 {
                     for (String genre_name : movie.genres) //insert into genres_in_movies
                     {
-                        ps_genres_in_movies.setString(1, latest_id); //<--- the problem. id not generated yet
+                        ps_genres_in_movies.setString(1, latest_id);
                         ps_genres_in_movies.setString(2, genre_name);
                         ps_genres_in_movies.addBatch();
                     }
@@ -158,7 +161,7 @@ public class mains243 extends BaseXMLParsing
 
         switch (qName.toLowerCase()) {
             case "t": // title
-                current_movie.title = element_content;
+                current_movie.title = element_content.trim();
                 current_movie.director = current_director;
                 break;
 
@@ -173,8 +176,8 @@ public class mains243 extends BaseXMLParsing
                 break;
 
             case "cat": // single genre
-                cats_in_movie.add(element_content);
-                unique_cats.add(element_content);
+                cats_in_movie.add(element_content.trim());
+                unique_cats.add(element_content.trim());
                 break;
 
             case "cats": // assign genres list
@@ -198,7 +201,7 @@ public class mains243 extends BaseXMLParsing
                     element_content = "";
                 }
 
-                current_director = element_content;
+                current_director = element_content.trim();
                 break;
         }
 

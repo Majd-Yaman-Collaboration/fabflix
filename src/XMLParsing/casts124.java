@@ -18,23 +18,12 @@ public class casts124 extends BaseXMLParsing
 
     public static void main(String[] args)
     {
+        long start = System.currentTimeMillis();
         casts124 obj = new casts124();
         obj.parseDocument("casts124.xml");
-//        obj.actorMap.values().stream()
-//                .sorted(Comparator.comparing(actor -> actor.name))
-//                .forEach(System.out::println);
-        obj.actorMap.values().stream()
-                .sorted(Comparator.comparing(actor -> actor.name))
-                .forEach(actor -> {
-                    System.out.println(actor.name);
-                    actor.titles_directors.forEach((title, director) ->
-                            System.out.println("    " + title + " — " + director)
-                    );
-                });
 
-        long x = obj.actorMap.size();
-        System.out.println(x);
-        long start = System.currentTimeMillis();
+
+
         obj.insert_actors();
         long end = System.currentTimeMillis();
         System.out.println("Time Taken for casts124: " + (end - start));
@@ -55,6 +44,7 @@ public class casts124 extends BaseXMLParsing
         {
             conn.setAutoCommit(false);
             Statement stmt = conn.createStatement();
+            stmt.execute("SET FOREIGN_KEY_CHECKS=0;"); //optimization
 
             PreparedStatement insert_stars_ps = conn.prepareStatement(insert_stars_query);
             PreparedStatement get_movie_id_ps = conn.prepareStatement(get_movie_id_query);
@@ -107,6 +97,7 @@ public class casts124 extends BaseXMLParsing
             insert_stars_in_movies_ps.executeBatch();
 
             conn.commit();
+            stmt.execute("SET FOREIGN_KEY_CHECKS=1;"); //optimization
             conn.setAutoCommit(true);
         }
         catch (SQLException e)
@@ -123,18 +114,22 @@ public class casts124 extends BaseXMLParsing
         switch (qName.toLowerCase())
         {
             case "is": //is -> director name
-                current_director = element_content;
+                current_director = element_content.trim();
                 break;
             case "t": //t -> movie title
-                current_title = element_content;
+                current_title = element_content.trim();
                 break;
             case "a": //a -> actor name
                 element_content = element_content.trim();
                 //create new actor if name not already in Set.
-                if (element_content.equals("none") || element_content.equals("no\\_actor")) break;
+                if (element_content.equals("none") || element_content.equals("no\\_actor"))
+                {
+                    System.out.println(element_content + " is not a valid actor");
+                    break;
+                }
                 if (actorMap.containsKey(element_content))
                 {
-                    current_actor = actorMap.get(element_content);
+                    current_actor = actorMap.get(element_content.trim());
                 }
                 else
                 { //grab the already existing actor
@@ -142,9 +137,9 @@ public class casts124 extends BaseXMLParsing
                 }
 
                 current_actor.titles_directors.put(current_title,current_director);
-                current_actor.name = element_content;
+                current_actor.name = element_content.trim();
 
-                actorMap.put(element_content, current_actor);
+                actorMap.put(current_actor.name, current_actor);
                 break;
         }
 
