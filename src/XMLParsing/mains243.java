@@ -29,33 +29,18 @@ public class mains243 extends DefaultHandler
     int current_id = 0;
     String latest_id;
 
-    ArrayList<String> generated_ids = new ArrayList<>();
-
 
     public static void main(String[] args)
     {
+        long start = System.currentTimeMillis();
         mains243 obj = new mains243();
 
         obj.parseDocument();
 
-//        obj.movieList.stream().distinct().forEach(System.out::println);
-        long x = obj.movieList.stream().count();
-        System.out.println(x);
+        obj.insert_all_movies();
+        long end = System.currentTimeMillis();
+        System.out.println("Time taken: " + (end - start)); //
 
-//        long start = System.currentTimeMillis();
-//        obj.insert_all_movies();
-//        long end = System.currentTimeMillis();
-//        System.out.println("Time taken: " + (end - start)); //4136, 4352
-//
-//
-//
-//        Scanner input = new Scanner(System.in);
-//        input.nextLine(); //pause the program for a moment
-//
-//        start = System.currentTimeMillis();
-//        obj.delete_all_movies();
-//        end = System.currentTimeMillis();
-//        System.out.println("Time taken: " + (end - start));
     }
 
     private Connection get_connection() {
