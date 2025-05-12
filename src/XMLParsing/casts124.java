@@ -34,13 +34,16 @@ public class casts124 extends BaseXMLParsing
 
         long x = obj.actorMap.size();
         System.out.println(x);
+        long start = System.currentTimeMillis();
         obj.insert_actors();
+        long end = System.currentTimeMillis();
+        System.out.println("Time Taken for casts124: " + (end - start));
     }
 
     public void insert_actors()
     {
         String insert_stars_query = "INSERT INTO stars VALUES (?,?,NULL)";
-        String insert_stars_in_movies_query = "INSERT INTO stars_in_movies VALUES (?,?)";
+        String insert_stars_in_movies_query = "INSERT IGNORE INTO stars_in_movies VALUES (?,?)";
 
         String get_latest_id_query = "SELECT MAX(id) FROM stars";
         String get_movie_id_query = "SELECT id FROM movies WHERE title = ? AND director = ?";
@@ -52,12 +55,14 @@ public class casts124 extends BaseXMLParsing
         {
             conn.setAutoCommit(false);
             Statement stmt = conn.createStatement();
+
             PreparedStatement insert_stars_ps = conn.prepareStatement(insert_stars_query);
             PreparedStatement get_movie_id_ps = conn.prepareStatement(get_movie_id_query);
             PreparedStatement insert_stars_in_movies_ps = conn.prepareStatement(insert_stars_in_movies_query);
 
             ResultSet latest_id_rs = stmt.executeQuery(get_latest_id_query);
-            if (latest_id_rs.next()) latest_id = latest_id_rs.getString(1);
+            if (latest_id_rs.next()) latest_id = latest_id_rs.getString(1); else System.out.println("No latest_id found");
+
 
             int current_id = Integer.parseInt(latest_id.substring(2));
 
@@ -66,6 +71,7 @@ public class casts124 extends BaseXMLParsing
             {
                 ArrayList<String> movie_ids = new ArrayList<>();
                 latest_id = "nm" + String.format("%07d",++current_id);
+
 
                 insert_stars_ps.setString(1, latest_id);
                 insert_stars_ps.setString(2, actor.name);
@@ -78,7 +84,6 @@ public class casts124 extends BaseXMLParsing
                     ResultSet get_movie_id_rs =  get_movie_id_ps.executeQuery();
                     if (get_movie_id_rs.next()) movie_ids.add(get_movie_id_rs.getString(1));
                 }
-
                 for (String movie_id : movie_ids)
                 {
                     insert_stars_in_movies_ps.setString(1, latest_id);

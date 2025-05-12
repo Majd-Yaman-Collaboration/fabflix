@@ -43,7 +43,7 @@ public class mains243 extends BaseXMLParsing
 
     private void insert_all_genres(Connection conn) throws Exception
     {
-        String insert_genres_query = "INSERT INTO genres (name) VALUES (?);";
+        String insert_genres_query = "INSERT IGNORE INTO genres (name) VALUES (?);";
         PreparedStatement ps_genres = conn.prepareStatement(insert_genres_query);
         for (String genre : unique_cats)
         {
@@ -59,7 +59,7 @@ public class mains243 extends BaseXMLParsing
 
         String get_latest_id_query = "SELECT MAX(id) FROM movies";
 
-        String insert_genres_in_movies_query = "INSERT INTO genres_in_movies (genreId, movieId) " +
+        String insert_genres_in_movies_query = "INSERT IGNORE INTO genres_in_movies (genreId, movieId) " +
                 "SELECT id, ? FROM genres WHERE name = ?";
 
         //ID, RATING, NUMVOTES
@@ -70,7 +70,7 @@ public class mains243 extends BaseXMLParsing
         try (Connection conn = get_connection())
         {
             Statement stmt = conn.createStatement();
-            stmt.execute("SET FOREIGN_KEY_CHECKS=0;"); //optimization
+//            stmt.execute("SET FOREIGN_KEY_CHECKS=0;"); //optimization
             conn.setAutoCommit(false);
 
             PreparedStatement ps_movies = conn.prepareStatement(insert_movies_query);
@@ -104,18 +104,18 @@ public class mains243 extends BaseXMLParsing
 
                 //----------------------------------------------------
                 //inserting into genres_in_movies
-                if (!movie.genres.isEmpty())
+
+                if (!movie.genres.isEmpty()) //this part is crashing
+                    //problem is this executes the batch before the batch under it executes which defines the id in genres.
                 {
                     for (String genre_name : movie.genres) //insert into genres_in_movies
                     {
-                        ps_genres_in_movies.setString(1, latest_id);
+                        ps_genres_in_movies.setString(1, latest_id); //<--- the problem. id not generated yet
                         ps_genres_in_movies.setString(2, genre_name);
                         ps_genres_in_movies.addBatch();
                     }
-                    ps_genres_in_movies.executeBatch();
-                    ps_genres_in_movies.clearBatch();
-                }
 
+                }
 
                 if (++count % batch_size == 0) //optimization
                 {
@@ -124,6 +124,9 @@ public class mains243 extends BaseXMLParsing
 
                     ps_ratings.executeBatch();
                     ps_ratings.clearBatch();
+
+                    ps_genres_in_movies.executeBatch();
+                    ps_genres_in_movies.clearBatch();
 
                 }
 
@@ -174,7 +177,7 @@ public class mains243 extends BaseXMLParsing
                 unique_cats.add(element_content);
                 break;
 
-            case "cats_in_movie": // assign genres list
+            case "cats": // assign genres list
                 current_movie.genres = cats_in_movie;
                 cats_in_movie = new ArrayList<>();
                 break;
