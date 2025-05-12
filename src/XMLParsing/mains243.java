@@ -176,6 +176,7 @@ public class mains243 extends BaseXMLParsing
                 break;
 
             case "cat": // single genre
+                element_content = closest_genre(element_content.trim().toLowerCase());
                 cats_in_movie.add(element_content.trim());
                 unique_cats.add(element_content.trim());
                 break;
@@ -208,6 +209,195 @@ public class mains243 extends BaseXMLParsing
 
     } //function end
 
+
+
+    private String closest_genre(String given_genre)
+    {                         //passed in as lowercase
+        switch (given_genre)
+        {
+            case "act" :
+            case "actn":
+            case "axtn":
+                given_genre = "Action";
+                break;
+            case "adct":
+            case "adctx":
+                given_genre = "Adult Content";
+                break;
+            case "advt":
+                given_genre = "Adventure";
+                break;
+            case "anti-dram":
+                given_genre = "Anti-Drama";
+                break;
+            case "avga":
+                given_genre = "Avant Garde";
+                break;
+            case "biob":
+                given_genre = "Biographical Biography";
+                break;
+            case "biog":
+                given_genre = "Biography";
+                break;
+            case "biop":
+            case "biopp":
+            case "biopx":
+                given_genre = "Biographical Picture";
+                break;
+            case "bnw TV":
+                given_genre = "Black and White TV";
+                break;
+            case "ca":
+                given_genre = "Children's Adventure";
+                break;
+            case "cart":
+                given_genre = "Cartoon";
+                break;
+            case "cmr":
+            case "romt comd":
+            case "romt. comd":
+                given_genre = "Comedy Romance";
+                break;
+            case "cnr":
+            case "cnrb":
+            case "cnrbb":
+                given_genre = "Crime and Robbery";
+                break;
+            case "col tv":
+                given_genre = "Color TV";
+                break;
+            case "comd":
+            case "comdx":
+                given_genre = "Comedy";
+                break;
+            case "comd noir":
+            case "noir comd":
+                given_genre = "Noir Comedy";
+                break;
+            case "comd west":
+                given_genre = "Western Comedy";
+                break;
+            case "crim":
+                given_genre = "Criminal";
+                break;
+            case "ctcxx":
+            case "ctxx":
+            case "ctxxx":
+            case "cult": //cult or culture
+            case "dist":
+            case "exmp":
+            case "homo":
+            case "rfp; h*":
+            case "scat":
+                //not sure about them so lowk just break;
+                break;
+            case "disa":
+                given_genre = "Disaster";
+                break;
+            case "docu":
+            case "duco":
+            case "ducu":
+                given_genre = "Documentary";
+                break;
+            case "docu dram":
+            case "dram docu":
+                given_genre = "Drama Documentary";
+                break;
+            case "dram":
+            case "dram>":
+            case "dramd":
+            case "dramn":
+            case "ram":
+                given_genre = "Drama";
+                break;
+            case "dram.actn":
+                given_genre = "Action Drama";
+                break;
+            case "faml":
+                given_genre = "Family";
+                break;
+            case "fant":
+                given_genre = "Fantasy";
+                break;
+            case "fanth*":
+                given_genre = "Fantasy Horror *";
+                break;
+            case "h":
+            case "hor":
+            case "horr":
+                given_genre = "Horror";
+                break;
+            case "h**":
+                given_genre = "Horror **";
+                break;
+            case "hist":
+                given_genre = "History";
+                break;
+            case "musc":
+            case "muscl":
+            case "muusc":
+                given_genre = "Musical";
+                break;
+            case "myst":
+                given_genre = "Mystery";
+                break;
+            case "natu":
+                given_genre = "Nature";
+                break;
+            case "noir comd romt":
+                given_genre = "Noir Comedy Romance";
+                break;
+            case "psyc":
+                given_genre = "Psychological";
+                break;
+            case "psych drama":
+                given_genre = "Psychological Drama";
+                break;
+            case "romt":
+            case "romtx":
+            case "ront":
+                given_genre = "Romance";
+                break;
+            case "romt actn":
+                given_genre = "Romantic Action";
+                break;
+            case "romt dram":
+                given_genre = "Romantic Drama";
+                break;
+            case "romt fant":
+                given_genre = "Romantic Fantasy";
+                break;
+            case "romtadvt":
+                given_genre = "Romantic Adventure";
+                break;
+            case "s.f.":
+            case "scfi":
+            case "scif":
+            case "sctn":
+            case "sxfi":
+                given_genre = "Sci-fi";
+                break;
+            case "sati":
+                given_genre = "Satire";
+                break;
+            case "sport":
+                given_genre = "Sports";
+                break;
+            case "surl":
+            case "surr":
+                given_genre = "Surreal";
+                break;
+            case "viol":
+                given_genre = "Violence";
+                break;
+            case "west":
+            case "west1":
+                given_genre = "Western";
+
+        }
+
+        return given_genre;
+    }
 
 
 
