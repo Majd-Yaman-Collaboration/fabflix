@@ -13,17 +13,17 @@ import java.io.InputStreamReader;
 import java.sql.Connection;
 import java.sql.DriverManager;
 
-public class BaseXMLParsing extends DefaultHandler
+public abstract class BaseXMLParsing extends DefaultHandler
 {
     protected String element_content;
 
-    protected void parseDocument() {
+    protected void parseDocument(String fileName) {
 
         //get a factory
         SAXParserFactory spf = SAXParserFactory.newInstance();
         try {
             //get a new instance of parser
-            FileInputStream fis = new FileInputStream("mains243.xml");
+            FileInputStream fis = new FileInputStream(fileName);
             InputStreamReader isr = new InputStreamReader(fis, "ISO-8859-1");
             InputSource is = new InputSource(isr);
             is.setEncoding("ISO-8859-1");

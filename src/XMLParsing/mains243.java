@@ -33,7 +33,7 @@ public class mains243 extends BaseXMLParsing
         long start = System.currentTimeMillis();
         mains243 obj = new mains243();
 
-        obj.parseDocument();
+        obj.parseDocument("mains243.xml");
 
         obj.insert_all_movies();
         long end = System.currentTimeMillis();

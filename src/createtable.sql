@@ -8,6 +8,8 @@ CREATE TABLE movies(
                        director VARCHAR(100) NOT NULL
 );
 
+CREATE INDEX idx_director_title ON movies(title, director);
+
 CREATE TABLE stars(
                       id VARCHAR(10) PRIMARY KEY,
                       name VARCHAR(100) NOT NULL,

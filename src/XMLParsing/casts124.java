@@ -2,60 +2,144 @@ package XMLParsing;
 
 
 import ObjectClasses.Actor;
-import ObjectClasses.Movie;
-import org.xml.sax.Attributes;
-import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
-import org.xml.sax.helpers.DefaultHandler;
 
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.parsers.SAXParser;
-import javax.xml.parsers.SAXParserFactory;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.sql.*;
 import java.util.*;
 
 public class casts124 extends BaseXMLParsing
 {
-    Set<Actor> actorList = new HashSet<>();
+    HashMap<String,Actor> actorMap = new HashMap<>();
     private String current_director;
-    private Actor current_actor;
+    private String current_title;
+
+    final int batch_size = 500;
 
 
     public static void main(String[] args)
     {
         casts124 obj = new casts124();
-        obj.parseDocument();
-        long x = obj.actorList.size();
+        obj.parseDocument("casts124.xml");
+//        obj.actorMap.values().stream()
+//                .sorted(Comparator.comparing(actor -> actor.name))
+//                .forEach(System.out::println);
+        obj.actorMap.values().stream()
+                .sorted(Comparator.comparing(actor -> actor.name))
+                .forEach(actor -> {
+                    System.out.println(actor.name);
+                    actor.titles_directors.forEach((title, director) ->
+                            System.out.println("    " + title + " — " + director)
+                    );
+                });
+
+        long x = obj.actorMap.size();
         System.out.println(x);
+        obj.insert_actors();
     }
+
+    public void insert_actors()
+    {
+        String insert_stars_query = "INSERT INTO stars VALUES (?,?,NULL)";
+        String insert_stars_in_movies_query = "INSERT INTO stars_in_movies VALUES (?,?)";
+
+        String get_latest_id_query = "SELECT MAX(id) FROM stars";
+        String get_movie_id_query = "SELECT id FROM movies WHERE title = ? AND director = ?";
+
+
+        String latest_id = "nm0000000";
+
+        try (Connection conn = get_connection())
+        {
+            conn.setAutoCommit(false);
+            Statement stmt = conn.createStatement();
+            PreparedStatement insert_stars_ps = conn.prepareStatement(insert_stars_query);
+            PreparedStatement get_movie_id_ps = conn.prepareStatement(get_movie_id_query);
+            PreparedStatement insert_stars_in_movies_ps = conn.prepareStatement(insert_stars_in_movies_query);
+
+            ResultSet latest_id_rs = stmt.executeQuery(get_latest_id_query);
+            if (latest_id_rs.next()) latest_id = latest_id_rs.getString(1);
+
+            int current_id = Integer.parseInt(latest_id.substring(2));
+
+            int count = 0;
+            for (Actor actor : actorMap.values())
+            {
+                ArrayList<String> movie_ids = new ArrayList<>();
+                latest_id = "nm" + String.format("%07d",++current_id);
+
+                insert_stars_ps.setString(1, latest_id);
+                insert_stars_ps.setString(2, actor.name);
+                insert_stars_ps.addBatch();
+
+                for (Map.Entry<String,String> entry : actor.titles_directors.entrySet())
+                {
+                    get_movie_id_ps.setString(1, entry.getKey());
+                    get_movie_id_ps.setString(2, entry.getValue());
+                    ResultSet get_movie_id_rs =  get_movie_id_ps.executeQuery();
+                    if (get_movie_id_rs.next()) movie_ids.add(get_movie_id_rs.getString(1));
+                }
+
+                for (String movie_id : movie_ids)
+                {
+                    insert_stars_in_movies_ps.setString(1, latest_id);
+                    insert_stars_in_movies_ps.setString(2, movie_id);
+                    insert_stars_in_movies_ps.addBatch();
+                }
+
+                if (++count % batch_size == 0)
+                {
+                    insert_stars_ps.executeBatch();
+                    insert_stars_ps.clearBatch();
+
+                    insert_stars_in_movies_ps.executeBatch();
+                    insert_stars_in_movies_ps.clearBatch();
+                }
+
+            }
+
+
+            insert_stars_ps.executeBatch();
+            insert_stars_in_movies_ps.executeBatch();
+
+            conn.commit();
+            conn.setAutoCommit(true);
+        }
+        catch (SQLException e)
+            {e.printStackTrace();}
+    }
+
 
 
     @Override
-    public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException
-    {
-        if (qName.equalsIgnoreCase("filmc"))
-        {
-            current_actor = new Actor();
-        }
-    }
     public void endElement(String uri, String localName, String qName) throws SAXException
     {
 
+        Actor current_actor = new Actor();
         switch (qName.toLowerCase())
         {
             case "is": //is -> director name
                 current_director = element_content;
                 break;
             case "t": //t -> movie title
-                current_actor.title = element_content;
+                current_title = element_content;
                 break;
             case "a": //a -> actor name
+                element_content = element_content.trim();
+                //create new actor if name not already in Set.
+                if (element_content.equals("none") || element_content.equals("no\\_actor")) break;
+                if (actorMap.containsKey(element_content))
+                {
+                    current_actor = actorMap.get(element_content);
+                }
+                else
+                { //grab the already existing actor
+                    current_actor = new Actor();
+                }
+
+                current_actor.titles_directors.put(current_title,current_director);
                 current_actor.name = element_content;
-                current_actor.director = current_director;
-                actorList.add(current_actor);
+
+                actorMap.put(element_content, current_actor);
                 break;
         }
 
