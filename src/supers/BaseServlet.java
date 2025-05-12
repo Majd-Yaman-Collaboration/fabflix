@@ -1,13 +1,15 @@
 package supers;
 
 import jakarta.servlet.http.HttpServlet;
+import org.xml.sax.Attributes;
+import org.xml.sax.SAXException;
 
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
 
-public class BaseServlet extends HttpServlet {
+public abstract class BaseServlet extends HttpServlet {
     protected DataSource dataSource;
 
     @Override
@@ -19,4 +21,5 @@ public class BaseServlet extends HttpServlet {
         }
     }
 
+    public abstract void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException;
 }

@@ -2,27 +2,20 @@ package XMLParsing;
 
 import ObjectClasses.Movie;
 import org.xml.sax.Attributes;
-import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
-import org.xml.sax.helpers.DefaultHandler;
+import supers.BaseServlet;
 
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.parsers.SAXParser;
-import javax.xml.parsers.SAXParserFactory;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.sql.*;
 import java.util.*;
 
 
-//TODO
-public class mains243 extends DefaultHandler
+
+public class mains243 extends BaseXMLParsing
 {
     Set<Movie> movieList = new HashSet<Movie>();
     ArrayList<String> cats_in_movie = new ArrayList<String>();
     Set<String> unique_cats = new HashSet<String>();
-    String element_content;
+//    String element_content; now in the SuperClass
     String current_director;
     private Movie current_movie;
     final int batch_size = 500;
@@ -32,6 +25,11 @@ public class mains243 extends DefaultHandler
 
     public static void main(String[] args)
     {
+        run_mains243();
+    }
+
+    public static void run_mains243()
+    {
         long start = System.currentTimeMillis();
         mains243 obj = new mains243();
 
@@ -40,24 +38,8 @@ public class mains243 extends DefaultHandler
         obj.insert_all_movies();
         long end = System.currentTimeMillis();
         System.out.println("Time taken: " + (end - start)); //
-
     }
 
-    private Connection get_connection() {
-        String sql_connection_optimizations =
-                "useSSL=false&rewriteBatchedStatements=true&useServerPrepStmts=false&useBatchMultiSend=true";
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            return DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/moviedb?" + sql_connection_optimizations, //REWRITEBATCHED MAKES IT SO MUCH FASTER
-                    "root",
-                    "temporary123"
-            );
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
 
     private void insert_all_genres(Connection conn) throws Exception
     {
@@ -80,6 +62,9 @@ public class mains243 extends DefaultHandler
         String insert_genres_in_movies_query = "INSERT INTO genres_in_movies (genreId, movieId) " +
                 "SELECT id, ? FROM genres WHERE name = ?";
 
+        //ID, RATING, NUMVOTES
+        String insert_rating = "INSERT INTO ratings VALUES (?, 0.0, 0)";
+
 
 
         try (Connection conn = get_connection())
@@ -90,9 +75,8 @@ public class mains243 extends DefaultHandler
 
             PreparedStatement ps_movies = conn.prepareStatement(insert_movies_query);
             PreparedStatement ps_get_latest_id = conn.prepareStatement(get_latest_id_query);
-
             PreparedStatement ps_genres_in_movies = conn.prepareStatement(insert_genres_in_movies_query);
-
+            PreparedStatement ps_ratings = conn.prepareStatement(insert_rating);
 
             insert_all_genres(conn);
 
@@ -107,7 +91,6 @@ public class mains243 extends DefaultHandler
             {
                 //inserting into movie table
                 latest_id = "tt" + String.format("%07d",++current_id);
-//                generated_ids.add(latest_id);
 
                 movie.id = latest_id;
                 ps_movies.setString(1, latest_id);
@@ -115,6 +98,10 @@ public class mains243 extends DefaultHandler
                 ps_movies.setInt(3,movie.year);
                 ps_movies.setString(4,movie.director);
                 ps_movies.addBatch();
+
+                ps_ratings.setString(1, latest_id);
+                ps_ratings.addBatch();
+
                 //----------------------------------------------------
                 //inserting into genres_in_movies
                 if (!movie.genres.isEmpty())
@@ -135,10 +122,13 @@ public class mains243 extends DefaultHandler
                     ps_movies.executeBatch();
                     ps_movies.clearBatch();
 
+                    ps_ratings.executeBatch();
+                    ps_ratings.clearBatch();
+
                 }
 
             }
-
+            ps_ratings.addBatch();
             ps_movies.executeBatch();
             conn.setAutoCommit(true);
             stmt.execute("SET FOREIGN_KEY_CHECKS=1;");
@@ -146,30 +136,6 @@ public class mains243 extends DefaultHandler
         }
         catch (Exception e){e.printStackTrace();}
 
-    }
-
-    private void parseDocument() {
-
-        //get a factory
-        SAXParserFactory spf = SAXParserFactory.newInstance();
-        try {
-            //get a new instance of parser
-            FileInputStream fis = new FileInputStream("mains243.xml");
-            InputStreamReader isr = new InputStreamReader(fis, "ISO-8859-1");
-            InputSource is = new InputSource(isr);
-            is.setEncoding("ISO-8859-1");
-            SAXParser sp = spf.newSAXParser();
-
-            //parse the file and also register this class for call backs
-            sp.parse(is, this);
-
-        } catch (SAXException se) {
-            se.printStackTrace();
-        } catch (ParserConfigurationException pce) {
-            pce.printStackTrace();
-        } catch (IOException ie) {
-            ie.printStackTrace();
-        }
     }
 
     @Override
@@ -181,10 +147,7 @@ public class mains243 extends DefaultHandler
         }
     }
 
-    @Override
-    public void characters(char[] ch, int start, int length) throws SAXException {
-        element_content = new String(ch, start, length);
-    }
+
 
     @Override
     public void endElement(String uri, String localName, String qName) throws SAXException
@@ -221,11 +184,17 @@ public class mains243 extends DefaultHandler
                 {
                     System.out.println("duplicate film: " + current_movie.title);
                 }
-                if (current_movie.year != 0)
+                if (current_movie.year != 0 && !Objects.equals(current_movie.director, ""))
                     movieList.add(current_movie);
                 break;
 
             case "dirname": // director name
+                if (element_content.contains("Unknown") || element_content.contains("UnYear"))
+                {
+                    System.out.println("unknown director: " + element_content);
+                    element_content = "";
+                }
+
                 current_director = element_content;
                 break;
         }
