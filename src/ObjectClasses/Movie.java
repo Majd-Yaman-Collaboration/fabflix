@@ -1,9 +1,11 @@
 package ObjectClasses;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class Movie
 {
+    public  String id = "";
 
     public  String title = "";
 
@@ -13,20 +15,36 @@ public class Movie
 
     public double rating = 0;
 
-    public ArrayList<String> genres;
+    public ArrayList<String> genres = new ArrayList<>();
 
     //simply for testing and making sure I got everything
     public boolean valid()
     {
-        return !(title.isEmpty() || year == 0 || director.isEmpty() || rating == 0);
+        return !(title.isEmpty() || year == 0 || director.isEmpty() || rating == 0 || id.isEmpty());
     }
 
     public Movie()
     {}
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Movie)) return false;
+        Movie movie = (Movie) o;
+        return year == movie.year &&
+                title.equals(movie.title) &&
+                director.equals(movie.director);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(title, director, year);
+    }
+
+
+    @Override
     public String toString() {
-        return
+        return  "id "       + id       + "|" +
                 "title "    + title    + "|" +
                 "year "     + year     + "|" +
                 "director " + director + "|" +
