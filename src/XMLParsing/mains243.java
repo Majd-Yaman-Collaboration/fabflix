@@ -163,44 +163,6 @@ public class mains243 extends DefaultHandler
 
     }
 
-    private void delete_all_movies()
-    {
-        String delete_movies_query = "DELETE FROM movies WHERE id = ?";
-        String delete_genres_query = "DELETE FROM genres WHERE name = ?";
-
-        PreparedStatement delete_movies_ps;
-        try (Connection conn = get_connection())
-        {
-            conn.setAutoCommit(false);
-            delete_movies_ps = conn.prepareStatement(delete_movies_query);
-
-            int count = 0;
-            for (Movie movie : movieList)
-            {
-                delete_movies_ps.setString(1,movie.id);
-                delete_movies_ps.addBatch();
-
-                if (++count % batch_size == 0)
-                {
-                    delete_movies_ps.executeBatch();
-                    delete_movies_ps.clearBatch();
-                }
-            }
-            delete_movies_ps.executeBatch();
-
-            PreparedStatement delete_genres_ps = conn.prepareStatement(delete_genres_query);
-            for (String genre_name : unique_cats)
-            {
-                delete_genres_ps.setString(1, genre_name);
-                delete_genres_ps.addBatch();
-            }
-            delete_genres_ps.executeBatch();
-            conn.commit();
-            conn.setAutoCommit(true);
-        }
-        catch (Exception e){e.printStackTrace();}
-    }
-
     private void parseDocument() {
 
         //get a factory
