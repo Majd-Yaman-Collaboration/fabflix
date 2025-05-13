@@ -56,7 +56,7 @@ public class LoginFilter implements Filter {
         if (loggedIn || allowed)
             chain.doFilter(request, response); // allow access
         else
-            httpResponse.sendRedirect(httpRequest.getContextPath() + "/login.html"); // redirect to login
+            httpResponse.sendRedirect("/login.html"); // redirect to login
     }
 
     public void destroy() {
