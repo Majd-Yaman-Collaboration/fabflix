@@ -19,12 +19,14 @@ public class casts124 extends BaseXMLParsing
     {
         String filename  = "casts124.xml";
         if (args.length > 0) filename = args[0];
+        run_casts124(filename);
+    }
 
+    public static void run_casts124(String filename)
+    {
         long start = System.currentTimeMillis();
         casts124 obj = new casts124();
         obj.parseDocument(filename);
-
-
 
         obj.insert_actors();
         long end = System.currentTimeMillis();
@@ -88,6 +90,7 @@ public class casts124 extends BaseXMLParsing
 
                 if (++count % batch_size == 0)
                 {
+                    System.out.println("Executing batches");
                     insert_stars_ps.executeBatch();
                     insert_stars_ps.clearBatch();
 

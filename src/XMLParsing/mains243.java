@@ -127,6 +127,7 @@ public class mains243 extends BaseXMLParsing
 
                 if (++count % batch_size == 0) //optimization
                 {
+                    System.out.println("Executing batches");
                     ps_movies.executeBatch();
                     ps_movies.clearBatch();
 
