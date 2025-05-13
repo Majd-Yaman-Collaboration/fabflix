@@ -62,7 +62,7 @@ public class LoginDashboardFilter implements Filter {
         if (loggedIn || allowed)
             chain.doFilter(request, response); // allow access
         else
-            httpResponse.sendRedirect(httpRequest.getContextPath() + "_dashboard/dashboard-login.html"); // redirect to login
+            httpResponse.sendRedirect(httpRequest.getContextPath() + "/_dashboard/dashboard-login.html"); // redirect to login
 
     }
 
