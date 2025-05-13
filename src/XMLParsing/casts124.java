@@ -132,6 +132,7 @@ public class casts124 extends BaseXMLParsing
                 //create new actor if name not already in Set.
                 if (element_content.equals("none") || element_content.equals("no\\_actor"))
                 {
+                    System.out.println("Invalid Actor: " + element_content + " Title: " + current_title + " Director: " + current_director);
                     ++invalid_actors;
                     break;
                 }

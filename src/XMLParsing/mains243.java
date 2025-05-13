@@ -177,7 +177,8 @@ public class mains243 extends BaseXMLParsing
                 } catch (Exception e)
                 {
                     ++invalid_years;
-                    current_movie.year = 0; //TODO maybe change this to something else
+                    System.out.println("BAD YEAR -> title: " + current_movie.title + " Director: " + current_movie.director + " Year: " + element_content);
+                    current_movie.year = 0;
                 }
                 break;
 
@@ -196,6 +197,7 @@ public class mains243 extends BaseXMLParsing
                 if (movieList.contains(current_movie))
                 {
                     ++duplicate_films;
+                    System.out.println("DUPLICATE FILM -> title: " + current_movie.title + " Director: " + current_movie.director + " Year: " + current_movie.year);
                 }
                 if (current_movie.year != 0 && !Objects.equals(current_movie.director, ""))
                     movieList.add(current_movie);
@@ -205,6 +207,7 @@ public class mains243 extends BaseXMLParsing
                 if (element_content.contains("Unknown") || element_content.contains("UnYear"))
                 {
                     ++unkown_directors;
+                    System.out.println("UNKNOWN DIRECTORS -> title: " + current_movie.title + " Director: " + current_movie.director + " Year: " + current_movie.year);
                     element_content = "";
                 }
 
