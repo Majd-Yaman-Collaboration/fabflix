@@ -1,4 +1,4 @@
-package ObjectClasses;
+package XMLParsing;
 
 import java.util.ArrayList;
 import java.util.Objects;

@@ -1,7 +1,6 @@
 package XMLParsing;
 
 
-import ObjectClasses.Actor;
 import org.xml.sax.SAXException;
 
 import java.sql.*;

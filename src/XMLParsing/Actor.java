@@ -1,8 +1,6 @@
-package ObjectClasses;
+package XMLParsing;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.Objects;
 
 public class Actor

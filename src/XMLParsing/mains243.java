@@ -1,9 +1,7 @@
 package XMLParsing;
 
-import ObjectClasses.Movie;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
-import supers.BaseServlet;
 
 import java.sql.*;
 import java.util.*;
