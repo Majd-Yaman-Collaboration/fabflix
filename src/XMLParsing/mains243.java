@@ -23,14 +23,8 @@ public class mains243 extends BaseXMLParsing
     int invalid_years = 0;
 
 
-    public static void main(String[] args)
-    {
-        String filename = "mains243.xml";
-        if (args.length > 0) filename = args[0];
-        run_mains243(filename);
-    }
 
-    public static void run_mains243(String filename)
+    public void run_mains243(String filename)
     {
         long start = System.currentTimeMillis();
         System.out.println("Creating main243 objects...");

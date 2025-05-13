@@ -14,15 +14,7 @@ public class casts124 extends BaseXMLParsing
 
     int invalid_actors = 0;
 
-
-    public static void main(String[] args)
-    {
-        String filename  = "casts124.xml";
-        if (args.length > 0) filename = args[0];
-        run_casts124(filename);
-    }
-
-    public static void run_casts124(String filename)
+    public void run_casts124(String filename)
     {
         long start = System.currentTimeMillis();
         casts124 obj = new casts124();
