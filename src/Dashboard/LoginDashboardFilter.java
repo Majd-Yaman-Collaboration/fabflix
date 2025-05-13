@@ -56,8 +56,8 @@ public class LoginDashboardFilter implements Filter {
         boolean     loggedIn = (session != null) && (session.getAttribute("employee") != null);
 
         //TODO COMMENT AFTER FINISHING WITH EVERYTHING ELSE
-        loggedIn = true;
-        allowed = true;
+//        loggedIn = true;
+//        allowed = true;
 
         if (loggedIn || allowed)
             chain.doFilter(request, response); // allow access
