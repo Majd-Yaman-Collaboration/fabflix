@@ -28,4 +28,7 @@ Optimizations:
 - Added an index for title and director since they were sort of the "primary key" used to identify a movie from the useful data in casts124.
 - Turned off foreign_key_checks when inserting because I knew it was safe to do so.
 
-Inconsistencies file is in repo
+The inconsistencies file in repo: https://github.com/uci-jherold2-2025spring-cs122b/2025-spring-cs-122b-ym/blob/project3/inconsitencies
+
+VIDEO:
+https://www.dropbox.com/scl/fi/7qn75y9s4y05j0sob22cz/CS122b-Project-3-Video-Demo.mp4?rlkey=wusmmjoi3srzv07a50tx4ndif&e=1&st=zh2w5el0&dl=0
