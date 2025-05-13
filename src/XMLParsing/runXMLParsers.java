@@ -1,8 +1,6 @@
 package XMLParsing;
-import XMLParsing.mains243;
-import XMLParsing.casts124;
 
-public class runXMLParses
+public class runXMLParsers
 {
     public static void main(String[] args)
     {
