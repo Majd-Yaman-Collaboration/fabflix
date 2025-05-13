@@ -22,6 +22,10 @@ public class mains243 extends BaseXMLParsing
     int current_id = 0;
     String latest_id;
 
+    int unkown_directors = 0;
+    int duplicate_films = 0;
+    int invalid_years = 0;
+
 
     public static void main(String[] args)
     {
@@ -41,6 +45,9 @@ public class mains243 extends BaseXMLParsing
         obj.insert_all_movies();
         long end = System.currentTimeMillis();
         System.out.println("Time taken: " + (end - start)); //
+        System.out.println("Number of invalid directors: " + obj.unkown_directors);
+        System.out.println("Number of duplicate films: " + obj.duplicate_films);
+        System.out.println("Number of invalid years: " + obj.invalid_years);
     }
 
 
@@ -170,7 +177,7 @@ public class mains243 extends BaseXMLParsing
                     current_movie.year = Integer.parseInt(element_content.trim());
                 } catch (Exception e)
                 {
-                    System.out.println("invalid year: " +  element_content.trim() + " movie: " + current_movie.title);
+                    ++invalid_years;
                     current_movie.year = 0; //TODO maybe change this to something else
                 }
                 break;
@@ -189,7 +196,7 @@ public class mains243 extends BaseXMLParsing
             case "film": // add movie to list
                 if (movieList.contains(current_movie))
                 {
-                    System.out.println("duplicate film: " + current_movie.title);
+                    ++duplicate_films;
                 }
                 if (current_movie.year != 0 && !Objects.equals(current_movie.director, ""))
                     movieList.add(current_movie);
@@ -198,7 +205,7 @@ public class mains243 extends BaseXMLParsing
             case "dirname": // director name
                 if (element_content.contains("Unknown") || element_content.contains("UnYear"))
                 {
-                    System.out.println("unknown director: " + element_content);
+                    ++unkown_directors;
                     element_content = "";
                 }
 

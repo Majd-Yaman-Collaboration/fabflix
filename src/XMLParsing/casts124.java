@@ -15,6 +15,8 @@ public class casts124 extends BaseXMLParsing
 
     final int batch_size = 500;
 
+    int invalid_actors = 0;
+
 
     public static void main(String[] args)
     {
@@ -27,7 +29,10 @@ public class casts124 extends BaseXMLParsing
         obj.insert_actors();
         long end = System.currentTimeMillis();
         System.out.println("Time Taken for casts124: " + (end - start));
+        System.out.println("Total invalid actors: " + obj.invalid_actors);
     }
+
+
 
     public void insert_actors()
     {
@@ -51,7 +56,7 @@ public class casts124 extends BaseXMLParsing
             PreparedStatement insert_stars_in_movies_ps = conn.prepareStatement(insert_stars_in_movies_query);
 
             ResultSet latest_id_rs = stmt.executeQuery(get_latest_id_query);
-            if (latest_id_rs.next()) latest_id = latest_id_rs.getString(1); else System.out.println("No latest_id found");
+            if (latest_id_rs.next()) latest_id = latest_id_rs.getString(1);
 
 
             int current_id = Integer.parseInt(latest_id.substring(2));
@@ -124,7 +129,7 @@ public class casts124 extends BaseXMLParsing
                 //create new actor if name not already in Set.
                 if (element_content.equals("none") || element_content.equals("no\\_actor"))
                 {
-                    System.out.println(element_content + " is not a valid actor");
+                    ++invalid_actors;
                     break;
                 }
                 if (actorMap.containsKey(element_content))
