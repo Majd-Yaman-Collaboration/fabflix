@@ -1,8 +1,6 @@
 package XMLParsing;
-
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
-
 import java.sql.*;
 import java.util.*;
 
@@ -27,17 +25,19 @@ public class mains243 extends BaseXMLParsing
 
     public static void main(String[] args)
     {
-        run_mains243();
+        String filename = "mains243.xml";
+        if (args.length > 0) filename = args[0];
+        run_mains243(filename);
     }
 
-    public static void run_mains243()
+    public static void run_mains243(String filename)
     {
         long start = System.currentTimeMillis();
         System.out.println("Creating main243 objects...");
         mains243 obj = new mains243();
 
         System.out.println("Parsing document");
-        obj.parseDocument("mains243.xml");
+        obj.parseDocument(filename);
 
         System.out.println("Inserting into the database");
         obj.insert_all_movies();

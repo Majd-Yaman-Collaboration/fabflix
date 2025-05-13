@@ -1,8 +1,6 @@
 package XMLParsing;
 
-
 import org.xml.sax.SAXException;
-
 import java.sql.*;
 import java.util.*;
 
@@ -19,9 +17,12 @@ public class casts124 extends BaseXMLParsing
 
     public static void main(String[] args)
     {
+        String filename  = "casts124.xml";
+        if (args.length > 0) filename = args[0];
+
         long start = System.currentTimeMillis();
         casts124 obj = new casts124();
-        obj.parseDocument("casts124.xml");
+        obj.parseDocument(filename);
 
 
 
