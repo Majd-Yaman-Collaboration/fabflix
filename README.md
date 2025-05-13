@@ -7,3 +7,25 @@
 ### Pattern matching used: %ABC%
 
 ### js was 80% majd. java was 80% me. html was 50 50. css was 90% majd. 
+
+# CS 122B Project 3
+
+### Yaman did all of task 6 and Task 1. Majd did all of Task 4. Majd did all of task 5 except the Employee Login Page. Task 3 was worked on before so really both of us. Task 2 was both of us too.
+
+## prepared statements in files:
+- CheckoutSerlvet
+- ConfirmationSerlvet
+- LoginInterface
+- casts124
+- mains243
+- MovieListServlet
+- SingleStarServlet
+- SingleMovieServlet
+
+Optimizations:
+- using .addBatch()
+- using a % to batch only 500 hundered at a time -> using less massive chunks of memory
+- Added an index for title and director since they were sort of the "primary key" used to identify a movie from the useful data in casts124.
+- Turned off foreign_key_checks when inserting because I knew it was safe to do so.
+
+Inconsistencies file is in repo
