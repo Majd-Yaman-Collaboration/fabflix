@@ -1,5 +1,5 @@
 body.movie-list {
-    background: linear-gradient(midnightblue, black);
+    background: linear-gradient(slategrey, black);
     color: white;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     line-height: 1.6;
@@ -23,7 +23,7 @@ body.movie-list {
     width: 100%;
     border-collapse: separate;
     border-spacing: 0;
-    background-color: darkblue;
+    background-color: cadetblue;
     border-radius: 10px;
     overflow: hidden;
     box-shadow: 0 0 10px gray;
@@ -48,22 +48,21 @@ body.movie-list {
 }
 
 .movie-list tr:hover td {
-    background-color: dodgerblue;
+    background-color: darkseagreen;
 }
 
 .details {
-    color: midnightblue;
+    color: cadetblue;
     font-weight: bold;
     text-decoration: none;
 }
 
 .details:hover {
     text-decoration: underline;
-    color: darkblue;
 }
 
 .add-to-cart {
-    background-color: darkblue;
+    background-color: cadetblue;
     color: white;
     font-weight: bold;
 }
@@ -131,7 +130,7 @@ body.movie-list {
     padding: 10px 20px;
     border: none;
     border-radius: 4px;
-    background-color: midnightblue;
+    background-color: cadetblue;
     color: white;
     cursor: pointer;
     transition: background-color 0.3s;

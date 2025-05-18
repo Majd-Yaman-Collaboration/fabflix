@@ -1,5 +1,5 @@
 body.single-star {
-    background: linear-gradient(midnightblue, black);
+    background: linear-gradient(slategrey, black);
     color: white;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     line-height: 1.6;
@@ -18,11 +18,10 @@ body.single-star {
 #star-info {
     max-width: 1200px;
     margin: 0 auto;
-    background: linear-gradient(midnightblue, cadetblue);
     color: white;
     padding: 20px;
     border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    box-shadow: 2px 6px 12px rgba(0,0,0,0.1);
 }
 
 #star-info p {
@@ -59,26 +58,11 @@ body.single-star {
     display: block;
     margin: 30px auto;
     padding: 12px 24px;
-    background-color: midnightblue;
-    color: lightskyblue;
+    background-color: whitesmoke;
+    color: dimgray;
     border-radius: 4px;
     transition: background-color 0.3s;
     border: 1px solid steelblue;
     text-align: center;
     width: fit-content;
-}
-
-.back-link:hover {
-    background-color: steelblue;
-    text-decoration: none !important;
-}
-
-.back-link a {
-    color: lightskyblue;
-    text-decoration: none;
-}
-
-.back-link a:hover {
-    color: lightskyblue;
-    text-decoration: none;
 }
