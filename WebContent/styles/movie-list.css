@@ -48,7 +48,7 @@ body.movie-list {
 }
 
 .movie-list tr:hover td {
-    background-color: darkseagreen;
+    background-color: powderblue;
 }
 
 .details {
