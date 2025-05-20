@@ -5,6 +5,6 @@ movie-data.sql
 out/
 out/artifacts/Project_war_exploded
 src/movie-data.sql
-src/RecaptchaConstants.java
+src/ReCAPTCHA/RecaptchaConstants.java
 mains243.xml
 casts124.xml
