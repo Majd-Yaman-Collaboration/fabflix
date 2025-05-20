@@ -55,6 +55,8 @@ public interface LoginInterface
                     HttpSession session =  request.getSession(true);
                     if (userType.equals("employee"))
                         session.setAttribute(userType, true);
+                    else
+                        session.setAttribute("id",rs.getInt("id"));
 
 
                     session.setAttribute("customer", true); //need customer ability either way.
