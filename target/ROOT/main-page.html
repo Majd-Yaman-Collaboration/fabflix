@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Fabflix</title>
+    <link rel="stylesheet" href="styles/navbar.css">
+    <link rel="stylesheet" href="styles/main-page.css">
+</head>
+
+<body class="main-page">
+  <header>
+    <div id="navbar"></div>
+  </header>
+  <main>
+      <section class="browse-section">
+          <h2>Browsing by Movie Genres</h2>
+          <div class="genres-container" id="genres-container"></div>
+      </section>
+      <section class="browse-section">
+          <h2>Browsing by Movie Title</h2>
+          <div class="titles-container">
+              <div class="letter-row" id="letter-row"></div>
+              <div class="number-row" id="number-row"></div>
+          </div>
+      </section>
+  </main>
+  <footer>
+      <p>
+          Created with <i class="fa fa-heart"></i> by Majd Katabi & Yaman Hamouda
+      </p>
+  </footer>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+  <script src="scripts/navbar.js" defer></script>
+  <script src="scripts/main-page.js" defer></script>
+</body>
+
+</html>

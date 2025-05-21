@@ -1,0 +1,11 @@
+LoginFilter.class
+SingleStarServlet.class
+MovieListQueries.class
+ShoppingCartServlet.class
+LoginServlet.class
+MovieListServlet.class
+CheckoutServlet.class
+SingleMovieServlet.class
+ConfirmationServlet.class
+StarsServlet.class
+BaseServlet.class

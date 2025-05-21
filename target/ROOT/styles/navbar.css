@@ -1,0 +1,116 @@
+* {
+    box-sizing: border-box;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 40px;
+    box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.15);
+    background-color: transparent;
+    border-radius: 25px;
+}
+
+.logo {
+    height: 4.25em;
+    flex-shrink: 0;
+}
+
+.nav-links {
+    display: flex;
+    gap: 30px;
+    margin-left: 30px;
+    flex-grow: 1;
+    white-space: nowrap;
+}
+
+.nav-link {
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    font-size: 1.5em;
+    transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+    color: lightskyblue;
+}
+
+.search-bars {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    justify-content: flex-end;
+}
+
+.search-inputs {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    transform: translateX(20px);
+    opacity: 0;
+    pointer-events: none;
+    order: 1;
+}
+
+.search-inputs.visible {
+    transform: translateX(0);
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.search-input {
+    padding: 10px;
+    font-size: 16px;
+    border: none;
+    border-radius: 10px;
+    background-color: white;
+    color: black;
+    width: 135px;
+    transition: box-shadow 0.3s ease;
+}
+
+.search-input:hover {
+    box-shadow: 0 0 10px 3px cadetblue;
+}
+
+.search-input::placeholder {
+    color: gray;
+}
+
+.btn-submit {
+    background: linear-gradient(lightskyblue, cadetblue);
+    padding: 10px;
+    font-size: 16px;
+    border: none;
+    border-radius: 10px;
+    color: white;
+    transition: box-shadow 0.3s ease;
+}
+
+.btn-submit:hover {
+    box-shadow: 0 0 10px 3px cadetblue;
+}
+
+.btn-search {
+    width: 50px;
+    height: 50px;
+    border: none;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 50%;
+    background-color: cadetblue;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    order: 2;
+    transition: box-shadow 0.3s ease;
+}
+
+.btn-search:hover {
+    box-shadow: 0 0 10px 3px cadetblue;
+}
