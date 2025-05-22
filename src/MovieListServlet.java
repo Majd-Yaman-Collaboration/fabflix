@@ -14,6 +14,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.stream.Collectors;
+
 import supers.BaseServlet;
 
 @WebServlet(name = "MovieListServlet", urlPatterns = "/api/movies")
@@ -113,7 +116,9 @@ public class MovieListServlet extends BaseServlet implements MovieListQueries {
 
                 //defaults
                 if (title.isEmpty()) title = "%";
-                else title = "%" + title + "%";
+                else title = Arrays.stream(title.trim().split("\\s+"))
+                        .map(token -> "+" + token + "*")
+                        .collect(Collectors.joining(" "));
                 if (year.isEmpty()) year = "-1";
                 if (director.isEmpty()) director = "%";
                 else director = "%" + director + "%";

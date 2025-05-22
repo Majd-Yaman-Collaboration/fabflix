@@ -6,8 +6,6 @@ document.addEventListener("DOMContentLoaded", function () {
         deferRequestBy: 300,
         triggerSelectOnValidInput: false,
         lookup: function (query, done) {
-            console.log("Autocomplete search initiated for:", query);
-
             if (autocompleteCache[query]) {
                 console.log("Using cached results");
                 done({ suggestions: autocompleteCache[query] });
@@ -39,7 +37,7 @@ document.addEventListener("DOMContentLoaded", function () {
     $('#search-btn').click(function () {
         const query = $('#title-input').val().trim();
         if (query.length > 0) {
-            window.location.href = `movie-list.html?title-input=${encodeURIComponent(query)}&mode=fulltext`;
+            window.location.href = `movie-list.html?title=${query}&year=&director=&star=`;
         }
     });
 
@@ -47,7 +45,7 @@ document.addEventListener("DOMContentLoaded", function () {
         if (event.key === 'Enter') {
             const query = $('#title-input').val().trim();
             if (query.length > 0) {
-                window.location.href = `movie-list.html?title-input=${encodeURIComponent(query)}&mode=fulltext`;
+                window.location.href = `movie-list.html?title=${query}&year=&director=&star=`;
             }
         }
     });

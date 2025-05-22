@@ -54,7 +54,7 @@ public interface MovieListQueries
             "JOIN ratings r on m.id = r.movieID " +
             "JOIN stars_in_movies sim on m.id = sim.movieID " +
             "JOIN stars s ON s.id = sim.starID " +
-            "WHERE UPPER(m.title) LIKE ? " +
+            "WHERE MATCH(m.title) AGAINST(? IN BOOLEAN MODE) " +
             "AND (-1 = ? OR m.year = ?) " + //-1 is sent by us to say the user didn't input anything
             "AND UPPER(m.director) LIKE ? " +
             "AND UPPER(s.name) LIKE ? ";
@@ -65,7 +65,7 @@ public interface MovieListQueries
             "JOIN ratings r ON m.id = r.movieID " +
             "JOIN stars_in_movies sim ON m.id = sim.movieID " +
             "JOIN stars s ON s.id = sim.starID " +
-            "WHERE UPPER(m.title) LIKE ? " +
+            "WHERE MATCH(m.title) AGAINST(? IN BOOLEAN MODE) " +
             "AND (-1 = ? OR m.year = ?) " + //see comment above
             "AND UPPER(m.director) LIKE ? " +
             "AND UPPER(s.name) LIKE ? ";
