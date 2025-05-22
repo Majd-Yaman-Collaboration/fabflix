@@ -24,7 +24,7 @@ public class MovieListServlet extends BaseServlet implements MovieListQueries {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) {
         response.setContentType("application/json");
-        HttpSession session = request.getSession(); //TODO implement jumping back
+        HttpSession session = request.getSession();
 
         if (session.getAttribute("cart") == null)
         {
