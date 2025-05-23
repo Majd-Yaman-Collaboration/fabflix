@@ -7,7 +7,6 @@ document.addEventListener("DOMContentLoaded", function () {
         triggerSelectOnValidInput: false,
         lookup: function (query, done) {
             if (autocompleteCache[query]) {
-                console.log("Using cached results");
                 done({ suggestions: autocompleteCache[query] });
             } else {
                 $.ajax({
@@ -20,10 +19,6 @@ document.addEventListener("DOMContentLoaded", function () {
                     success: function (data) {
                         autocompleteCache[query] = data;
                         done({ suggestions: data });
-                    },
-                    error: function () {
-                        console.log("Autocomplete failed");
-                        done({ suggestions: [] });
                     }
                 });
             }
