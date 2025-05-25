@@ -38,10 +38,11 @@ public class SearchServlet extends BaseServlet {
         try (Connection conn = dataSource.getConnection()) {
             if ("autocomplete".equals(mode)) {
                 JsonArray suggestions = new JsonArray();
+                int dist = Math.max(1, query.length() / 4);
                 String sql =
                         "SELECT id, title FROM movies " +
                         "WHERE MATCH(title) AGAINST(? IN BOOLEAN MODE) " +
-                        "OR edth(UPPER(title), ?, 2) = 1 " +
+                        "OR edth(UPPER(title), ?, " + dist + ") = 1 " +
                         "LIMIT 10";
 
                 try (PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -64,10 +65,12 @@ public class SearchServlet extends BaseServlet {
                 }
             } else if ("fulltext".equals(mode)) {
                 JsonArray results = new JsonArray();
+                int dist = Math.max(1, query.length() / 4);
                 String sql =
-                        "SELECT id, title, year, director FROM movies " +
-                        "WHERE MATCH(title) AGAINST(? IN BOOLEAN MODE) " +
-                        "OR edth(UPPER(title), ?, 2) = 1 ";
+                        "SELECT id, title FROM movies " +
+                                "WHERE MATCH(title) AGAINST(? IN BOOLEAN MODE) " +
+                                "OR edth(UPPER(title), ?, " + dist + ") = 1 " +
+                                "LIMIT 10";
 
                 try (PreparedStatement ps = conn.prepareStatement(sql)) {
                     ps.setString(1, fullTextQuery);
