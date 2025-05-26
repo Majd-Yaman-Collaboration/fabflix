@@ -32,3 +32,27 @@ The inconsistencies file in repo: https://github.com/uci-jherold2-2025spring-cs1
 
 VIDEO:
 https://www.dropbox.com/scl/fi/7qn75y9s4y05j0sob22cz/CS122b-Project-3-Video-Demo.mp4?rlkey=wusmmjoi3srzv07a50tx4ndif&e=1&st=0w98f161&dl=0
+
+
+# CS 122B Project 4
+
+Majd did most of the full text search and fuzzy search. Yaman just fixed some bugs, so the enter button works properly. Yaman did task 2 and 3. Majd and Yaman did task 4.
+
+Files that use JDBC Connection pooling and Prepared Statements (excluding xml parsing files since they're irrelevant to this project)
+AddMovieServlet
+AddStarServlet
+CheckoutServlet
+ConfirmationSerlvet
+DashboardServlet
+LoginDashboardServlet
+LoginServlet
+MainPageServlet
+MovieListServlet
+SearchServlet
+ShoppingCartServlet
+SingleMovieServlet
+SingleStarServlet
+BaseServlet
+
+
+
