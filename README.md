@@ -36,31 +36,36 @@ https://www.dropbox.com/scl/fi/7qn75y9s4y05j0sob22cz/CS122b-Project-3-Video-Demo
 
 # CS 122B Project 4
 
-Majd did most of the full text search and fuzzy search. Yaman just fixed some bugs, so the enter button works properly. Yaman did task 2 and 3. Majd and Yaman did task 4.
+Majd did most of the full text search and fuzzy search. Yaman just fixed some bugs, so the enter button works properly. Yaman did task 2 and 3. Majd and Yaman did task 4. 
 
 ## Connection pooling
 
-src/WebContent/META-INF/context.xml <-- where the pooling is configured
-src/Dashboard/AddMovieServlet
-src/Dashobard/AddStarServlet
-src/Checkout/CheckoutServlet
-src/Checkout/ConfirmationSerlvet
-src/Dashboard/DashboardServlet
-src/Dashboard/LoginDashboardServlet
-src/CustomerLogin/LoginServlet
-src/MainPageServlet
-src/MovieListServlet
-src/SearchServlet
-src/Checkout/ShoppingCartServlet
-src/SingleMovieServlet
-src/SingleStarServlet
-src/supers/BaseServlet
+- src/WebContent/META-INF/context.xml <-- where the pooling is configured
+- src/Dashboard/AddMovieServlet
+- src/Dashobard/AddStarServlet
+- src/Checkout/CheckoutServlet
+- src/Checkout/ConfirmationSerlvet
+- src/Dashboard/DashboardServlet
+- src/Dashboard/LoginDashboardServlet
+- src/CustomerLogin/LoginServlet
+- src/MainPageServlet
+- src/MovieListServlet
+- src/SearchServlet
+- src/Checkout/ShoppingCartServlet
+- src/SingleMovieServlet
+- src/SingleStarServlet
+- src/supers/BaseServlet
 
-Explanation: the connection pooling keeps the TCP open, so it stays in the pool of connections instead of constantly creating and closing connections constantly which can be very inefficient
+Explanation: the connection pooling keeps the TCP open, so it stays in the pool of connections instead of constantly creating and closing connections constantly which can be very inefficient. The main creation of the datascource will be found in the Super class BaseServlet which all the other servlets inherit. where we say dataSource = (DataSource) new InitialContext().lookup("java:comp/env/jdbc/moviedb"); which instead of just giving us the ability to open one connection allows to get the whole pool of connections.
 
-With 2 backend SQL we have different pools of connections
+Connection pooling with two backend SQL:
+- The Master and Slaves instances have their own connection pools. Writes only go to the master pool, while reads reach both pools. This causes the number of reads to practically double. So basically, SELECT type statements will go to both instances while INSERT type statements would only go to the Master Instance, then go back to the master pool because of its write property.
 
 
+## Master and Slave
+- src/WebContent/META-INF/context.xml
+- src/Checkout/ConfirmationServlet
+- src/supers/BaseServlet
 
 
 
