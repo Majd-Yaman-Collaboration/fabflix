@@ -67,6 +67,7 @@ Connection pooling with two backend SQL:
 - src/Checkout/ConfirmationServlet
 - src/supers/BaseServlet
 
-
+## How read/write requests were routed to Master/Slave SQL?
+- The main instance uses a load balancer to distribute incoming requests between the backend servers. Read requests are handled locally by each backend instance using their own localhost database connection. Meanwhile, all write operations are directed to the master SQL instance using its private IP address.
 
 
