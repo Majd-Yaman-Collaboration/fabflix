@@ -23,3 +23,5 @@
               password="temporary123"
               url="jdbc:mysql://172.31.15.170:3306/moviedb?autoReconnect=true&amp;allowPublicKeyRetrieval=true&amp;useSSL=false&amp;cachePrepStmts=true"/>
 </Context>
+
+
