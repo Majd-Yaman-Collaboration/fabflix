@@ -13,7 +13,7 @@
               url="jdbc:mysql://localhost:3306/moviedb?autoReconnect=true&amp;allowPublicKeyRetrieval=true&amp;useSSL=false&amp;cachePrepStmts=true"/>
 
 <!--    slave-->
-    <Resource name="jdbc/moviedb"
+    <Resource name="jdbc/moviedb-slave"
               auth="Container"
               factory="org.apache.tomcat.jdbc.pool.DataSourceFactory"
               maxTotal="100" maxIdle="30" maxWaitMillis="10000"
@@ -22,4 +22,4 @@
               username="root"
               password="temporary123"
               url="jdbc:mysql://172.31.9.202:3306/moviedb?autoReconnect=true&amp;allowPublicKeyRetrieval=true&amp;useSSL=false&amp;cachePrepStmts=true"/>
-</Context>
+</Context>  <!-- d-->
