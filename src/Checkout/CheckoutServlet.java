@@ -19,19 +19,11 @@ import javax.naming.NamingException;
 import javax.sql.DataSource;
 
 @WebServlet(name = "CheckoutServlet", urlPatterns = "/api/checkout-servlet")
-public class CheckoutServlet extends HttpServlet
+public class CheckoutServlet extends BaseServlet
 {
     private static final long serialVersionUID = 1L;
-    DataSource dataSource;
 
-    @Override
-    public void init() {
-        try {
-            dataSource = (DataSource) new InitialContext().lookup("java:comp/env/jdbc/moviedb");
-        } catch (NamingException e) {
-            e.printStackTrace();
-        }
-    }
+
 
     private String query =
             "SELECT * " +

@@ -3,6 +3,7 @@ package Checkout;
 import com.google.gson.JsonObject;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
@@ -14,14 +15,28 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import supers.BaseServlet;
 
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
+
 //RECIEVES: customerId, movieId, saleDate
 //SENDS: sale id
 
 
 
 @WebServlet(name = "ConfirmationServlet", urlPatterns = "/api/confirmation-servlet")
-public class ConfirmationServlet extends BaseServlet
+public class ConfirmationServlet extends HttpServlet
 {
+    DataSource dataSource;
+    @Override
+    public void init() {
+        try {
+            dataSource = (DataSource) new InitialContext().lookup("java:comp/env/jdbc/moviedb-slave");
+        } catch (NamingException e) {
+            e.printStackTrace();
+        }
+    }
+
     private static final long serialVersionUID = 1L;
     private String insertQuery =
             "INSERT INTO sales (customerId, movieId, saleDate, quantity) VALUES (?, ?, ?, ?)";

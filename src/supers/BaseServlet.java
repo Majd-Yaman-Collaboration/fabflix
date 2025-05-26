@@ -15,7 +15,7 @@ public abstract class BaseServlet extends HttpServlet {
     @Override
     public void init() {
         try {
-            dataSource = (DataSource) new InitialContext().lookup("java:comp/env/jdbc/moviedb-slave");
+            dataSource = (DataSource) new InitialContext().lookup("java:comp/env/jdbc/moviedb");
         } catch (NamingException e) {
             e.printStackTrace();
         }
