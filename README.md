@@ -32,3 +32,36 @@ The inconsistencies file in repo: https://github.com/uci-jherold2-2025spring-cs1
 
 VIDEO:
 https://www.dropbox.com/scl/fi/7qn75y9s4y05j0sob22cz/CS122b-Project-3-Video-Demo.mp4?rlkey=wusmmjoi3srzv07a50tx4ndif&e=1&st=0w98f161&dl=0
+
+
+# CS 122B Project 4
+
+Majd did most of the full text search and fuzzy search. Yaman just fixed some bugs, so the enter button works properly. Yaman did task 2 and 3. Majd and Yaman did task 4.
+
+## Connection pooling
+
+src/WebContent/META-INF/context.xml <-- where the pooling is configured
+src/Dashboard/AddMovieServlet
+src/Dashobard/AddStarServlet
+src/Checkout/CheckoutServlet
+src/Checkout/ConfirmationSerlvet
+src/Dashboard/DashboardServlet
+src/Dashboard/LoginDashboardServlet
+src/CustomerLogin/LoginServlet
+src/MainPageServlet
+src/MovieListServlet
+src/SearchServlet
+src/Checkout/ShoppingCartServlet
+src/SingleMovieServlet
+src/SingleStarServlet
+src/supers/BaseServlet
+
+Explanation: the connection pooling keeps the TCP open, so it stays in the pool of connections instead of constantly creating and closing connections constantly which can be very inefficient
+
+With 2 backend SQL we have different pools of connections
+
+
+
+
+
+

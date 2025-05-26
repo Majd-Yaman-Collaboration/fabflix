@@ -38,10 +38,16 @@ public class SearchServlet extends BaseServlet {
         try (Connection conn = dataSource.getConnection()) {
             if ("autocomplete".equals(mode)) {
                 JsonArray suggestions = new JsonArray();
-                String sql = "SELECT id, title FROM movies WHERE MATCH(title) AGAINST(? IN BOOLEAN MODE) LIMIT 10";
+                int dist = Math.max(1, query.length() / 4);
+                String sql =
+                        "SELECT id, title FROM movies " +
+                        "WHERE MATCH(title) AGAINST(? IN BOOLEAN MODE) " +
+                        "OR edth(UPPER(title), ?, " + dist + ") = 1 " +
+                        "LIMIT 10";
 
                 try (PreparedStatement ps = conn.prepareStatement(sql)) {
                     ps.setString(1, fullTextQuery);
+                    ps.setString(2, query.toUpperCase());
                     ResultSet rs = ps.executeQuery();
 
                     while (rs.next()) {
@@ -59,10 +65,16 @@ public class SearchServlet extends BaseServlet {
                 }
             } else if ("fulltext".equals(mode)) {
                 JsonArray results = new JsonArray();
-                String sql = "SELECT id, title, year, director FROM movies WHERE MATCH(title) AGAINST(? IN BOOLEAN MODE)";
+                int dist = Math.max(1, query.length() / 4);
+                String sql =
+                        "SELECT id, title FROM movies " +
+                                "WHERE MATCH(title) AGAINST(? IN BOOLEAN MODE) " +
+                                "OR edth(UPPER(title), ?, " + dist + ") = 1 " +
+                                "LIMIT 10";
 
                 try (PreparedStatement ps = conn.prepareStatement(sql)) {
                     ps.setString(1, fullTextQuery);
+                    ps.setString(2, query.toUpperCase());
                     ResultSet rs = ps.executeQuery();
 
                     while (rs.next()) {

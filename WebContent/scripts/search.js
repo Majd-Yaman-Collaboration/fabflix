@@ -6,10 +6,13 @@ document.addEventListener("DOMContentLoaded", function () {
         deferRequestBy: 300,
         triggerSelectOnValidInput: false,
         lookup: function (query, done) {
+            console.log('Autocomplete search initiated for', query);
             if (autocompleteCache[query]) {
-                console.log("Using cached results");
+                console.log('Using cached results for', query);
+                console.log('Used Suggestions List: ', autocompleteCache[query]);
                 done({ suggestions: autocompleteCache[query] });
             } else {
+                console.log('Sending AJAX request for', query);
                 $.ajax({
                     method: "GET",
                     url: "api/search",
@@ -18,12 +21,9 @@ document.addEventListener("DOMContentLoaded", function () {
                         "title-input": query
                     },
                     success: function (data) {
+                        console.log('Used Suggestions List: ', data);
                         autocompleteCache[query] = data;
                         done({ suggestions: data });
-                    },
-                    error: function () {
-                        console.log("Autocomplete failed");
-                        done({ suggestions: [] });
                     }
                 });
             }
