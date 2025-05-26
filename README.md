@@ -38,22 +38,28 @@ https://www.dropbox.com/scl/fi/7qn75y9s4y05j0sob22cz/CS122b-Project-3-Video-Demo
 
 Majd did most of the full text search and fuzzy search. Yaman just fixed some bugs, so the enter button works properly. Yaman did task 2 and 3. Majd and Yaman did task 4.
 
-# Files that use JDBC Connection pooling and Prepared Statements (excluding xml parsing files since they're irrelevant to this project)
-First explanation: the connection pooling keeps the TCP open, so it stays in the pool of connections instead of constantly creating and closing connections constantly which can be very inefficient
-AddMovieServlet
-AddStarServlet
-CheckoutServlet
-ConfirmationSerlvet
-DashboardServlet
-LoginDashboardServlet
-LoginServlet
-MainPageServlet
-MovieListServlet
-SearchServlet
-ShoppingCartServlet
-SingleMovieServlet
-SingleStarServlet
-BaseServlet
+## Connection pooling
+
+src/WebContent/META-INF/context.xml <-- where the pooling is configured
+src/Dashboard/AddMovieServlet
+src/Dashobard/AddStarServlet
+src/Checkout/CheckoutServlet
+src/Checkout/ConfirmationSerlvet
+src/Dashboard/DashboardServlet
+src/Dashboard/LoginDashboardServlet
+src/CustomerLogin/LoginServlet
+src/MainPageServlet
+src/MovieListServlet
+src/SearchServlet
+src/Checkout/ShoppingCartServlet
+src/SingleMovieServlet
+src/SingleStarServlet
+src/supers/BaseServlet
+
+Explanation: the connection pooling keeps the TCP open, so it stays in the pool of connections instead of constantly creating and closing connections constantly which can be very inefficient
+
+With 2 backend SQL we have different pools of connections
+
 
 
 
