@@ -23,6 +23,7 @@ form.addEventListener("submit", function(event) {
             password: password,
             "g-recaptcha-response": grecaptcha.getResponse()
         },
+        credentials: "include",
         success: handle_results //takes the result of this as args
     });
 });
