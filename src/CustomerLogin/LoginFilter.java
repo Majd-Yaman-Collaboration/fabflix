@@ -52,9 +52,9 @@ public class LoginFilter implements Filter {
         boolean     loggedIn = (session != null) && (session.getAttribute("customer") != null);
 
 
-
-        allowed = true;
-//        loggedIn =true;
+        System.out.println("\nLogged in? " + loggedIn);
+        System.out.println("URI: " + uri);
+        System.out.println("Allowed: " + allowed);
 
         if (loggedIn || allowed)
             chain.doFilter(request, response); // allow access
