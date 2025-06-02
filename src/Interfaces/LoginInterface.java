@@ -42,17 +42,21 @@ public interface LoginInterface
             PreparedStatement ps = conn.prepareStatement(query);
             ps.setString(1, email);
             ResultSet rs = ps.executeQuery();
-
+            System.out.println(1);
             if (rs.next()) {
                 String encryptedPassword = rs.getString("password");
-
+                System.out.println(2);
 
                 if (new StrongPasswordEncryptor().checkPassword(password, encryptedPassword))
                 {
+                    System.out.println(3);
+
                     JsonObject successObject = new JsonObject();
                     successObject.addProperty("status", "success");
                     out.write(successObject.toString());
                     HttpSession session =  request.getSession(true);
+                    System.out.println(4);
+
                     if (userType.equals("employee"))
                         session.setAttribute(userType, true);
                     else
@@ -60,6 +64,7 @@ public interface LoginInterface
 
 
                     session.setAttribute("customer", true); //need customer ability either way.
+                    System.out.println(5);
                 } else
                 {
                     handle_error("password", response);
