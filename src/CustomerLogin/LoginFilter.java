@@ -51,10 +51,8 @@ public class LoginFilter implements Filter {
         HttpSession session = httpRequest.getSession(false); // don't create new session
         boolean     loggedIn = (session != null) && (session.getAttribute("customer") != null);
 
-
-        System.out.println("\nLogged in? " + loggedIn);
-        System.out.println("URI: " + uri);
-        System.out.println("Allowed: " + allowed);
+        System.out.println(session);
+        System.out.println(session.getAttribute("customer"));
 
         if (loggedIn || allowed)
             chain.doFilter(request, response); // allow access
