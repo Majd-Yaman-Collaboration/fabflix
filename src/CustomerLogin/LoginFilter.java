@@ -53,7 +53,7 @@ public class LoginFilter implements Filter {
 
 
         loggedIn =true;
-        allowed = true;
+//        allowed = true;
         if (loggedIn || allowed)
             chain.doFilter(request, response); // allow access
         else
