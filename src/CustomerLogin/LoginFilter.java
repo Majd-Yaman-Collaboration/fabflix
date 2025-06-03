@@ -48,7 +48,7 @@ public class LoginFilter implements Filter {
         // Check if this URL is allowed to access without logging in
         boolean     allowed = isUrlAllowedWithoutLogin(uri);
 
-        HttpSession session = httpRequest.getSession(false); // don't create new session
+        HttpSession session = httpRequest.getSession(); // don't create new session
         boolean     loggedIn = (session != null) && (session.getAttribute("customer") != null);
 
         System.out.println(session);
