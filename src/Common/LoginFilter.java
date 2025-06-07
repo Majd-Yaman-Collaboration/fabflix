@@ -1,4 +1,4 @@
-package CustomerLogin;
+package Common;
 
 import jakarta.servlet.*;
 import jakarta.servlet.annotation.WebFilter;
