@@ -1,4 +1,4 @@
-package Checkout;
+package star.Checkout;
 
 import common.JwtUtil;
 import com.google.gson.JsonObject;

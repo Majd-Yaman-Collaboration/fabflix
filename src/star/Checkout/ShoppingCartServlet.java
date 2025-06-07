@@ -1,4 +1,4 @@
-package Checkout;
+package star.Checkout;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;

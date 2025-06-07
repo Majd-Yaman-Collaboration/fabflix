@@ -1,9 +1,8 @@
-package Checkout;
+package star.Checkout;
 
 import com.google.gson.JsonObject;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
@@ -13,10 +12,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import supers.BaseServlet;
-
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
-import javax.sql.DataSource;
 
 @WebServlet(name = "CheckoutServlet", urlPatterns = "/api/checkout-servlet")
 public class CheckoutServlet extends BaseServlet

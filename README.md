@@ -43,15 +43,15 @@ Majd did most of the full text search and fuzzy search. Yaman just fixed some bu
 - src/WebContent/META-INF/context.xml <-- where the pooling is configured
 - src/common.Dashboard/AddMovieServlet
 - src/Dashobard/AddStarServlet
-- src/Checkout/CheckoutServlet
-- src/Checkout/ConfirmationSerlvet
+- src/star.Checkout/CheckoutServlet
+- src/star.Checkout/ConfirmationSerlvet
 - src/common.Dashboard/DashboardServlet
 - src/common.Dashboard/LoginDashboardServlet
 - src/CustomerLogin/LoginServlet
-- src/MainPageServlet
+- src/star.MainPageServlet
 - src/MovieListServlet
 - src/SearchServlet
-- src/Checkout/ShoppingCartServlet
+- src/star.Checkout/ShoppingCartServlet
 - src/SingleMovieServlet
 - src/SingleStarServlet
 - src/supers/BaseServlet
@@ -64,7 +64,7 @@ Connection pooling with two backend SQL:
 
 ## Master and Slave
 - src/WebContent/META-INF/context.xml
-- src/Checkout/ConfirmationServlet
+- src/star.Checkout/ConfirmationServlet
 - src/supers/BaseServlet
 
 ## How read/write requests were routed to Master/Slave SQL?
