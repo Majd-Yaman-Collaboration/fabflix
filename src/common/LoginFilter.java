@@ -1,10 +1,9 @@
-package Common;
+package common;
 
 import jakarta.servlet.*;
 import jakarta.servlet.annotation.WebFilter;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 import io.jsonwebtoken.Claims;
 import java.io.IOException;
 import java.util.ArrayList;

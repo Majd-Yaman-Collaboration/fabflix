@@ -1,4 +1,4 @@
-package Common;
+package common;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.Claims;

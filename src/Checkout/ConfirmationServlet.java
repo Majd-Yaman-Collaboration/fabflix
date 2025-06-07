@@ -1,6 +1,6 @@
 package Checkout;
 
-import Common.JwtUtil;
+import common.JwtUtil;
 import com.google.gson.JsonObject;
 import io.jsonwebtoken.Claims;
 import jakarta.servlet.ServletException;
@@ -15,7 +15,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import supers.BaseServlet;
 
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
