@@ -19,7 +19,7 @@
 
     <filter>
         <filter-name>DashboardFilter</filter-name>
-        <filter-class>Dashboard.LoginDashboardFilter</filter-class>
+        <filter-class>common.Dashboard.LoginDashboardFilter</filter-class>
     </filter>
 
     <filter-mapping>
@@ -29,7 +29,7 @@
 
     <servlet>
         <servlet-name>DashboardServlet</servlet-name>
-        <servlet-class>Dashboard.DashboardServlet</servlet-class>
+        <servlet-class>common.Dashboard.DashboardServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>DashboardServlet</servlet-name>

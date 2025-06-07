@@ -41,12 +41,12 @@ Majd did most of the full text search and fuzzy search. Yaman just fixed some bu
 ## Connection pooling
 
 - src/WebContent/META-INF/context.xml <-- where the pooling is configured
-- src/Dashboard/AddMovieServlet
+- src/common.Dashboard/AddMovieServlet
 - src/Dashobard/AddStarServlet
 - src/Checkout/CheckoutServlet
 - src/Checkout/ConfirmationSerlvet
-- src/Dashboard/DashboardServlet
-- src/Dashboard/LoginDashboardServlet
+- src/common.Dashboard/DashboardServlet
+- src/common.Dashboard/LoginDashboardServlet
 - src/CustomerLogin/LoginServlet
 - src/MainPageServlet
 - src/MovieListServlet

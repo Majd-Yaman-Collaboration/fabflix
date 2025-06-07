@@ -1,4 +1,4 @@
-package Dashboard;
+package common.Dashboard;
 
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServletRequest;

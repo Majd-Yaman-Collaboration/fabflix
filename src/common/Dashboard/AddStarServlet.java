@@ -1,4 +1,4 @@
-package Dashboard;
+package common.Dashboard;
 
 import com.google.gson.JsonObject;
 import jakarta.servlet.annotation.WebServlet;

@@ -1,4 +1,4 @@
-package Dashboard;
+package common.Dashboard;
 
 import common.JwtUtil;
 import io.jsonwebtoken.Claims;
