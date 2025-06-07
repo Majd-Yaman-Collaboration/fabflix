@@ -1,6 +1,8 @@
 package Checkout;
 
+import Common.JwtUtil;
 import com.google.gson.JsonObject;
+import io.jsonwebtoken.Claims;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -51,7 +53,9 @@ public class ConfirmationServlet extends HttpServlet
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("application/json");
-        int customerId = Integer.parseInt(request.getSession().getAttribute("id").toString());
+        String token = JwtUtil.getCookieValue(request, "jwtToken");
+        Claims claims = JwtUtil.validateToken(token);
+        int customerId = Integer.parseInt(claims.get("customer").toString());
         String movieId = request.getParameter("movieId");
         String saleDate = request.getParameter("saleDate");
         int quantity = Integer.parseInt(request.getParameter("quantity"));
