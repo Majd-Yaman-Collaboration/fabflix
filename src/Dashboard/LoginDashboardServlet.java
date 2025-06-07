@@ -5,7 +5,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import supers.BaseServlet;
-import Interfaces.LoginInterface;
+import Common.LoginInterface;
 
 @WebServlet(name = "LoginDashboardServlet", urlPatterns = "/_dashboard/api/login-dashboard")
 public class LoginDashboardServlet extends BaseServlet implements LoginInterface {

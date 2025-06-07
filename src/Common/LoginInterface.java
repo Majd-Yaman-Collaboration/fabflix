@@ -1,4 +1,4 @@
-package Interfaces;
+package Common;
 
 import ReCAPTCHA.RecaptchaVerifyUtils;
 import com.google.gson.JsonObject;
