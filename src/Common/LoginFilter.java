@@ -5,7 +5,7 @@ import jakarta.servlet.annotation.WebFilter;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-
+import io.jsonwebtoken.Claims;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -48,14 +48,23 @@ public class LoginFilter implements Filter {
         // Check if this URL is allowed to access without logging in
         boolean     allowed = isUrlAllowedWithoutLogin(uri);
 
-        HttpSession session = httpRequest.getSession(); // don't create new session
-        boolean     loggedIn = (session != null) && (session.getAttribute("customer") != null);
+        if (allowed)
+        {
+            chain.doFilter(request, response);
+            return;
+        }
 
-        System.out.println(session);
+
+        String token = JwtUtil.getCookieValue(httpRequest, "jwtToken");
+        Claims claims = JwtUtil.validateToken(token);
 
 
-        if (loggedIn || allowed)
+        if (claims != null && claims.get("customer") != null)
+        {
+            httpRequest.setAttribute("claims", claims);
+
             chain.doFilter(request, response); // allow access
+        }
         else
             httpResponse.sendRedirect("/login.html"); // redirect to login
     }

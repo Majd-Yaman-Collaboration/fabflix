@@ -4,7 +4,6 @@ import ReCAPTCHA.RecaptchaVerifyUtils;
 import com.google.gson.JsonObject;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 import org.jasypt.util.password.StrongPasswordEncryptor;
 
 import javax.sql.DataSource;
@@ -12,6 +11,8 @@ import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.HashMap;
+import java.util.Map;
 
 public interface LoginInterface
 {
@@ -42,7 +43,8 @@ public interface LoginInterface
             PreparedStatement ps = conn.prepareStatement(query);
             ps.setString(1, email);
             ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
+            if (rs.next())
+            {
                 String encryptedPassword = rs.getString("password");
 
                 if (new StrongPasswordEncryptor().checkPassword(password, encryptedPassword))
@@ -51,17 +53,22 @@ public interface LoginInterface
                     JsonObject successObject = new JsonObject();
                     successObject.addProperty("status", "success");
                     out.write(successObject.toString());
-                    HttpSession session =  request.getSession(true);
+
+                    //SESSION / COOKIES / JWT
+                    Map<String, Object> claims = new HashMap<>();
+                    //used in loginfilter and confirmation page (needs user id)
+                    claims.put("customer", rs.getInt("id"));
 
 
                     if (userType.equals("employee"))
-                        session.setAttribute(userType, true);
-                    else
-                        session.setAttribute("id",rs.getInt("id"));
+                        claims.put("employee", true);
 
 
-                    session.setAttribute("customer", true); //need customer ability either way.
-                } else
+
+                    String token = JwtUtil.generateToken("user", claims);
+                    JwtUtil.updateJwtCookie(request, response, token);
+                }
+                else
                 {
                     handle_error("password", response);
                 }
