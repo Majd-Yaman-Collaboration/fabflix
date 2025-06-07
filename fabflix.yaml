@@ -10,7 +10,7 @@ spec:
   template:
     metadata:
       labels:
-        app: fablfix # Labels the pods with "app: murphy-movies" to match the selector.
+        app: fabflix # Labels the pods with "app: murphy-movies" to match the selector.
     spec:
       containers:
         - name: fabflix-container # Names the container within the pod as "murphy-movies-container".
@@ -29,7 +29,7 @@ spec:
 apiVersion: v1
 kind: Service # Specifies that this resource is a Service, which defines a logical set of pods and a policy to access them.
 metadata:
-  name: fablix-service # Names this Service as "murphy-movies-service".
+  name: fabflix-service # Names this Service as "murphy-movies-service".
 spec:
   selector:
     app: fabflix # The selector specifies that this Service targets pods with the label "app: murphy-movies".
