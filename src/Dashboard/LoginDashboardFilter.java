@@ -1,5 +1,7 @@
 package Dashboard;
 
+import Common.JwtUtil;
+import io.jsonwebtoken.Claims;
 import jakarta.servlet.*;
 import jakarta.servlet.annotation.WebFilter;
 import jakarta.servlet.http.HttpServletRequest;
@@ -52,14 +54,17 @@ public class LoginDashboardFilter implements Filter {
         String      uri = httpRequest.getRequestURI();
         // Check if this URL is allowed to access without logging in
         boolean     allowed = isUrlAllowedWithoutLogin(uri);
-        HttpSession session = httpRequest.getSession(false); // don't create new session
-        boolean     loggedIn = (session != null) && (session.getAttribute("employee") != null);
 
-        //TODO COMMENT AFTER FINISHING WITH EVERYTHING ELSE
-//        loggedIn = true;
-//        allowed = true;
+        if (allowed)
+        {
+            chain.doFilter(request, response);
+            return;
+        }
 
-        if (loggedIn || allowed)
+        String token = JwtUtil.getCookieValue(httpRequest, "jwtToken");
+        Claims claims = JwtUtil.validateToken(token);
+
+        if (claims != null && claims.get("employee") != null)
             chain.doFilter(request, response); // allow access
         else
             httpResponse.sendRedirect(httpRequest.getContextPath() + "/_dashboard/dashboard-login.html"); // redirect to login

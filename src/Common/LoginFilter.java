@@ -45,6 +45,12 @@ public class LoginFilter implements Filter {
         HttpServletResponse httpResponse = (HttpServletResponse) response;
 
         String      uri = httpRequest.getRequestURI();
+
+        if (uri.startsWith(httpRequest.getContextPath() + "/_dashboard")) {
+            chain.doFilter(request, response); // skip this filter for dashboard
+            return;
+        }
+
         // Check if this URL is allowed to access without logging in
         boolean     allowed = isUrlAllowedWithoutLogin(uri);
 

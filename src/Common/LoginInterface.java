@@ -57,11 +57,13 @@ public interface LoginInterface
                     //SESSION / COOKIES / JWT
                     Map<String, Object> claims = new HashMap<>();
                     //used in loginfilter and confirmation page (needs user id)
-                    claims.put("customer", rs.getInt("id"));
+
 
 
                     if (userType.equals("employee"))
                         claims.put("employee", true);
+                    else
+                        claims.put("customer", rs.getInt("id"));
 
 
 
