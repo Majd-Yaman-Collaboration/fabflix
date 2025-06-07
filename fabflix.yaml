@@ -10,7 +10,7 @@ spec:
   template:
     metadata:
       labels:
-        app: fablix # Labels the pods with "app: murphy-movies" to match the selector.
+        app: fablfix # Labels the pods with "app: murphy-movies" to match the selector.
     spec:
       containers:
         - name: fabflix-container # Names the container within the pod as "murphy-movies-container".
