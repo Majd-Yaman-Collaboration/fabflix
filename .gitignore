@@ -4,7 +4,7 @@ target/
 movie-data.sql
 out/
 out/artifacts/Project_war_exploded
-src/movie-data.sql
-src/createtable.sql
+src/star/movie-data.sql
+src/star/createtable.sql
 mains243.xml
 casts124.xml
