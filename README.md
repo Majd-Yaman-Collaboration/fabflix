@@ -18,9 +18,9 @@
 - LoginInterface
 - casts124
 - mains243
-- MovieListServlet
-- SingleStarServlet
-- SingleMovieServlet
+- star.MovieListServlet
+- star.SingleStarServlet
+- star.SingleMovieServlet
 
 Optimizations:
 - using .addBatch()
@@ -49,11 +49,11 @@ Majd did most of the full text search and fuzzy search. Yaman just fixed some bu
 - src/common.Dashboard/LoginDashboardServlet
 - src/login/LoginServlet
 - src/star.MainPageServlet
-- src/MovieListServlet
+- src/star.MovieListServlet
 - src/SearchServlet
 - src/star.Checkout/ShoppingCartServlet
-- src/SingleMovieServlet
-- src/SingleStarServlet
+- src/star.SingleMovieServlet
+- src/star.SingleStarServlet
 - src/supers/BaseServlet
 
 Explanation: the connection pooling keeps the TCP open, so it stays in the pool of connections instead of constantly creating and closing connections constantly which can be very inefficient. The main creation of the datascource will be found in the Super class BaseServlet which all the other servlets inherit. where we say dataSource = (DataSource) new InitialContext().lookup("java:comp/env/jdbc/moviedb"); which instead of just giving us the ability to open one connection allows to get the whole pool of connections.
