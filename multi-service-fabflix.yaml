@@ -1,0 +1,80 @@
+#star
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fabflix-star
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: fabflix-star
+  template:
+    metadata:
+      labels:
+        app: fabflix-star
+    spec:
+      containers:
+        - name: fabflix-star-container
+          image: yamanhamouda/fabflix-star:v1
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+          resources:
+            limits:
+              cpu: "1"
+              memory: "1Gi"
+      imagePullSecrets:
+        - name: regcred
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: fabflix-star-service
+spec:
+  selector:
+    app: fabflix-star
+  ports:
+    - port: 8080
+  type: ClusterIP
+---
+
+# login deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fabflix-login
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: fabflix-login
+  template:
+    metadata:
+      labels:
+        app: fabflix-login
+    spec:
+      containers:
+        - name: fabflix-login-container
+          image: yamanhamouda/fabflix-login:v1
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+          resources:
+            limits:
+              cpu: "1"
+              memory: "1Gi"
+      imagePullSecrets:
+        - name: regcred
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: fabflix-login-service
+spec:
+  selector:
+    app: fabflix-login
+  ports:
+    - port: 8080
+  type: ClusterIP
