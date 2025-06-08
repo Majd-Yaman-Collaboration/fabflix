@@ -4,7 +4,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-import supers.BaseServlet;
+import common.BaseServlet;
 import common.LoginInterface;
 
 @WebServlet(name = "LoginDashboardServlet", urlPatterns = "/_dashboard/api/login-dashboard")

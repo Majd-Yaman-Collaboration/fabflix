@@ -11,7 +11,7 @@ import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import supers.BaseServlet;
+import common.BaseServlet;
 
 @WebServlet(name = "CheckoutServlet", urlPatterns = "/api/checkout-servlet")
 public class CheckoutServlet extends BaseServlet

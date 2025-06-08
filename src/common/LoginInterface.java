@@ -1,6 +1,6 @@
 package common;
 
-import ReCAPTCHA.RecaptchaVerifyUtils;
+import common.ReCAPTCHA.RecaptchaVerifyUtils;
 import com.google.gson.JsonObject;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;

@@ -1,8 +1,6 @@
-package supers;
+package common;
 
 import jakarta.servlet.http.HttpServlet;
-import org.xml.sax.Attributes;
-import org.xml.sax.SAXException;
 
 import javax.naming.InitialContext;
 import javax.naming.NamingException;

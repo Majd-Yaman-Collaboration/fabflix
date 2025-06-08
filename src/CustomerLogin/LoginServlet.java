@@ -4,7 +4,7 @@ import common.LoginInterface;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import supers.BaseServlet;
+import common.BaseServlet;
 
 @WebServlet(name = "LoginServlet", urlPatterns = "/api/login")
 public class LoginServlet extends BaseServlet implements LoginInterface {

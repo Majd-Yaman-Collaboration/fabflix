@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
-import supers.BaseServlet;
+import common.BaseServlet;
 
 @WebServlet(name = "MovieListServlet", urlPatterns = "/api/movies")
 public class MovieListServlet extends BaseServlet implements MovieListQueries {

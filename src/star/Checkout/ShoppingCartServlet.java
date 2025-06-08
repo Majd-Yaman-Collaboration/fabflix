@@ -13,7 +13,7 @@ import java.util.TreeMap;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import supers.BaseServlet;
+import common.BaseServlet;
 
 @WebServlet(name = "ShoppingCartServlet", urlPatterns = "/api/shopping-cart")
 public class ShoppingCartServlet extends BaseServlet
