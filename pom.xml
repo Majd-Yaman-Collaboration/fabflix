@@ -50,7 +50,7 @@
     </dependencies>
 
     <build>
-        <finalName>cs122b-project5-murphy-movies</finalName>
+        <finalName>ROOT</finalName>
         <sourceDirectory>${endpointDir}</sourceDirectory>
         <plugins>
             <plugin>
