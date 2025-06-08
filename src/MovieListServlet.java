@@ -1,4 +1,4 @@
-import Interfaces.MovieListQueries;
+import star.MovieListQueries;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 

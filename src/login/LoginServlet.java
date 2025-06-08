@@ -1,4 +1,4 @@
-package CustomerLogin;
+package login;
 
 import common.LoginInterface;
 import jakarta.servlet.annotation.WebServlet;

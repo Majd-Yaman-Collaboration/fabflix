@@ -47,7 +47,7 @@ Majd did most of the full text search and fuzzy search. Yaman just fixed some bu
 - src/star.Checkout/ConfirmationSerlvet
 - src/common.Dashboard/DashboardServlet
 - src/common.Dashboard/LoginDashboardServlet
-- src/CustomerLogin/LoginServlet
+- src/login/LoginServlet
 - src/star.MainPageServlet
 - src/MovieListServlet
 - src/SearchServlet

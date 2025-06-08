@@ -1,4 +1,4 @@
-package Interfaces;
+package star;
 
 public interface MovieListQueries
 {
