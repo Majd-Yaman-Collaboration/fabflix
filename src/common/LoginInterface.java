@@ -51,10 +51,7 @@ public interface LoginInterface
                 {
                     JsonObject successObject = new JsonObject();
                     successObject.addProperty("status", "success");
-                    System.out.println("LOGIN SUCCESS");
-                    System.out.println("LOGIN SUCCESS");
-                    System.out.println("LOGIN SUCCESS");
-                    System.out.println("LOGIN SUCCESS");
+                    for (int i = 0; i < 20; ++i) System.out.println("LOGIN SUCCESS");
                     out.write(successObject.toString());
 
                     //SESSION / COOKIES / JWT
