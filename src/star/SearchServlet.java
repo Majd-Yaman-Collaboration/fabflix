@@ -42,7 +42,7 @@ public class SearchServlet extends BaseServlet {
                 String sql =
                         "SELECT id, title FROM movies " +
                         "WHERE MATCH(title) AGAINST(? IN BOOLEAN MODE) " +
-                        "OR edth(UPPER(title), ?, " + dist + ") = 1 " +
+                        //"OR edth(UPPER(title), ?, " + dist + ") = 1 " +
                         "LIMIT 10";
 
                 try (PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -69,7 +69,7 @@ public class SearchServlet extends BaseServlet {
                 String sql =
                         "SELECT id, title FROM movies " +
                                 "WHERE MATCH(title) AGAINST(? IN BOOLEAN MODE) " +
-                                "OR edth(UPPER(title), ?, " + dist + ") = 1 " +
+                               // "OR edth(UPPER(title), ?, " + dist + ") = 1 " +
                                 "LIMIT 10";
 
                 try (PreparedStatement ps = conn.prepareStatement(sql)) {
