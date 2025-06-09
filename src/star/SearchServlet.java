@@ -42,12 +42,11 @@ public class SearchServlet extends BaseServlet {
                 String sql =
                         "SELECT id, title FROM movies " +
                         "WHERE MATCH(title) AGAINST(? IN BOOLEAN MODE) " +
-                        //"OR edth(UPPER(title), ?, " + dist + ") = 1 " +
+
                         "LIMIT 10";
 
                 try (PreparedStatement ps = conn.prepareStatement(sql)) {
                     ps.setString(1, fullTextQuery);
-                    ps.setString(2, query.toUpperCase());
                     ResultSet rs = ps.executeQuery();
 
                     while (rs.next()) {
@@ -69,12 +68,12 @@ public class SearchServlet extends BaseServlet {
                 String sql =
                         "SELECT id, title FROM movies " +
                                 "WHERE MATCH(title) AGAINST(? IN BOOLEAN MODE) " +
-                               // "OR edth(UPPER(title), ?, " + dist + ") = 1 " +
-                                "LIMIT 10";
 
+                                "LIMIT 10";
+// "OR edth(UPPER(title), ?, " + dist + ") = 1 " + ^add this to this one and other one above
+//if u want fuzzy search
                 try (PreparedStatement ps = conn.prepareStatement(sql)) {
                     ps.setString(1, fullTextQuery);
-                    ps.setString(2, query.toUpperCase());
                     ResultSet rs = ps.executeQuery();
 
                     while (rs.next()) {
