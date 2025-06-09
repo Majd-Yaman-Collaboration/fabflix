@@ -51,7 +51,7 @@ public interface LoginInterface
                 {
                     JsonObject successObject = new JsonObject();
                     successObject.addProperty("status", "success");
-                    for (int i = 0; i < 20; ++i) System.out.println("LOGIN SUCCESS");
+
                     out.write(successObject.toString());
 
                     //SESSION / COOKIES / JWT
@@ -69,6 +69,8 @@ public interface LoginInterface
 
                     String token = JwtUtil.generateToken("user", claims);
                     JwtUtil.updateJwtCookie(request, response, token);
+                    for (int i = 0; i < 20; ++i) //printed multiple times just to 100% see it
+                        System.out.println("JWT LOGIN SUCCESS, CLAIMS UPDATED TO: " + claims);
                 }
                 else
                 {

@@ -59,6 +59,10 @@ public class ConfirmationServlet extends HttpServlet
         String saleDate = request.getParameter("saleDate");
         int quantity = Integer.parseInt(request.getParameter("quantity"));
 
+        for (int i = 0; i < 20; ++i) //printed multiple times just to 100% see it
+            System.out.println("USER ID EXTRACTED FROM JWT CLAIM: " + claims);
+
+
         try (Connection conn = dataSource.getConnection(); PrintWriter out = response.getWriter())
         {
             //Statement.RETURN_GENERATED_KEYS <- gives access to generated stuff like AUTO_INCREMENT
