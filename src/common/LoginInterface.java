@@ -49,9 +49,12 @@ public interface LoginInterface
 
                 if (new StrongPasswordEncryptor().checkPassword(password, encryptedPassword))
                 {
-
                     JsonObject successObject = new JsonObject();
                     successObject.addProperty("status", "success");
+                    System.out.println("LOGIN SUCCESS");
+                    System.out.println("LOGIN SUCCESS");
+                    System.out.println("LOGIN SUCCESS");
+                    System.out.println("LOGIN SUCCESS");
                     out.write(successObject.toString());
 
                     //SESSION / COOKIES / JWT
