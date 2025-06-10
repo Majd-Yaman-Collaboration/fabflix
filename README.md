@@ -1,77 +1,85 @@
-# CS 122B Project 1 
+## 📋 Overview
 
-### Both of us worked on it always at the same time. We had a lot of trouble and had to keep restarting due to random dependency issues so the work was very split. Majd worked on the html and servlets while Yaman started off the servlets because Majd was having a lot of trouble with set up in the beginning. Since Majd did work a little bit more on the actual coding and searching up how to use all these new tools when there were hundreds of errors we were getting, Yaman focused on the AWS instance making sure that the instance ran properly and connected to our local files. We both sat together and worked at the same time so we saw the work and process of each others' tasks. We finally added some small notes to the body tag to add a little valentines theme to the website. We both agree that we equally contributed to this project. Hope you enjoy the final product!
+Fabflix is a full-stack movie web application developed throughout the CS122B course at UC Irvine. The entire class centered on incrementally building out its features, including movie browsing, search, authentication, and star detail pages. Users can search for movies using full-text queries, browse paginated results, view detailed information about individual stars and movies, and log in securely as either customers or employees. The site uses AJAX to communicate with REST-style servlet endpoints and features a scalable backend deployed using a multi-service, containerized architecture running on Kubernetes.
 
-# CS 122B Project 2
+---
 
-### Pattern matching used: %ABC%
+## ✨ Features
 
-### js was 80% majd. java was 80% me. html was 50 50. css was 90% majd. 
+- **Login System**  
+  Customers and employees can log in securely. Sessions are managed using JWT stored in cookies.
 
-# CS 122B Project 3
+- **Movie Search with Filters**  
+  Search by movie title, director, year, and star name using full-text and wildcard queries.
 
-### Yaman did all of task 6 and Task 1. Majd did all of Task 4. Majd did all of task 5 except the Employee Login Page. Task 3 was worked on before so really both of us. Task 2 was both of us too.
+- **Autocomplete Search Bar**  
+  While typing in the search bar, AJAX requests return matching titles in real time.
+  
+- **Genre and Character Browsing**  
+  Click on a genre to view a list of movies that belong to it. You can also browse movies alphabetically by clicking on letters A–Z or `*` for titles that don't start with a letter.
 
-## prepared statements in files:
-- CheckoutSerlvet
-- ConfirmationSerlvet
-- LoginInterface
-- casts124
-- mains243
-- star.MovieListServlet
-- star.SingleStarServlet
-- star.SingleMovieServlet
+- **Movie Details Page**  
+  Click on a movie to view its year, director, genre(s), rating, and the starring actors.
 
-Optimizations:
-- using .addBatch()
-- using a % to batch only 500 hundered at a time -> using less massive chunks of memory
-- Added an index for title and director since they were sort of the "primary key" used to identify a movie from the useful data in casts124.
-- Turned off foreign_key_checks when inserting because I knew it was safe to do so.
+- **Star Pages**  
+  Click on a star’s name to view all movies they’ve appeared in.
 
-The inconsistencies file in repo: https://github.com/uci-jherold2-2025spring-cs122b/2025-spring-cs-122b-ym/blob/project3/inconsitencies
+- **Employee Dashboard**  
+  Employees can log in to access admin tools such as adding movies, stars, and genres using form submissions.
 
-VIDEO:
-https://www.dropbox.com/scl/fi/7qn75y9s4y05j0sob22cz/CS122b-Project-3-Video-Demo.mp4?rlkey=wusmmjoi3srzv07a50tx4ndif&e=1&st=0w98f161&dl=0
+- **Scalable Architecture**  
+  Login and movie services run in isolated containers with Kubernetes for scaling and routing.
 
+---
 
-# CS 122B Project 4
+## 🖼️ General Use
 
-Majd did most of the full text search and fuzzy search. Yaman just fixed some bugs, so the enter button works properly. Yaman did task 2 and 3. Majd and Yaman did task 4. 
+### 🔐 Login Page  
+*(insert screenshot here)*
 
-## Connection pooling
+### 🔎 Search and Filter Movies  
+*(insert screenshot here)*
 
-- src/WebContent/META-INF/context.xml <-- where the pooling is configured
-- src/common.Dashboard/AddMovieServlet
-- src/Dashobard/AddStarServlet
-- src/star.Checkout/CheckoutServlet
-- src/star.Checkout/ConfirmationSerlvet
-- src/common.Dashboard/DashboardServlet
-- src/common.Dashboard/LoginDashboardServlet
-- src/login/LoginServlet
-- src/star.MainPageServlet
-- src/star.MovieListServlet
-- src/SearchServlet
-- src/star.Checkout/ShoppingCartServlet
-- src/star.SingleMovieServlet
-- src/star.SingleStarServlet
-- src/supers/BaseServlet
+### 🎬 View Movie or Star Info  
+*(insert screenshot here)*
 
-Explanation: the connection pooling keeps the TCP open, so it stays in the pool of connections instead of constantly creating and closing connections constantly which can be very inefficient. The main creation of the datascource will be found in the Super class BaseServlet which all the other servlets inherit. where we say dataSource = (DataSource) new InitialContext().lookup("java:comp/env/jdbc/moviedb"); which instead of just giving us the ability to open one connection allows to get the whole pool of connections.
+### ⚙️ Employee Tools  
+*(insert screenshot here)*
 
-Connection pooling with two backend SQL:
-- The Master and Slaves instances have their own connection pools. Writes only go to the master pool, while reads reach both pools. This causes the number of reads to practically double. So basically, SELECT type statements will go to both instances while INSERT type statements would only go to the Master Instance, then go back to the master pool because of its write property.
+---
 
+## 🛠️ Technologies Used
 
-## Master and Slave
-- src/WebContent/META-INF/context.xml
-- src/star.Checkout/ConfirmationServlet
-- src/supers/BaseServlet
+- **Frontend**:  
+  HTML, CSS, JavaScript, and AJAX used to build a responsive UI and fetch data from the backend without reloading pages.
 
-## How read/write requests were routed to Master/Slave SQL?
-- The main instance uses a load balancer to distribute incoming requests between the backend servers. Read requests are handled locally by each backend instance using their own localhost database connection. Meanwhile, all write operations are directed to the master SQL instance using its private IP address.
- 
-Demo video: https://www.dropbox.com/scl/fi/ebfw3fhbjyii92e3e8xa8/Project4DemoMajdAndYaman.mp4?rlkey=1l655vst02ommfcvuds54l0n1&st=oeq2cr9h&dl=0
+- **Backend**:  
+  Java Servlets exposing REST-style endpoints to handle logic for login, search, star details, and admin tools.
 
-# Project 5
-https://www.dropbox.com/scl/fi/gfz17x1v3w7pj5qxjptu7/project5.mkv?rlkey=pqtfcz8ti2k6bjncqz2al6c2w&st=ue8etm43&dl=0
-The jwt from the task 4 part at the start is there because the link is the same, so when I was testing task 4 before, I simply forgot to delete the cookie, and it wasn't long enough for the cookie to expire. I did have another very similar run where I didn't forget to delete it and when I opened up the application part, there was no jwt just as you want. I just don't want to re-demo all of it just because of that, so please just take my word for it lol. Thank you.
+- **Build Tool**:  
+  Maven is used for managing dependencies and building the WAR packages for deployment.
+
+- **XML Parsing**:  
+  SAX parser is used to efficiently read large XML files and load initial data (movies, genres, stars) into the database.
+
+- **Database**:  
+  MySQL with:
+  - **Master-Slave Replication** for separating read and write operations to improve scalability.
+  - **Prepared Statements** to prevent SQL injection and improve query efficiency.
+  - **Batch Inserts** to load large amounts of data (e.g. from XML) faster by reducing round trips.
+  - **Stored Procedures** for inserting new movies and stars through the employee dashboard.
+  - **Indexes and FULLTEXT Indexing** on relevant columns to speed up search and filtering.
+  - **Connection Pooling** via Tomcat JDBC for better handling of concurrent queries.
+
+- **Architecture**:  
+  Dockerized microservices with clear separation:
+  - `fabflix-login` (authentication)
+  - `fabflix-star` (search and star-related functionality)
+
+- **Deployment**:  
+  Kubernetes (K8s) for container orchestration on AWS EC2 instances, with Ingress Controller and Load Balancer for routing and scalability.
+
+- **Security**:  
+  - Passwords encryption
+  - JWT stored in cookies for session management  
+  - Servlet filters used to restrict access to authenticated users based on their role (customer and employee)
