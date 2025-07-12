@@ -35,16 +35,19 @@ Fabflix is a full-stack movie web application developed throughout the CS122B co
 ## 🖼️ General Use
 
 ### 🔐 Login Page  
-*(insert screenshot here)*
+<img width="1920" height="1170" alt="login" src="https://github.com/user-attachments/assets/79d30aa1-7cf8-4974-8fb3-5eb1f77d069c" />
 
 ### 🔎 Search and Filter Movies  
-*(insert screenshot here)*
+<img width="1920" height="1170" alt="main_page" src="https://github.com/user-attachments/assets/5fb20a1d-ee2e-4c40-a87a-062e019f5702" />
 
-### 🎬 View Movie or Star Info  
-*(insert screenshot here)*
+### 🎬 View Movie List  
+<img width="1920" height="1170" alt="movie_list" src="https://github.com/user-attachments/assets/db56c266-7b96-4204-a095-cd5716eb72b3" />
+
+### 🛒 View Cart
+<img width="1920" height="1170" alt="shopping_cart" src="https://github.com/user-attachments/assets/721402d1-a828-4ffb-a35a-b38d5722743a" />
 
 ### ⚙️ Employee Tools  
-*(insert screenshot here)*
+<img width="1920" height="1170" alt="add_star" src="https://github.com/user-attachments/assets/7a3d7033-75c4-4192-9093-589c9e7b94f7" />
 
 ---
 
